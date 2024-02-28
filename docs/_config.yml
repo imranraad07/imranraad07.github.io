@@ -3,6 +3,4 @@ email: imranm3@vcu.edu
 github_username:  imranraad07
 
 # Build settings
-theme: tactile
-plugins:
-  - jekyll-feed
+theme: jekyll-theme-cayman
