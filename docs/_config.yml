@@ -3,6 +3,6 @@ email: imranm3@vcu.edu
 github_username:  imranraad07
 
 # Build settings
-theme: minima
+theme: jekyll-theme-merlot
 plugins:
   - jekyll-feed
