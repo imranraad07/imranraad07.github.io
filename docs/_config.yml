@@ -30,7 +30,7 @@ email: imranm3@vcu.edu
 github_username:  imranraad07
 
 # Build settings
-theme: dinky
+theme: jekyll-theme-minimal
 plugins:
   - jekyll-feed
 
