@@ -5,8 +5,6 @@
 layout: home
 ---
 
-# Mia Mohammad Imran
-
 ## About
 Mia Mohammad Imran is a Ph.D. candidate (2020-2024) from the Department of Computer Science at Virginia Commonwealth University, Richmond, Virginia, USA advised by Dr. Kostadin Damevski. His research interests include Software Engineering, Machine Learning, Large Language Models, and Natural Language Processing.
 
