@@ -2,6 +2,7 @@ title:
 email: imranm3@vcu.edu
 github_username:  imranraad07
 
-remote_theme: pages-themes/minimal@v0.2.0
+# Build settings
+theme: minima
 plugins:
-- jekyll-remote-theme # add this line to the plugins list if you already have one
+  - jekyll-feed
