@@ -8,7 +8,7 @@ layout: home
 ## About
 Mia Mohammad Imran is a Ph.D. candidate (2020-2024) from the Department of Computer Science at Virginia Commonwealth University, Richmond, Virginia, USA. He is advised by Dr. Kostadin Damevski. His research interests include Software Engineering, Machine Learning, Large Language Models, and Natural Language Processing.
 
-During his Ph.D., he has internship experience at Google (2022). Before starting Ph.D., he worked as a Software Engineering for three and half years on various stacks such as: Java, Spring, Android, and Angular.
+During his Ph.D., he has internship experience at Google (2022). Before starting Ph.D., he worked as a Software Engineer for three and half years on various stacks such as: Java, Spring, Android, and Angular.
 
 ## Curriculum Vitae
 Download my CV [here](documents/CV.pdf).
