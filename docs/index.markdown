@@ -6,9 +6,9 @@ layout: home
 ---
 
 ## About
-Mia Mohammad Imran is a Ph.D. candidate (2020-2024) from the Department of Computer Science at Virginia Commonwealth University, Richmond, Virginia, USA. He is advised by Dr. Kostadin Damevski. His research interests include Software Engineering, Machine Learning, Large Language Models, and Natural Language Processing.
+Mia Mohammad Imran is an Assistant Professor in the Department of Computer Science at Missouri University of Science and Technology. He earned his Ph.D. in Computer Science from Virginia Commonwealth University in Richmond, Virginia, USA, under the supervision of Dr. Kostadin Damevski, completing his degree between 2020 and 2024. His research interests encompass Software Engineering, Empirical Study, Machine Learning, Large Language Models, and Natural Language Processing.
 
-During his Ph.D., he has internship experience at Google (2022). Before starting Ph.D., he worked as a Software Engineer for three and half years on various stacks such as: Java, Spring, Android, and Angular.
+During his Ph.D., he had an internship experience at Google (2022). Before starting Ph.D., he worked as a Software Engineer for three and half years on various stacks such as Java, Spring, Android, and Angular.
 
 ## Curriculum Vitae
 Download my CV [here](documents/CV.pdf).
@@ -26,4 +26,4 @@ Download my CV [here](documents/CV.pdf).
 - H. Ali, M.M. Imran, K. Damevski, I. Ahmed. "Natural Language Processing (NLP) for Digital Forensics" [DFRWS 2023](documents/NLP_DF.pdf).
 - H. Ali, M.M. Imran, K. Damevski, I. Ahmed. "Natural Language Processing (NLP) for Digital Forensics" Virginia State Police 2024.
 
-Contact me at: imranm3@vcu.edu
+Contact me at: imranm@mst.edu
