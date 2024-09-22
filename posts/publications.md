@@ -24,7 +24,3 @@ layout: home
 - M. M. Imran, A. Ciborowska, K. Damevski. "Automatically Selecting Follow-up Questions for Deficient Bug Reports."
   [MSR 2021](documents/BugAutoQ.pdf).
   [Repo](https://github.com/vcu-swim-lab/BugAutoQ).
-
-## Workshops
-- H. Ali, M.M. Imran, K. Damevski, I. Ahmed. "Natural Language Processing (NLP) for Digital Forensics" [DFRWS 2023](documents/NLP_DF.pdf).
-- H. Ali, M.M. Imran, K. Damevski, I. Ahmed. "Natural Language Processing (NLP) for Digital Forensics" Virginia State Police 2024.
