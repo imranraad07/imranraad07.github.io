@@ -5,7 +5,6 @@
 layout: home
 ---
 
-## Publications
 - M.M. Imran, P. Chatterjee, K. Damevski. "Uncovering the Causes of Emotions in Software Developer Communication Using Zero-shot LLMs." 
   [ICSE 2024](documents/Emotion_Cause_SE.pdf).
   [Repo](https://github.com/vcu-swim-lab/SE-Emotion-Cause-Replication).

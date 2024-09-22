@@ -5,7 +5,6 @@
 layout: home
 ---
 
-## Experiences
 <table border="1">
   <tr>
     <th>Position</th>
