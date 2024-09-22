@@ -1,8 +1,9 @@
-title: 
-email: imranm3@vcu.edu
-github_username:  imranraad07
+theme: jekyll-theme-minimal
+# title: 
+# email: imranm@mst.edu
+# github_username:  imranraad07
 
-# Build settings
-theme: jekyll-theme-merlot
-plugins:
-  - jekyll-feed
+# # Build settings
+# theme: jekyll-theme-merlot
+# plugins:
+#   - jekyll-feed
