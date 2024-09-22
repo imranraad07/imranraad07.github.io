@@ -15,6 +15,7 @@ Download my CV [here](documents/CV.pdf).
 
 ## Publications
 - M.M. Imran, P. Chatterjee, K. Damevski. "Uncovering the Causes of Emotions in Software Developer Communication Using Zero-shot LLMs." [ICSE 2024](documents/Emotion_Cause_SE.pdf).
+  [Repo](https://github.com/vcu-swim-lab/SE-Emotion-Cause-Replication).
 - M.M. Imran, P. Chatterjee, K. Damevski. "Shedding Light on Software Engineering-specific Metaphors and Idioms." [ICSE 2024](documents/Figurative_Language_SE.pdf).
 - M.M. Imran. "Emotion Classification In Software Engineering Texts: A Comparative Analysis of Pre-trained Transformers Language Models." [NLBSE 2024](documents/Emotion_SE_LLM.pdf).
 - R. Ehsani, M.M. Imran, K. Damevski, P. Chatterjee. "Incivility in Open Source Projects: A Comprehensive Annotated Dataset of Locked GitHub Issue Threads." [MSR 2024](documents/Emotion_SE_LLM.pdf).
