@@ -29,7 +29,7 @@ Download my CV [here](documents/CV.pdf).
   [Repo](https://github.com/vcu-swim-lab/SE-Emotion-Study).
 - M. M. Imran, K. Damevski. "Using Clarification Questions to Improve Software Developers’ Web Search." 
   [Information and Software Technology 2022](documents/Web_CQ.pdf).
-  [Repo] (https://github.com/vcu-swim-lab/Query-Expansion-Questions).
+  [Repo](https://github.com/vcu-swim-lab/Query-Expansion-Questions).
 - M. M. Imran, A. Ciborowska, K. Damevski. "Automatically Selecting Follow-up Questions for Deficient Bug Reports."
   [MSR 2021](documents/BugAutoQ.pdf).
   [Repo](https://github.com/vcu-swim-lab/BugAutoQ).
