@@ -21,17 +21,19 @@
 title: Imran @ Missouri S&T
 email: imranm@mst.edu
 description: >- # this means to ignore newlines until "baseurl:"
-  Mia Mohammad Imran is an Assistant Professor in the Department of Computer Science at Missouri University of Science and Technology.
+  Room no: 313
+  Computer Science Building
+  Rolla, MO, 65409
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 linkedin_username: imranraad
 github_username:  imranraad07
 
 # Build settings
-# remote_theme: pages-themes/cayman@v0.2.0
+theme: minima
 # plugins:
 # - jekyll-remote-theme # add this line to the plugins list if you already have one
-theme: minima
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.

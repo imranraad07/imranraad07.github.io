@@ -17,10 +17,3 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 
 
 
-## Contact
-
-**Email:** [imranm@mst.edu](mailto:imranm@mst.edu)  
-**Department of Computer Science**  
-500 W. 15th St., 325 Computer Science  
-Rolla, MO 65409  
-Missouri University of Science and Technology
