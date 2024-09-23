@@ -15,6 +15,14 @@ layout: page
     </tr>
   </thead>
   <tbody>
+
+    <tr>
+      <td>Towards Effective Developer Communication in Open Source Software via Emotional Awareness</td>
+      <td>PhD Dissertation</td>
+      <td><a href="https://scholarscompass.vcu.edu/cgi/viewcontent.cgi?article=8939&context=etd">PDF</a></td>
+      <td><a href="https://scholarscompass.vcu.edu/etd/7776/">Link</a></td>
+    </tr>
+
     <tr>
       <td>Uncovering the Causes of Emotions in Software Developer Communication Using Zero-shot LLMs</td>
       <td>ICSE 2024</td>
