@@ -9,6 +9,8 @@ Mia Mohammad Imran is an Assistant Professor in the Department of Computer Scien
 
 Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imranraad) [Github](https://github.com/imranraad07) [Google Scholar](https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en) [Email](mailto:imranm@mst.edu)
 
+- [About](about.md)
+
 - [News](posts/news.html)
 
 - [Publications](posts/publications.html)
