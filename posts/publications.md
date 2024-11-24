@@ -1,8 +1,8 @@
 ---
 # Feel free to add content and custom Front Matter to this file.
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-# 
-# layout: page
+
+layout: page
 ---
 
 <table>
@@ -39,7 +39,7 @@
       <td>Emotion Classification In Software Engineering Texts: A Comparative Analysis of Pre-trained Transformers Language Models</td>
       <td>NLBSE 2024</td>
       <td><a href="documents/Emotion_SE_LLM.pdf">PDF</a></td>
-      <td><a href="https://github.com/imranraad07/SE_Emotion_PTM">Repo</a></td>
+      <td><a href="https://github.com/vcu-swim-lab/SE-Figurative-Language">Repo</a></td>
     </tr>
     <tr>
       <td>Incivility in Open Source Projects: A Comprehensive Annotated Dataset of Locked GitHub Issue Threads</td>
