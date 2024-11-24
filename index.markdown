@@ -13,6 +13,10 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 
 - [Publications](posts/publications.html)
 
+    <iframe src="posts/publications.html" width="100%" height="500px">
+    </iframe>
+
+
 - [Teaching](posts/teaching.html)
 
 - [Workshops](posts/workshops.html)
