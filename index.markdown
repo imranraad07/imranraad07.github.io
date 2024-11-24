@@ -11,7 +11,9 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 
 - [About](about.md)
 
-- [Publications](posts/publications.html)
+<!-- - [Publications](posts/publications.html) -->
+
+- Publications
 
 <table>
   <thead>
@@ -83,7 +85,15 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 
 - [Experiences](posts/experiences.html)
 
-- [Prospective students](posts/advising.html)
+<!-- - [Prospective students](posts/advising.html) -->
+
+- Prospective students
+
+If you're interested in joining my research team, please reach out to me at imranm@mst.edu. In your email, include a brief introduction, interests and attach your CV (if you can). I am currently recruiting students at all levels, from undergraduate, masters to graduate. If you don't hear back from me within a week, feel free to send a follow-up message as things can get busy. 
+
+If you are already a student at Missouri S&T, feel free to email me to discuss potential research opportunities.
+
+When you are emailing, here is a guideline you can follow: [Link](https://uvasrg.github.io/prospective/)
 
 - [News](posts/news.html)
 
