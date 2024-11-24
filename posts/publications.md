@@ -39,7 +39,7 @@ layout: page
       <td>Emotion Classification In Software Engineering Texts: A Comparative Analysis of Pre-trained Transformers Language Models</td>
       <td>NLBSE 2024</td>
       <td><a href="documents/Emotion_SE_LLM.pdf">PDF</a></td>
-      <td>N/A</td>
+      <td><a href="https://github.com/imranraad07/SE_Emotion_PTM">Repo</a></td>
     </tr>
     <tr>
       <td>Incivility in Open Source Projects: A Comprehensive Annotated Dataset of Locked GitHub Issue Threads</td>
