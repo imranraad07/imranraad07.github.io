@@ -11,9 +11,9 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 
 - [About](about.md)
 
-- [News](posts/news.html)
-
 - [Publications](posts/publications.html)
+
+- [Teaching](posts/teaching.html)
 
 - [Workshops](posts/workshops.html)
 
@@ -21,5 +21,6 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 
 - [Prospective students](posts/advising.html)
 
+- [News](posts/news.html)
 
 
