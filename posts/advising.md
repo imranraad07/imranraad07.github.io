@@ -9,4 +9,4 @@ If you're interested in joining my research team, please reach out to me at imra
 
 If you are already a student at Missouri S&T, feel free to email me to discuss potential research opportunities.
 
-When you are emailing, here is a guideline you can follow: [Link](https://uvasrg.github.io/prospective/
+When you are emailing, here is a guideline you can follow: [Link](https://uvasrg.github.io/prospective/)
