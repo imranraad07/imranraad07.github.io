@@ -79,7 +79,28 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 </table>
 
 
-- [Teaching](posts/teaching.html)
+<!-- - [Teaching](posts/teaching.html) -->
+
+- Teaching
+
+<table>
+  <thead>
+    <tr>
+      <th>Semester</th>
+      <th>Course</th>
+    </tr>
+  </thead>
+    <body>
+    <tr>
+        <th>Spring, 2025</th>
+        <th>CS 4090: SE Capstone I</th>
+    </tr>
+    <tr>
+        <th>Spring, 2025</th>
+        <th>CS 4091: SE Capstone II</th>
+    </tr>
+    </body>
+</table>
 
 - [Workshops](posts/workshops.html)
 
