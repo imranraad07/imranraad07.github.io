@@ -92,12 +92,12 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
   </thead>
     <body>
     <tr>
-        <th>Spring, 2025</th>
-        <th>CS 4090: SE Capstone I</th>
+        <td>Spring, 2025</td>
+        <td>CS 4090: SE Capstone I</td>
     </tr>
     <tr>
-        <th>Spring, 2025</th>
-        <th>CS 4091: SE Capstone II</th>
+        <td>Spring, 2025</td>
+        <td>CS 4091: SE Capstone II</td>
     </tr>
     </body>
 </table>
