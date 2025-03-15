@@ -112,6 +112,12 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
     </body>
 </table>
 
+
+- Reviewing and Community Services
+
+Conference Committee: AI IDE 2025 (FSE Workshop), EASE 2025 (Short Paper Track), EASE 2025 (Learnings & Reflections within the Learnings/Reflections of Evaluation and Assessment projects in Software Engineering-track)
+
+
 - [Workshops](posts/workshops.html)
 
 
