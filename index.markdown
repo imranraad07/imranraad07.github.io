@@ -27,6 +27,14 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
   <tbody>
 
     <tr>
+      <td>"_Silent Is Not Actually Silent_": An Investigation of Toxicity on Bug Report Discussion 	</td>
+      <td>FSE 2025 (IVR Track)</td>
+      <td><a href="https://arxiv.org/pdf/2503.10072">ArXiV</a></td>
+      <td><a href="https://zenodo.org/records/15015619">Replication</a></td>
+    </tr>
+
+
+    <tr>
       <td>Towards Effective Developer Communication in Open Source Software via Emotional Awareness</td>
       <td>PhD Dissertation</td>
       <td><a href="https://scholarscompass.vcu.edu/cgi/viewcontent.cgi?article=8939&context=etd">PDF</a></td>
@@ -109,6 +117,8 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 <!-- - [Prospective students](posts/advising.html) -->
 
 - Prospective students
+
+Not Hiring PhD or Master's students right now.
 
 If you're interested in joining my research team, please contact me at imranm@mst.edu. In your email, include a brief introduction, interests and attach your CV (if you can). I am currently recruiting students at all levels, from undergraduate and masters (if you are already in Missouri S&T), to graduate. If you don't hear back from me within a week, feel free to send a follow-up message as things can get busy. 
 
