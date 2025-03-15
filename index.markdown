@@ -29,7 +29,7 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
   <tbody>
 
     <tr>
-      <td>"_Silent Is Not Actually Silent_": An Investigation of Toxicity on Bug Report Discussion 	</td>
+      <td>"<i>Silent Is Not Actually Silent<i>": An Investigation of Toxicity on Bug Report Discussion 	</td>
       <td>FSE 2025 (IVR Track)</td>
       <td><a href="https://arxiv.org/pdf/2503.10072">ArXiV</a></td>
       <td><a href="https://zenodo.org/records/15015619">Replication</a></td>
