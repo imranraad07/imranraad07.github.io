@@ -34,6 +34,14 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
       <td><a href="https://arxiv.org/pdf/2503.10072">ArXiV</a></td>
       <td><a href="https://zenodo.org/records/15015619">Replication</a></td>
     </tr>
+    
+    <tr>
+      <td> Understanding and Predicting Derailment in Toxic Conversations on GitHub 	</td>
+      <td> Submitted </td>
+      <td><a href="https://arxiv.org/pdf/2503.02191">ArXiV</a></td>
+      <td><a href="https://anonymous.4open.science/r/derailment-oss-replication-C8B1">Replication</a></td>
+    </tr>
+
 
 
     <tr>
