@@ -141,6 +141,33 @@ If you are already a student at Missouri S&T, please feel free to email me to ta
 
 When you are emailing, here is a guideline you can follow: [Link](https://uvasrg.github.io/prospective/)
 
-- [News](posts/news.html)
+- News
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Event</th>
+    </tr>
+  </thead>
+    <body>
+    <tr>
+        <th>June, 2025</th>
+        <th>Best Reviewer Award, EASE 2025</th>
+    </tr>
+    <tr>
+        <th>March, 2025</th>
+        <th>Our paper accepted at FSE-IVR track</th>
+    </tr>
+    <tr>
+        <th>August, 2024</th>
+        <th>Joined Missouri S&T as Assistant Professor</th>
+    </tr>
+    <tr>
+        <th>August, 2024</th>
+        <th>Graduated from Virginia Commonwealth University</th>
+    </tr>
+    </body>
+</table>
 
 
