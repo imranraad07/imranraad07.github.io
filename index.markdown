@@ -9,13 +9,13 @@ Mia Mohammad Imran is an Assistant Professor in the Department of Computer Scien
 
 Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imranraad) [Github](https://github.com/imranraad07) [Google Scholar](https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en) [Email](mailto:imranm@mst.edu)
 
-- [About](about.md)
+### [About](about.md)
 
-- [Experiences](posts/experiences.html)
+### [Experiences](posts/experiences.html)
 
 <!-- - [Publications](posts/publications.html) -->
 
-- Publications
+### Publications
 
 <table>
   <thead>
@@ -99,7 +99,7 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 
 <!-- - [Teaching](posts/teaching.html) -->
 
-- Teaching
+### Teaching
 
 <table>
   <thead>
@@ -125,7 +125,7 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 </table>
 
 
-- Reviewing and Community Services
+### Reviewing and Community Services
  
 Conference Committee: 
  * SIGCSE TS 2026
@@ -135,12 +135,12 @@ Conference Committee:
 
 
 
-- [Workshops](posts/workshops.html)
+### [Workshops](posts/workshops.html)
 
 
 <!-- - [Prospective students](posts/advising.html) -->
 
-- Prospective students
+ ### Prospective students
 
 **Not Hiring PhD or Master's students right now.**
 
@@ -150,7 +150,7 @@ If you are already a student at Missouri S&T, please feel free to email me to ta
 
 When you are emailing, here is a guideline you can follow: [Link](https://uvasrg.github.io/prospective/)
 
-- News
+### News
 
 <table>
   <thead>
