@@ -141,7 +141,7 @@ Conference Committee:
 
 - Prospective students
 
-Not Hiring PhD or Master's students right now.
+**Not Hiring PhD or Master's students right now.**
 
 If you're interested in joining my research team, please contact me at imranm@mst.edu. In your email, include a brief introduction, interests and attach your CV (if you can). I am currently recruiting students at all levels, from undergraduate and masters (if you are already in Missouri S&T), to graduate. If you don't hear back from me within a week, feel free to send a follow-up message as things can get busy. 
 
