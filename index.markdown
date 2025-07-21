@@ -126,7 +126,7 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 
 
 - Reviewing and Community Services
-
+ 
 Conference Committee: 
  * SIGCSE TS 2026
  * EASE 2025 (Short Paper Track)
