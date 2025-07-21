@@ -128,10 +128,10 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 - Reviewing and Community Services
 
 Conference Committee: 
- * AI IDE 2025 (FSE Workshop)
+ * SIGCSE TS 2026
  * EASE 2025 (Short Paper Track)
  * EASE 2025 (Learnings & Reflections within the Learnings/Reflections of Evaluation and Assessment projects in Software Engineering-track)
- * SIGCSE TS 2026
+ * AI IDE 2025 (FSE Workshop)
 
 
 - [Workshops](posts/workshops.html)
