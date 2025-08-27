@@ -135,14 +135,6 @@ Conference Committee:
 
 
 
-### [Workshops](posts/workshops.html)
-
-
-<!-- - [Prospective students](posts/advising.html) -->
-
-
-
-
  ### Prospective students
 
 **Not Hiring PhD or Master's students right now.**
@@ -183,3 +175,5 @@ When you are emailing, here is a guideline you can follow: [Link](https://uvasrg
 </table>
 
 
+
+### [Workshops](posts/workshops.html)
