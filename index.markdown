@@ -127,13 +127,15 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 
 ### Reviewing and Community Services
  
-Conference Committee: 
+**Conference Committee**: 
+ * SANER 2026
+ * EASE 2026
  * SIGCSE TS 2026
  * EASE 2025 (Short Paper Track)
  * EASE 2025 (Learnings & Reflections within the Learnings/Reflections of Evaluation and Assessment projects in Software Engineering-track)
  * AI IDE 2025 (FSE Workshop)
 
-
+**Journals:** Reviewer at journals such as IEEE Transactions on Software Engineering, Empirical Software Engineering, Information and Software Technology, Automated Software Engineering, etc.
 
 ### Prospective students
 
