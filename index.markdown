@@ -110,6 +110,10 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
   </thead>
     <body>
     <tr>
+        <td>Spring, 2025</td>
+        <td>CS 5001: AI-Augmented Software Engineering</td>
+    </tr>
+    <tr>
         <td>Fall, 2025</td>
         <td>CS 4090: SE Capstone I</td>
     </tr>
