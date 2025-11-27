@@ -100,7 +100,7 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
     <tr>
       <td>Automatically Selecting Follow-up Questions for Deficient Bug Reports</td>
       <td>MSR 2021</td>
-      <td><a href="documents/BugAutoQ.pdf">PDF</a></td>
+      <td><a href="posts/documents/BugAutoQ.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/BugAutoQ">Repo</a></td>
     </tr>
   </tbody>
