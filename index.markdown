@@ -29,7 +29,7 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
   <tbody>
 
     <tr>
-      <td> <em>Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming</td>
+      <td> Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming</td>
       <td>ICSE 2025 (SEET track)</td>
       <td><a href="---"> Coming Soon!</a></td>
       <td><a href="https://zenodo.org/records/17145615">Replication</a></td>
