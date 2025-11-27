@@ -7,7 +7,7 @@ layout: default
 
 Mia Mohammad Imran is an Assistant Professor in the Department of Computer Science at Missouri University of Science and Technology. His research interests encompass Software Engineering, Empirical Study, Machine Learning, LLMs, and NLP.
 
-Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imranraad) [Github](https://github.com/imranraad07) [Google Scholar](https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en) [Email](mailto:imranm@mst.edu)
+Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imranraad) [Github](https://github.com/imranraad07) [Google Scholar](https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en) [Email](mailto:imranm@mst.edu)
 
 ### [About](about.md)
 
@@ -34,7 +34,7 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
     <tr>
       <td> Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming</td>
       <td>ICSE 2025 (SEET track)</td>
-      <td><a href="---"> Coming Soon!</a></td>
+      <td><a href="posts/documents/ICSE_SEET_2026.pdf">PDF</a></td>
       <td><a href="https://zenodo.org/records/17145615">Replication</a></td>
     </tr>
 
@@ -64,37 +64,37 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
     <tr>
       <td>Uncovering the Causes of Emotions in Software Developer Communication Using Zero-shot LLMs</td>
       <td>ICSE 2024</td>
-      <td><a href="documents/Emotion_Cause_SE.pdf">PDF</a></td>
+      <td><a href="posts/documents/Emotion_Cause_SE.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/SE-Emotion-Cause-Replication">Repo</a></td>
     </tr>
     <tr>
       <td>Shedding Light on Software Engineering-specific Metaphors and Idioms</td>
       <td>ICSE 2024</td>
-      <td><a href="documents/Figurative_Language_SE.pdf">PDF</a></td>
+      <td><a href="posts/documents/Figurative_Language_SE.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/SE-Figurative-Language">Repo</a></td>
     </tr>
     <tr>
       <td>Emotion Classification In Software Engineering Texts: A Comparative Analysis of Pre-trained Transformers Language Models</td>
       <td>NLBSE 2024</td>
-      <td><a href="documents/Emotion_SE_LLM.pdf">PDF</a></td>
+      <td><a href="posts/documents/Emotion_SE_LLM.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/SE-Figurative-Language">Repo</a></td>
     </tr>
     <tr>
       <td>Incivility in Open Source Projects: A Comprehensive Annotated Dataset of Locked GitHub Issue Threads</td>
       <td>MSR 2024</td>
-      <td><a href="documents/Emotion_SE_LLM.pdf">PDF</a></td>
+      <td><a href="posts/documents/Emotion_SE_LLM.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/incivility-dataset">Repo</a></td>
     </tr>
     <tr>
       <td>Data Augmentation for Improving Emotion Recognition in Software Engineering Communication</td>
       <td>ASE 2022</td>
-      <td><a href="documents/Emotion_SE_Data_Augmentation.pdf">PDF</a></td>
+      <td><a href="posts/documents/Emotion_SE_Data_Augmentation.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/SE-Emotion-Study">Repo</a></td>
     </tr>
     <tr>
       <td>Using Clarification Questions to Improve Software Developers’ Web Search</td>
       <td>Information and Software Technology 2022</td>
-      <td><a href="documents/Web_CQ.pdf">PDF</a></td>
+      <td><a href="posts/documents/Web_CQ.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/Query-Expansion-Questions">Repo</a></td>
     </tr>
     <tr>
