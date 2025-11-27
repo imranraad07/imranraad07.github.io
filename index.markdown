@@ -29,6 +29,13 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
   <tbody>
 
     <tr>
+      <td> <em>Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming</td>
+      <td>ICSE 2025 (SEET track)</td>
+      <td><a href="---"> Coming Soon!</a></td>
+      <td><a href="https://zenodo.org/records/17145615">Replication</a></td>
+    </tr>
+
+    <tr>
       <td> <em>"Silent Is Not Actually Silent"</em>: An Investigation of Toxicity on Bug Report Discussion 	</td>
       <td>FSE 2025 (IVR Track)</td>
       <td><a href="https://arxiv.org/pdf/2503.10072">ArXiV</a></td>
@@ -162,12 +169,16 @@ When you are emailing, here is a guideline you can follow: [Link](https://uvasrg
   </thead>
     <body>
     <tr>
+        <th>November, 2027</th>
+        <th>Our Paper got accepted at ICSE-SEET track!</th>
+    </tr>
+    <tr>
         <th>June, 2025</th>
-        <th>Best Reviewer Award, EASE 2025</th>
+        <th>Best Reviewer Award, EASE 2025!</th>
     </tr>
     <tr>
         <th>March, 2025</th>
-        <th>Our paper accepted at FSE-IVR track</th>
+        <th>Our paper got accepted at FSE-IVR track!</th>
     </tr>
     <tr>
         <th>August, 2024</th>
