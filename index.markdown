@@ -15,6 +15,9 @@ Quick Link: [CV](assets/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imr
 
 <!-- - [Publications](posts/publications.html) -->
 
+### New
+-- Our paper got accepted at ICSE-SEET 2026!
+
 ### Publications
 
 <table>
@@ -169,7 +172,7 @@ When you are emailing, here is a guideline you can follow: [Link](https://uvasrg
   </thead>
     <body>
     <tr>
-        <th>November, 2027</th>
+        <th>November, 2025</th>
         <th>Our Paper got accepted at ICSE-SEET track!</th>
     </tr>
     <tr>
