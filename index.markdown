@@ -13,6 +13,9 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 ### [Experiences](posts/experiences.html)
 
+### Pair Programming
+![Pair Programmers](posts/documents/pairprogramming.png)
+
 <!-- - [Publications](posts/publications.html) -->
 
 ### New
