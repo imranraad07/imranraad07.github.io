@@ -1,9 +1,44 @@
-title: Imran Raad
-description: Personal GitHub Pages site
+# =========================
+# Site Identity
+# =========================
+title: Mia Mohammad Imran
+tagline: Assistant Professor @Missouri S&T
+
 url: "https://imranraad07.github.io"
 baseurl: ""
+
+# Required for GitHub Actions Pages builds
 repository: imranraad07/imranraad07.github.io
 
+# =========================
+# Build Settings
+# =========================
+markdown: kramdown
+highlighter: rouge
+
+permalink: pretty
+
+# =========================
+# Theme & Plugins
+# =========================
 theme: minima
+
 plugins:
   - jekyll-feed
+
+# =========================
+# Author Metadata
+# =========================
+author:
+  name: Imran Raad
+  email: ""
+  url: "https://imranraad07.github.io"
+
+# =========================
+# Defaults
+# =========================
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:

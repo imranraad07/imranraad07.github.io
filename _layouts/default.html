@@ -2,12 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{{ page.title }} | {{ site.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>
+    {% if page.title %}
+      {{ page.title }} | {{ site.title }}
+    {% else %}
+      {{ site.title }}
+    {% endif %}
+  </title>
+
+  <meta name="description" content="{{ page.excerpt | strip_html | truncate: 160 | default: site.description }}">
+
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+
 </head>
 <body>
-  <main>
+
+  <header>
+    <nav>
+      <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <ul>
+        <li><a href="{{ '/' | relative_url }}">Home</a></li>
+        <li><a href="{{ '/about' | relative_url }}">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main role="main">
     {{ content }}
   </main>
+
+  <footer>
+    <p>
+      © {{ site.time | date: '%Y' }} {{ site.title }}.
+      Built with GitHub Pages.
+    </p>
+  </footer>
+
 </body>
 </html>
