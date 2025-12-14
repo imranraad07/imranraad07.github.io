@@ -1,5 +1,7 @@
 ---
 layout: page
+title: Publications
+section: publications
 permalink: /publications/
 ---
 
