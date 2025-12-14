@@ -115,34 +115,8 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 <!-- - [Teaching](posts/teaching.html) -->
 
-### Teaching
+<!-- ### Teaching -->
 
-<table>
-  <thead>
-    <tr>
-      <th>Semester</th>
-      <th>Course</th>
-    </tr>
-  </thead>
-    <body>
-    <tr>
-        <td>Spring, 2025</td>
-        <td>CS 5001: AI-Augmented Software Engineering</td>
-    </tr>
-    <tr>
-        <td>Fall, 2025</td>
-        <td>CS 4090: SE Capstone I</td>
-    </tr>
-    <tr>
-        <td>Spring, 2025</td>
-        <td>CS 4090: SE Capstone I</td>
-    </tr>
-    <tr>
-        <td>Spring, 2025</td>
-        <td>CS 4091: SE Capstone II</td>
-    </tr>
-    </body>
-</table>
 
 
 ### Reviewing and Community Services
@@ -167,38 +141,6 @@ If you are already a student at Missouri S&T, please feel free to email me to ta
 
 When you are emailing, here is a guideline you can follow: [Link](https://uvasrg.github.io/prospective/)
 
-### News
-
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Event</th>
-    </tr>
-  </thead>
-    <body>
-    <tr>
-        <th>November, 2025</th>
-        <th>Our Paper got accepted at ICSE-SEET track!</th>
-    </tr>
-    <tr>
-        <th>June, 2025</th>
-        <th>Best Reviewer Award, EASE 2025!</th>
-    </tr>
-    <tr>
-        <th>March, 2025</th>
-        <th>Our paper got accepted at FSE-IVR track!</th>
-    </tr>
-    <tr>
-        <th>August, 2024</th>
-        <th>Joined Missouri S&T as Assistant Professor</th>
-    </tr>
-    <tr>
-        <th>August, 2024</th>
-        <th>Graduated from Virginia Commonwealth University</th>
-    </tr>
-    </body>
-</table>
 
 
 
@@ -211,7 +153,7 @@ When you are emailing, here is a guideline you can follow: [Link](https://uvasrg
 - H. Ali, M.M. Imran, K. Damevski, I. Ahmed. "Natural Language Processing (NLP) for Digital Forensics" Virginia State Police 2024.
 
 
-### Experiences
+<!-- ### Experiences
 
 <table border="1">
   <tr>
@@ -256,4 +198,38 @@ When you are emailing, here is a guideline you can follow: [Link](https://uvasrg
     <td>Bangladesh</td>
     <td>2016-2018</td>
   </tr>
+</table> -->
+
+
+### News
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Event</th>
+    </tr>
+  </thead>
+    <body>
+    <tr>
+        <th>November, 2025</th>
+        <th>Our Paper got accepted at ICSE-SEET track!</th>
+    </tr>
+    <tr>
+        <th>June, 2025</th>
+        <th>Best Reviewer Award, EASE 2025!</th>
+    </tr>
+    <tr>
+        <th>March, 2025</th>
+        <th>Our paper got accepted at FSE-IVR track!</th>
+    </tr>
+    <tr>
+        <th>August, 2024</th>
+        <th>Joined Missouri S&T as Assistant Professor</th>
+    </tr>
+    <tr>
+        <th>August, 2024</th>
+        <th>Graduated from Virginia Commonwealth University</th>
+    </tr>
+    </body>
 </table>
