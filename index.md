@@ -16,7 +16,7 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 -- Our extended abstract got accepted at WSESE 2026!
 
-### Publications
+<!-- ### Publications
 
 <table>
   <thead>
@@ -111,7 +111,7 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
     </tr>
   </tbody>
 </table>
-
+ -->
 
 <!-- - [Teaching](posts/teaching.html) -->
 
