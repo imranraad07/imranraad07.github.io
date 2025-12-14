@@ -119,7 +119,7 @@ body {
 
 /* Teaching */
 body.teaching .sidebar {
-  background-color: #768080;
+  background-color: #a2ffff;
 }
 
 /* Publications */
@@ -134,7 +134,7 @@ body.research .sidebar {
 
 /* CV */
 body.cv .sidebar {
-  background-color: #f8fafc;
+  background-color: #dddedf;
 }
 
 /* =========================================================
