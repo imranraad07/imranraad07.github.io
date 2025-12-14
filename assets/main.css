@@ -1,55 +1,75 @@
-.layout {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 3rem;
+/* Content rhythm */
+.content {
+  max-width: 680px;
 }
 
-.sidebar {
-  font-size: 0.95rem;
+/* Page title */
+.page-header h1 {
+  font-size: 1.9rem;
+  font-weight: 600;
+  margin-bottom: 1.8rem;
 }
 
-.sidebar-nav ul,
-.sidebar-external ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* Paragraph spacing */
+.content p {
+  margin-bottom: 1.4rem;
 }
 
-.sidebar-nav li,
-.sidebar-external li {
-  margin-bottom: 0.6rem;
+/* Lists */
+.content ul,
+.content ol {
+  margin: 1rem 0 1.5rem 1.5rem;
 }
 
-.sidebar a {
-  text-decoration: none;
+.content li {
+  margin-bottom: 0.4rem;
+}
+
+/* Section headings */
+.content h2 {
+  font-size: 1.4rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.content h3 {
+  font-size: 1.15rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Links */
+.content a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.content a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Blockquotes */
+.content blockquote {
+  margin: 2rem 0;
+  padding-left: 1.2rem;
+  border-left: 3px solid #d1d5db;
   color: #374151;
 }
 
-.sidebar a:hover {
-  color: #111827;
+/* Tables */
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
 }
 
-.sidebar-divider {
-  margin: 1.5rem 0;
-  border-top: 1px solid #e5e7eb;
+.content th,
+.content td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.site-tagline {
-  display: block;
-  font-size: 0.9rem;
-  color: #6b7280;
-  margin-top: 0.25rem;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-  }
+.content th {
+  text-align: left;
+  font-weight: 600;
 }
