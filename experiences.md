@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Experiences
+# title: Experiences
 section: experiences
 permalink: /experiences/
 ---
