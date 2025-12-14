@@ -119,7 +119,7 @@ body {
 
 /* Teaching */
 body.teaching .sidebar {
-  background-color: #aacc73cb;
+  background-color: rgba(255, 243, 226, 0.796)
 }
 
 /* Publications */
