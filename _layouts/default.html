@@ -17,9 +17,13 @@
 
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
 </head>
-<body>
 
-  <!-- Header -->
+<!-- body class enables section-specific sidebar colors -->
+<body class="{{ page.section }}">
+
+  <!-- =====================
+       Header
+       ===================== -->
   <header class="site-header">
     <div class="container">
       <a class="site-title" href="{{ '/' | relative_url }}">
@@ -29,11 +33,13 @@
     </div>
   </header>
 
-  <!-- Layout -->
+  <!-- =====================
+       Layout
+       ===================== -->
   <div class="container layout">
 
     <!-- Sidebar -->
-   <aside class="sidebar">
+    <aside class="sidebar" aria-label="Sidebar navigation">
       <nav class="sidebar-nav">
         <ul>
           <li><a href="{{ '/' | relative_url }}">Home</a></li>
@@ -47,25 +53,28 @@
       {% if site.social %}
       <div class="sidebar-divider"></div>
 
-      <nav class="sidebar-external" aria-label="External links">
+      <nav class="sidebar-external" aria-label="External academic profiles">
         <ul>
           {% if site.social.google_scholar %}
             <li>
-              <a href="{{ site.social.google_scholar }}" target="_blank" rel="noopener">
+              <a href="{{ site.social.google_scholar }}"
+                 target="_blank" rel="noopener">
                 Google Scholar
               </a>
             </li>
           {% endif %}
           {% if site.social.orcid %}
             <li>
-              <a href="{{ site.social.orcid }}" target="_blank" rel="noopener">
+              <a href="{{ site.social.orcid }}"
+                 target="_blank" rel="noopener">
                 ORCID
               </a>
             </li>
           {% endif %}
           {% if site.social.github %}
             <li>
-              <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener">
+              <a href="https://github.com/{{ site.social.github }}"
+                 target="_blank" rel="noopener">
                 GitHub
               </a>
             </li>
@@ -88,7 +97,9 @@
 
   </div>
 
-  <!-- Footer -->
+  <!-- =====================
+       Footer
+       ===================== -->
   <footer class="site-footer">
     <div class="container">
       <p>

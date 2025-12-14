@@ -60,26 +60,22 @@ body {
 }
 
 /* =========================================================
-   LAYOUT
+   LAYOUT (FULL-HEIGHT SIDEBAR)
    ========================================================= */
 
 .layout {
   display: grid;
   grid-template-columns: 240px 1fr;
-  align-items: stretch;   /* critical */
   gap: 3rem;
-}
-
-.sidebar {
-  min-height: 100%;
+  align-items: stretch;
 }
 
 /* =========================================================
-   SIDEBAR  (INTENTIONALLY DISTINCT)
+   SIDEBAR (DEFAULT)
    ========================================================= */
 
 .sidebar {
-  background-color: #eef2ff;      /* clearly NOT white */
+  background-color: #eef2ff;
   color: #1e293b;
   padding: 2rem 1.75rem;
   border-radius: 8px;
@@ -111,14 +107,38 @@ body {
   text-decoration: underline;
 }
 
-/* Divider */
+/* Sidebar divider */
 .sidebar-divider {
   margin: 1.75rem 0;
   border-top: 1px solid #c7d2fe;
 }
 
 /* =========================================================
-   MAIN CONTENT  (PURE WHITE)
+   SIDEBAR COLOR BY SECTION
+   ========================================================= */
+
+/* Teaching */
+body.teaching .sidebar {
+  background-color: #ecfeff;
+}
+
+/* Publications */
+body.publications .sidebar {
+  background-color: #f0fdf4;
+}
+
+/* Research */
+body.research .sidebar {
+  background-color: #fff7ed;
+}
+
+/* CV */
+body.cv .sidebar {
+  background-color: #f8fafc;
+}
+
+/* =========================================================
+   MAIN CONTENT
    ========================================================= */
 
 .site-main {
@@ -136,7 +156,6 @@ body {
   margin: 0;
   font-size: 2rem;
   line-height: 1.25;
-  color: #111827;
 }
 
 /* =========================================================
