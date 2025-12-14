@@ -2,7 +2,7 @@
 layout: page
 title: Experiences
 section: experiences
-permalink: /experiences/
+permalink: /posts/experiences/
 ---
 
 

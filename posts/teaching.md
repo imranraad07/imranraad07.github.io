@@ -2,7 +2,7 @@
 layout: page
 title: Teaching
 section: teaching
-permalink: /teaching/
+permalink: /posts/teaching/
 ---
 
 
