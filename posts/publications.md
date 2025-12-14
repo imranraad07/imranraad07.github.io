@@ -40,12 +40,18 @@ permalink: /posts/publications/
     </tr>
     
     <tr>
+      <td> LLPut: Investigating Large Language Models for Bug Report-Based Input Generation </td>
+      <td>FSE Companion 2025</td>
+      <td><a href="https://dl.acm.org/doi/pdf/10.1145/3696630.3728701">ACM</a></td>
+      <td><a href="https://zenodo.org/records/15092886">Replication</a></td>
+    </tr>
+
+    <tr>
       <td> Understanding and Predicting Derailment in Toxic Conversations on GitHub 	</td>
       <td> Submitted </td>
       <td><a href="https://arxiv.org/pdf/2503.02191">ArXiV</a></td>
       <td><a href="https://anonymous.4open.science/r/derailment-oss-replication-C8B1">Replication</a></td>
     </tr>
-
 
 
     <tr>
