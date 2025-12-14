@@ -6,38 +6,114 @@
 
   <title>
     {% if page.title %}
-      {{ page.title }} | {{ site.title }}
+      {{ page.title }} · {{ site.title }}
     {% else %}
       {{ site.title }}
     {% endif %}
   </title>
 
-  <meta name="description" content="{{ page.excerpt | strip_html | truncate: 160 | default: site.description }}">
+  <meta name="description"
+        content="{{ page.description | default: site.description | strip_html | truncate: 160 }}">
 
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
 
 </head>
 <body>
 
-  <header>
-    <nav>
-      <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-      <ul>
-        <li><a href="{{ '/' | relative_url }}">Home</a></li>
-        <li><a href="{{ '/about' | relative_url }}">About</a></li>
-      </ul>
-    </nav>
+  <!-- =====================
+       Header
+       ===================== -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="{{ '/' | relative_url }}">
+        {{ site.title }}
+      </a>
+    </div>
   </header>
 
-  <main role="main">
-    {{ content }}
-  </main>
+  <!-- =====================
+       Layout
+       ===================== -->
+  <div class="layout container">
 
-  <footer>
-    <p>
-      © {{ site.time | date: '%Y' }} {{ site.title }}.
-      Built with GitHub Pages.
-    </p>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <section class="profile">
+        <h2>{{ site.title }}</h2>
+        <p class="tagline">{{ site.tagline }}</p>
+      </section>
+
+      <nav class="sidebar-nav" aria-label="Sidebar navigation">
+        <ul>
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/about' | relative_url }}">About</a></li>
+          <li><a href="{{ '/publications' | relative_url }}">Publications</a></li>
+          <li><a href="{{ '/teaching' | relative_url }}">Teaching</a></li>
+          <li><a href="{{ '/cv' | relative_url }}">CV</a></li>
+        </ul>
+      </nav>
+
+      <!-- External Academic Links -->
+      <section class="external-links">
+        <h3>Academic Profiles</h3>
+        <ul>
+          {% if site.social.google_scholar %}
+            <li>
+              <a href="{{ site.social.google_scholar }}" target="_blank" rel="noopener">
+                Google Scholar
+              </a>
+            </li>
+          {% endif %}
+          {% if site.social.orcid %}
+            <li>
+              <a href="{{ site.social.orcid }}" target="_blank" rel="noopener">
+                ORCID
+              </a>
+            </li>
+          {% endif %}
+          {% if site.social.researchgate %}
+            <li>
+              <a href="{{ site.social.researchgate }}" target="_blank" rel="noopener">
+                ResearchGate
+              </a>
+            </li>
+          {% endif %}
+          {% if site.social.github %}
+            <li>
+              <a href="https://github.com/{{ site.social.github }}" target="_blank" rel="noopener">
+                GitHub
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </section>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="site-main" role="main">
+      {% if page.title %}
+        <header class="page-header">
+          <h1>{{ page.title }}</h1>
+        </header>
+      {% endif %}
+
+      {{ content }}
+    </main>
+
+  </div>
+
+  <!-- =====================
+       Footer
+       ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        © {{ site.time | date: '%Y' }} {{ site.title }}
+      </p>
+      <p class="footer-meta">
+        Academic personal website
+      </p>
+    </div>
   </footer>
 
 </body>

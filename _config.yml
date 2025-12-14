@@ -2,7 +2,6 @@
 # Site Identity
 # =========================
 title: Mia Mohammad Imran
-tagline: Assistant Professor @Missouri S&T
 
 url: "https://imranraad07.github.io"
 baseurl: ""
@@ -42,3 +41,11 @@ defaults:
       path: ""
       type: "pages"
     values:
+
+tagline: Assistant Professor · Missouri S&T
+
+social:
+  google_scholar: "https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl"
+  orcid: "https://orcid.org/0000-0003-2477-9971"
+  researchgate: "https://www.researchgate.net/profile/Mia_Mohammad_Imran"
+  github: imranraad07
