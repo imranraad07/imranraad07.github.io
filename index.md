@@ -14,13 +14,15 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 
 ### News
--- Our paper titled [**Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming**](/posts/publications/) got accepted at ICSE-SEET 2026!
+-- Dec 2025: Our paper titled [**Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming**](/posts/publications/) got accepted at ICSE-SEET 2026!
 
--- Our extended abstract titled **OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering** got accepted at ICSE Companion: WSESE 2026!
+-- Dec 2025:  Our extended abstract titled [**OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering**](/posts/publications/) got accepted at ICSE Companion: WSESE 2026!
 
--- Our paper titled [**<em>"Silent Is Not Actually Silent"</em>: An Investigation of Toxicity on Bug Report Discussion**](/posts/publications/) got accepted at FSE-IVR 2026!
+-- Summer 2025: [Best Reviewer award at EASE 2025!](/posts/documents/ReviewerAward-Mia.pdf)
 
--- Our paper titled [**LLPut: Investigating Large Language Models for Bug Report-Based Input Generation**](/posts/publications/) got accepted at FSE Companion 2025!
+-- March 2025: Our paper titled [**<em>"Silent Is Not Actually Silent"</em>: An Investigation of Toxicity on Bug Report Discussion**](/posts/publications/) got accepted at FSE-IVR 2026!
+
+-- March 2025: Our paper titled [**LLPut: Investigating Large Language Models for Bug Report-Based Input Generation**](/posts/publications/) got accepted at FSE Companion 2025!
 
 
 ### Reviewing and Community Services
