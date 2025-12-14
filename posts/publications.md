@@ -27,8 +27,8 @@ permalink: /posts/publications/
     <tr>
       <td> OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering</td>
       <td>ICSE Companion: WSESE 2026 </td>
-      <td><a href="">Coming Soon!</a></td>
-      <td><a href="https://conf.researchr.org/details/icse-2026/wsese-2026/10/OLAF-Towards-Robust-LLM-Based-Annotation-Framework-in-Empirical-Software-Engineering">WSESE</a></td>
+      <td><a href="posts/documents/WSESE_2026.pdf">PDF</a></td>
+      <td><a href="https://se-llm-annotation-olaf.github.io/olaf/">OLAF</a></td>
     </tr>
 
 
