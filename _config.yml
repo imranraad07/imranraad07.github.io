@@ -1,7 +1,8 @@
 # =========================
 # Site Identity
 # =========================
-# title: Mia Mohammad Imran
+title: Mia Mohammad Imran
+tagline: Assistant Professor · Missouri S&T
 
 url: "https://imranraad07.github.io"
 baseurl: ""
@@ -41,6 +42,7 @@ defaults:
       path: ""
       type: "pages"
     values:
+
 
 social:
   google_scholar: "https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl"
