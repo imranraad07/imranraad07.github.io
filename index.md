@@ -5,7 +5,7 @@
 layout: default
 ---
 
-Mia Mohammad Imran is an Assistant Professor in the Department of Computer Science at Missouri University of Science and Technology. His research interests encompass Software Engineering, Empirical Study, Machine Learning, LLMs, and NLP.
+Mia Mohammad Imran is an Assistant Professor in the Department of Computer Science at Missouri University of Science and Technology. His research interests encompass Software Engineering, Empirical Study, Machine Learning, LLMs, and NLP. My particular focus is in various aspects of bug reports, code quality, and novice programmers.
 
 Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imranraad) [Github](https://github.com/imranraad07) [Google Scholar](https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en) [Email](mailto:imranm@mst.edu)
 
@@ -14,13 +14,13 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 
 ### News
--- Our paper titled **Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming** got accepted at ICSE-SEET 2026!
+-- Our paper titled [**Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming**](/posts/publications/) got accepted at ICSE-SEET 2026!
 
 -- Our extended abstract titled **OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering** got accepted at ICSE Companion: WSESE 2026!
 
--- Our paper titled **<em>"Silent Is Not Actually Silent"</em>: An Investigation of Toxicity on Bug Report Discussion** got accepted at FSE-IVR 2026!
+-- Our paper titled [**<em>"Silent Is Not Actually Silent"</em>: An Investigation of Toxicity on Bug Report Discussion**](/posts/publications/) got accepted at FSE-IVR 2026!
 
--- Our paper titled **LLPut: Investigating Large Language Models for Bug Report-Based Input Generation** got accepted at FSE Companion 2025!
+-- Our paper titled [**LLPut: Investigating Large Language Models for Bug Report-Based Input Generation**](/posts/publications/) got accepted at FSE Companion 2025!
 
 
 ### Reviewing and Community Services
