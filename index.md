@@ -11,10 +11,10 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 
 
-### New
--- Our paper got accepted at ICSE-SEET 2026!
+### News
+-- Our paper titled "Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming" got accepted at ICSE-SEET 2026!
 
--- Our extended abstract got accepted at WSESE 2026!
+-- Our extended abstract titled "OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering" got accepted at WSESE 2026!
 
 <!-- ### Publications
 
@@ -201,7 +201,7 @@ When you are emailing, here is a guideline you can follow: [Link](https://uvasrg
 </table> -->
 
 
-### News
+<!-- ### News
 
 <table>
   <thead>
@@ -232,4 +232,4 @@ When you are emailing, here is a guideline you can follow: [Link](https://uvasrg
         <th>Graduated from Virginia Commonwealth University</th>
     </tr>
     </body>
-</table>
+</table> -->
