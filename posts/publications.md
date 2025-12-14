@@ -20,14 +20,14 @@ permalink: /posts/publications/
     <tr>
       <td> Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming</td>
       <td>ICSE 2025 (SEET track)</td>
-      <td><a href="posts/documents/ICSE_SEET_2026.pdf">PDF</a></td>
+      <td><a href="/posts/documents/ICSE_SEET_2026.pdf">PDF</a></td>
       <td><a href="https://zenodo.org/records/17145615">Replication</a></td>
     </tr>
 
     <tr>
       <td> OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering</td>
       <td>ICSE Companion: WSESE 2026 </td>
-      <td><a href="posts/documents/WSESE_2026.pdf">PDF</a></td>
+      <td><a href="/posts/documents/WSESE_2026.pdf">PDF</a></td>
       <td><a href="https://se-llm-annotation-olaf.github.io/olaf/">OLAF</a></td>
     </tr>
 
@@ -70,37 +70,37 @@ permalink: /posts/publications/
     <tr>
       <td>Shedding Light on Software Engineering-specific Metaphors and Idioms</td>
       <td>ICSE 2024</td>
-      <td><a href="posts/documents/Figurative_Language_SE.pdf">PDF</a></td>
+      <td><a href="/posts/documents/Figurative_Language_SE.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/SE-Figurative-Language">Repo</a></td>
     </tr>
     <tr>
       <td>Emotion Classification In Software Engineering Texts: A Comparative Analysis of Pre-trained Transformers Language Models</td>
       <td>NLBSE 2024</td>
-      <td><a href="posts/documents/Emotion_SE_LLM.pdf">PDF</a></td>
+      <td><a href="/posts/documents/Emotion_SE_LLM.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/SE-Figurative-Language">Repo</a></td>
     </tr>
     <tr>
       <td>Incivility in Open Source Projects: A Comprehensive Annotated Dataset of Locked GitHub Issue Threads</td>
       <td>MSR 2024</td>
-      <td><a href="posts/documents/Emotion_SE_LLM.pdf">PDF</a></td>
+      <td><a href="/posts/documents/Emotion_SE_LLM.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/incivility-dataset">Repo</a></td>
     </tr>
     <tr>
       <td>Data Augmentation for Improving Emotion Recognition in Software Engineering Communication</td>
       <td>ASE 2022</td>
-      <td><a href="posts/documents/Emotion_SE_Data_Augmentation.pdf">PDF</a></td>
+      <td><a href="/posts/documents/Emotion_SE_Data_Augmentation.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/SE-Emotion-Study">Repo</a></td>
     </tr>
     <tr>
       <td>Using Clarification Questions to Improve Software Developers’ Web Search</td>
       <td>Information and Software Technology 2022</td>
-      <td><a href="posts/documents/Web_CQ.pdf">PDF</a></td>
+      <td><a href="/posts/documents/Web_CQ.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/Query-Expansion-Questions">Repo</a></td>
     </tr>
     <tr>
       <td>Automatically Selecting Follow-up Questions for Deficient Bug Reports</td>
       <td>MSR 2021</td>
-      <td><a href="posts/documents/BugAutoQ.pdf">PDF</a></td>
+      <td><a href="/posts/documents/BugAutoQ.pdf">PDF</a></td>
       <td><a href="https://github.com/vcu-swim-lab/BugAutoQ">Repo</a></td>
     </tr>
   </tbody>
