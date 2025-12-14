@@ -10,12 +10,10 @@ Mia Mohammad Imran is an Assistant Professor in the Department of Computer Scien
 Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imranraad) [Github](https://github.com/imranraad07) [Google Scholar](https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en) [Email](mailto:imranm@mst.edu)
 
 
-### [Experiences](posts/experiences.md)
-
-<!-- - [Publications](posts/publications.html) -->
 
 ### New
 -- Our paper got accepted at ICSE-SEET 2026!
+
 -- Our extended abstract got accepted at WSESE 2026!
 
 ### Publications
@@ -204,4 +202,58 @@ When you are emailing, here is a guideline you can follow: [Link](https://uvasrg
 
 
 
-### [Workshops](posts/workshops.html)
+### Workshops
+
+- M.M. Imran. "App Design: An Introduction to Computer Science" [Jackling Summer Camp, Missouri S&T, 2025](https://docs.google.com/presentation/d/1TRU2rITediWZjXPUkd5n5OVXbl6P9yMYBRh19bjN7pc/edit?usp=sharing).
+
+- H. Ali, M.M. Imran, K. Damevski, I. Ahmed. "Natural Language Processing (NLP) for Digital Forensics" [DFRWS 2023](documents/NLP_DF.pdf).
+
+- H. Ali, M.M. Imran, K. Damevski, I. Ahmed. "Natural Language Processing (NLP) for Digital Forensics" Virginia State Police 2024.
+
+
+### Experiences
+
+<table border="1">
+  <tr>
+    <th>Position</th>
+    <th>Organization</th>
+    <th>Location</th>
+    <th>Year</th>
+  </tr>
+  <tr>
+    <td>Assistant Professor</td>
+    <td>Missouri University of Science and Technology</td>
+    <td>USA</td>
+    <td>2024-</td>
+  </tr>
+  <tr>
+    <td>Graduate Research Assistant</td>
+    <td>Virginia Commonwealth University</td>
+    <td>USA</td>
+    <td>2020-2024</td>
+  </tr>
+  <tr>
+    <td>Software Engineering Intern</td>
+    <td>Google</td>
+    <td>USA</td>
+    <td>2022</td>
+  </tr>
+  <tr>
+    <td>Software Engineer</td>
+    <td>Impel IT Solutions</td>
+    <td>Bangladesh</td>
+    <td>2019</td>
+  </tr>
+  <tr>
+    <td>Software Engineer</td>
+    <td>AnyConnect Private Limited</td>
+    <td>Bangladesh</td>
+    <td>2018-2019</td>
+  </tr>
+  <tr>
+    <td>Software Engineer</td>
+    <td>IPVision Canada Inc</td>
+    <td>Bangladesh</td>
+    <td>2016-2018</td>
+  </tr>
+</table>
