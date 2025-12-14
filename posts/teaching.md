@@ -7,7 +7,7 @@ permalink: /posts/teaching/
 
 - Spring, 2025: CS 5001: AI-Augmented Software Engineering
 
-- Fall, 2025: [CS 4090: SE Capstone I](/posts/teaching/CS_4090_Fall_2025/)
+- Fall, 2025: [CS 4090: SE Capstone I](/posts/teaching/cs4090/)
 
 - Spring, 2025: CS 4090: SE Capstone I
 
