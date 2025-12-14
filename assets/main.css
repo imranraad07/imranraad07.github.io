@@ -66,8 +66,12 @@ body {
 .layout {
   display: grid;
   grid-template-columns: 240px 1fr;
+  align-items: stretch;   /* critical */
   gap: 3rem;
-  align-items: start;
+}
+
+.sidebar {
+  min-height: 100%;
 }
 
 /* =========================================================
