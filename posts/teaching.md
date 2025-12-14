@@ -5,7 +5,16 @@ section: teaching
 permalink: /posts/teaching/
 ---
 
+- Spring, 2025: CS 5001: AI-Augmented Software Engineering
 
+- Fall, 2025: CS 4090: SE Capstone I
+
+- Spring, 2025: CS 4090: SE Capstone I
+
+- Spring, 2025: CS 4090: SE Capstone II
+
+
+<!-- 
 <table border="1">
 <table>
   <thead>
@@ -32,4 +41,4 @@ permalink: /posts/teaching/
         <td>CS 4091: SE Capstone II</td>
     </tr>
     </body>
-</table>
+</table> -->
