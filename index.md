@@ -9,14 +9,14 @@ Mia Mohammad Imran is an Assistant Professor in the Department of Computer Scien
 
 Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imranraad) [Github](https://github.com/imranraad07) [Google Scholar](https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en) [Email](mailto:imranm@mst.edu)
 
-### [About](about.md)
 
-### [Experiences](posts/experiences.html)
+### [Experiences](posts/experiences.md)
 
 <!-- - [Publications](posts/publications.html) -->
 
 ### New
 -- Our paper got accepted at ICSE-SEET 2026!
+-- Our extended abstract got accepted at WSESE 2026!
 
 ### Publications
 
@@ -37,6 +37,14 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
       <td><a href="posts/documents/ICSE_SEET_2026.pdf">PDF</a></td>
       <td><a href="https://zenodo.org/records/17145615">Replication</a></td>
     </tr>
+
+    <tr>
+      <td> OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering</td>
+      <td>WSESE 2026 </td>
+      <td><a href="">Coming Soon!</a></td>
+      <td><a href="https://conf.researchr.org/details/icse-2026/wsese-2026/10/OLAF-Towards-Robust-LLM-Based-Annotation-Framework-in-Empirical-Software-Engineering">WSESE</a></td>
+    </tr>
+
 
     <tr>
       <td> <em>"Silent Is Not Actually Silent"</em>: An Investigation of Toxicity on Bug Report Discussion 	</td>
