@@ -13,7 +13,9 @@ permalink: /posts/teaching/cs5001/
 - [CMU 17-316/616: AI Tools for Software Development](https://ai-developer-tools.github.io/)
 - [USU DATA5570 - Building Software With Artificial Intelligence](https://catalog.usu.edu/courses/DATA5570)
 - [A Whole New World](https://annievella.com/posts/a-whole-new-world/)
-
+- [Wikipedia: AI-assisted software development](https://en.wikipedia.org/wiki/AI-assisted_software_development)
+- [IBM: AI in software development](https://www.ibm.com/think/topics/ai-in-software-development)
+- [ByteByteGo](https://bytebytego.com/) 
 
 ## Topics We will Cover
 
