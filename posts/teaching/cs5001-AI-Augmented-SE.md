@@ -12,6 +12,7 @@ permalink: /posts/teaching/cs5001/
 - [Standford CS146S: The Modern Software Developer](https://themodernsoftware.dev/)
 - [CMU 17-316/616: AI Tools for Software Development](https://ai-developer-tools.github.io/)
 - [USU DATA5570 - Building Software With Artificial Intelligence](https://catalog.usu.edu/courses/DATA5570)
+- [A Whole New World](https://annievella.com/posts/a-whole-new-world/)
 
 
 ## Topics We will Cover
