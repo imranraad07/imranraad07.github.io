@@ -18,6 +18,14 @@ permalink: /posts/publications/
   <tbody>
 
     <tr>
+      <td> Toxicity Ahead: Forecasting Conversational Derailment on GitHub</td>
+      <td>ICSE 2025</td>
+      <td><a href="/posts/documents/ICSE_2026_Derailment.pdf">PDF</a></td>
+      <td><a href="https://zenodo.org/records/15725618">Replication</a></td>
+    </tr>
+
+
+    <tr>
       <td> Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming</td>
       <td>ICSE 2025 (SEET track)</td>
       <td><a href="/posts/documents/ICSE_SEET_2026.pdf">PDF</a></td>

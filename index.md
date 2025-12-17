@@ -10,10 +10,13 @@ Mia Mohammad Imran is an Assistant Professor in the Department of Computer Scien
 Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imranraad) [Github](https://github.com/imranraad07) [Google Scholar](https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en) [Email](mailto:imranm@mst.edu)
 
 
-*I'm currently seeking collaborations with industry partners and enthusiastic students to join my research team. Please contact me if you are interested.*
+*I'm currently seeking collaborations with industry partners and enthusiastic undergraduate students to join my research team. Please contact me if you are interested.*
 
 
 ### News
+
+-- Dec 2025: Our paper titled [**Toxicity Ahead: Forecasting Conversational Derailment on GitHub**](/posts/publications/) got accepted at ICSE 2026!
+
 -- Dec 2025: Our paper titled [**Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming**](/posts/publications/) got accepted at ICSE-SEET 2026!
 
 -- Dec 2025:  Our extended abstract titled [**OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering**](/posts/publications/) got accepted at ICSE Companion: WSESE 2026!
