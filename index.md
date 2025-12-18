@@ -15,30 +15,30 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 ### News
 
--- Dec 2025: Our paper titled [**Toxicity Ahead: Forecasting Conversational Derailment on GitHub**](/posts/publications/) got accepted at ICSE 2026!
+-- Dec 2025: Our paper titled [**Toxicity Ahead: Forecasting Conversational Derailment on GitHub**](/posts/publications/) got accepted at ICSE 2026 (Research Track)!
 
--- Dec 2025: Our paper titled [**Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming**](/posts/publications/) got accepted at ICSE-SEET 2026!
+-- Dec 2025: Our paper titled [**Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming**](/posts/publications/) got accepted at ICSE-SEET 2026 (Education Track)!
 
--- Dec 2025:  Our extended abstract titled [**OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering**](/posts/publications/) got accepted at ICSE Companion: WSESE 2026!
+-- Dec 2025:  Our extended abstract titled [**OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering**](/posts/publications/) got accepted at WSESE Workshop 2026 (ICSE Companion)!
 
 -- Summer 2025: [Best Reviewer award at EASE 2025!](/posts/documents/ReviewerAward-Mia.pdf)
 
--- March 2025: Our paper titled [**<em>"Silent Is Not Actually Silent"</em>: An Investigation of Toxicity on Bug Report Discussion**](/posts/publications/) got accepted at FSE-IVR 2026!
+-- March 2025: Our paper titled [**<em>"Silent Is Not Actually Silent"</em>: An Investigation of Toxicity on Bug Report Discussion**](/posts/publications/) got accepted at FSE-IVR 2026 (Idea Vision)!
 
--- March 2025: Our paper titled [**LLPut: Investigating Large Language Models for Bug Report-Based Input Generation**](/posts/publications/) got accepted at FSE Companion 2025!
+-- March 2025: Our paper titled [**LLPut: Investigating Large Language Models for Bug Report-Based Input Generation**](/posts/publications/) got accepted at LLanMER 2025 (FSE Companion)!
 
 
 ### Reviewing and Community Services
  
 **Conference Committee**: 
- * SANER 2026
- * EASE 2026
- * SIGCSE TS 2026
+ * SANER 2026 (Short Paper Track)
+ * EASE 2026 (Short Paper Track)
+ * SIGCSE TS 2026 (Experience Reports and Tools Track)
  * EASE 2025 (Short Paper Track)
  * EASE 2025 (Learnings & Reflections within the Learnings/Reflections of Evaluation and Assessment projects in Software Engineering-track)
  * AI IDE 2025 (FSE Workshop)
 
-**Journals:** Reviewer at journals such as IEEE Transactions on Software Engineering, Empirical Software Engineering, Information and Software Technology, Automated Software Engineering, etc.
+**Journals:** Reviewer at journals such as IEEE Transactions on Software Engineering, Empirical Software Engineering, Information and Software Technology, Automated Software Engineering.
 
 ### Prospective students
 
