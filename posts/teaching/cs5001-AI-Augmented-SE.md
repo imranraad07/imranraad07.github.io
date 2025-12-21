@@ -21,6 +21,8 @@ permalink: /posts/teaching/cs5001/
 
 - [Prompt Engineering](https://www.promptingguide.ai/)
 - [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro)
+- Coding Agent
+- Modern Terminals
 
 ## Course Materials
 
