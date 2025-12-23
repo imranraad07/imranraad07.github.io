@@ -15,19 +15,23 @@ permalink: /posts/teaching/cs5001/
 - [A Whole New World](https://annievella.com/posts/a-whole-new-world/)
 - [Wikipedia: AI-assisted software development](https://en.wikipedia.org/wiki/AI-assisted_software_development)
 - [IBM: AI in software development](https://www.ibm.com/think/topics/ai-in-software-development)
-- [ByteByteGo](https://bytebytego.com/) 
 
 ## Toos
 - Copilot
-- Aider.chat
+- JetBrains AI Assistant
 - Ollama
-- Qodo[https://www.codium.ai/qodo/]
-- replit[https://replit.com/]
+- Aider.chat
+- Amazon CodeWhisperer
+- [Amp](https://ampcode.com/free)
+- [Qodo](https://www.codium.ai/qodo/)
+- [Replit AI](https://replit.com/)
 - [CircleCI](https://circleci.com/)
+- [Codiga](https://www.codiga.io/)
 - [zencoder.ai](https://zencoder.ai/)
 - [Antigravity](https://antigravity.google/)
 - [Cursor](https://cursor.com/)
 - [Kiro](https://kiro.dev/)
+- [mintlify](https://www.mintlify.com/)
 
 ## Topics We will Cover
 
