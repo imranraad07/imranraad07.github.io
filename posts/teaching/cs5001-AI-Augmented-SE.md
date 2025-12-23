@@ -35,10 +35,31 @@ permalink: /posts/teaching/cs5001/
 
 ## Topics We will Cover
 
+### Foundations
 - [Prompt Engineering](https://www.promptingguide.ai/)
+- AI Model Fundamentals for Developers
+### Integration & Workflow
 - [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro)
-- Coding Agent
 - Modern Terminals
+- IDE Integration
+### Advanced Development
+- Coding Agent
+- AI-Assisted Debugging
+- Code Review with AI
+### Practical Applications
+- Documentation Generation
+- Test Generation
+- Code Refactoring
+
+### Critical Thinking & Ethics
+- Evaluating AI-Generated Code
+- Responsible AI Usage
+- Human-AI Collaboration
+
+### Emerging Topics
+- AI-Powered DevOps
+- Low-Code/No-Code AI Tools
+- Future of Software Engineering
 
 ## Course Materials
 
