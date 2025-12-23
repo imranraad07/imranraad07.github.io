@@ -17,6 +17,18 @@ permalink: /posts/teaching/cs5001/
 - [IBM: AI in software development](https://www.ibm.com/think/topics/ai-in-software-development)
 - [ByteByteGo](https://bytebytego.com/) 
 
+## Toos
+- Copilot
+- Aider.chat
+- Ollama
+- Qodo[https://www.codium.ai/qodo/]
+- replit[https://replit.com/]
+- [CircleCI](https://circleci.com/)
+- [zencoder.ai](https://zencoder.ai/)
+- [Antigravity](https://antigravity.google/)
+- [Cursor](https://cursor.com/)
+- [Kiro](https://kiro.dev/)
+
 ## Topics We will Cover
 
 - [Prompt Engineering](https://www.promptingguide.ai/)
