@@ -15,12 +15,12 @@ permalink: /posts/teaching/cs5001/
 - [A Whole New World](https://annievella.com/posts/a-whole-new-world/)
 - [Wikipedia: AI-assisted software development](https://en.wikipedia.org/wiki/AI-assisted_software_development)
 - [IBM: AI in software development](https://www.ibm.com/think/topics/ai-in-software-development)
+- [MCP servers](https://mcp.so/)
 
 ## Toos
 - Copilot
 - JetBrains AI Assistant
 - Ollama
-- Aider.chat
 - Amazon CodeWhisperer
 - [Amp](https://ampcode.com/free)
 - [Qodo](https://www.codium.ai/qodo/)
@@ -32,33 +32,32 @@ permalink: /posts/teaching/cs5001/
 - [Cursor](https://cursor.com/)
 - [Kiro](https://kiro.dev/)
 - [mintlify](https://www.mintlify.com/)
+- Aider.chat
 
 ## Topics We will Cover
 
-### Foundations
+### Core Topics
 - [Prompt Engineering](https://www.promptingguide.ai/)
-- AI Model Fundamentals for Developers
-### Integration & Workflow
 - [Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro)
-- Modern Terminals
-- IDE Integration
-### Advanced Development
-- Coding Agent
+- [Agentic AI](https://www.ibm.com/think/topics/agentic-ai)
+
+
+### Applied Topics
 - AI-Assisted Debugging
 - Code Review with AI
-### Practical Applications
 - Documentation Generation
 - Test Generation
 - Code Refactoring
 
-### Critical Thinking & Ethics
+### Tools
+- Modern Terminals
+- IDE Integration
+
+
+### Select Topics 
 - Evaluating AI-Generated Code
 - Responsible AI Usage
 - Human-AI Collaboration
-
-### Emerging Topics
-- AI-Powered DevOps
-- Low-Code/No-Code AI Tools
 - Future of Software Engineering
 
 ## Course Materials
