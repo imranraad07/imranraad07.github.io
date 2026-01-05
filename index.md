@@ -15,7 +15,7 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 ### News
 
--- January 2026L Our Paper titled [**“TODO: Fix the Mess Gemini Created”: Toward AI-Induced Cognitive Incomprehension Debt in Self-Admitted Technical Debt**](Coming Soon!) got accepted at TechDebt 2026 (Technical Track! Congrats Mujahid!
+-- January 2026L Our Paper titled [**“TODO: Fix the Mess Gemini Created”: Toward AI-Induced Cognitive Incomprehension Debt in Self-Admitted Technical Debt**](Coming Soon!) got accepted at TechDebt 2026 (Technical Track - Short Paper)! Congrats Mujahid!
 
 -- Dec 2025: Our paper titled [**Toxicity Ahead: Forecasting Conversational Derailment on GitHub**](/posts/documents/ICSE_2026_Derailment.pdf) got accepted at ICSE 2026 (Research Track)!
 
