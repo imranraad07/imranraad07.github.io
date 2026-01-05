@@ -15,6 +15,8 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 ### News
 
+-- January 2026L Our Paper titled [**“TODO: Fix the Mess Gemini Created”: Toward AI-Induced Cognitive Incomprehension Debt in Self-Admitted Technical Debt**](Coming Soon!) got accepted at TechDebt 2026 (Technical Track! Congrats Mujahid!
+
 -- Dec 2025: Our paper titled [**Toxicity Ahead: Forecasting Conversational Derailment on GitHub**](/posts/documents/ICSE_2026_Derailment.pdf) got accepted at ICSE 2026 (Research Track)!
 
 -- Dec 2025: Our paper titled [**Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming**](/posts/documents/ICSE_SEET_2026.pdf) got accepted at ICSE-SEET 2026 (Education Researech Track)!
