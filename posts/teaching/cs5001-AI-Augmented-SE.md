@@ -16,11 +16,13 @@ permalink: /posts/teaching/cs5001/
 - [Wikipedia: AI-assisted software development](https://en.wikipedia.org/wiki/AI-assisted_software_development)
 - [IBM: AI in software development](https://www.ibm.com/think/topics/ai-in-software-development)
 - [MCP servers](https://mcp.so/)
+- [n8n](https://n8n.io/)
 
 ## Toos
 - Copilot
 - JetBrains AI Assistant
 - Ollama
+- LangChain/LangSmith
 - Amazon CodeWhisperer
 - [Amp](https://ampcode.com/free)
 - [Qodo](https://www.codium.ai/qodo/)
@@ -52,7 +54,6 @@ permalink: /posts/teaching/cs5001/
 ### Tools
 - Modern Terminals
 - IDE Integration
-
 
 ### Select Topics 
 - Evaluating AI-Generated Code

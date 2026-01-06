@@ -18,7 +18,7 @@ permalink: /posts/publications/
   <tbody>
 
     <tr>
-      <td> “TODO: Fix the Mess Gemini Created”: Toward AI-Induced Cognitive Incomprehension Debt in Self-Admitted Technical Debt</td>
+      <td> “TODO: Fix the Mess Gemini Created”: Towards Understanding GenAI-Induced Self-Admitted Technical Debt</td>
       <td>TechDebt 2026</td>
       <td><a href="Coming Soon!">Coming Soon</a></td>
       <td><a href="Coming Soon!">Coming Soon</a></td>
