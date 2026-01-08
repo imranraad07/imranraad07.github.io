@@ -15,7 +15,7 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 ### News
 
--- January 2026L Our Short Paper titled [“TODO: Fix the Mess Gemini Created”: Towards Understanding GenAI-Induced Self-Admitted Technical Debt](/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments.pdf) got accepted at TechDebt 2026 (Technical Track - Short Paper)! First paper of Mujahid (Congrats Mujahid)!
+-- January 2026: Our Short Paper titled [“TODO: Fix the Mess Gemini Created”: Towards Understanding GenAI-Induced Self-Admitted Technical Debt](/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments.pdf) got accepted at TechDebt 2026 (Technical Track - Short Paper)! First paper of Mujahid (Congrats Mujahid)!
 
 -- Dec 2025: Our paper titled [**Toxicity Ahead: Forecasting Conversational Derailment on GitHub**](/posts/documents/ICSE_2026_Derailment.pdf) got accepted at ICSE 2026 (Research Track)!
 
