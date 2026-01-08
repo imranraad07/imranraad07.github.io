@@ -20,7 +20,7 @@ permalink: /posts/publications/
     <tr>
       <td> “TODO: Fix the Mess Gemini Created”: Towards Understanding GenAI-Induced Self-Admitted Technical Debt</td>
       <td>TechDebt 2026</td>
-      <td><a href="Coming Soon!">Coming Soon</a></td>
+      <td><a href="/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments">PDF</a></td>
       <td><a href="Coming Soon!">Coming Soon</a></td>
     </tr>
 
