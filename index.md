@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +11,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Calibri', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
             line-height: 1.6;
@@ -257,21 +256,21 @@
                 </div>
 
                 <div class="quick-links">
-                    <a href="posts/documents/CV.pdf" class="quick-link">📄 CV</a>
-                    <a href="https://linkedin.com/in/imranraad" class="quick-link">💼 LinkedIn</a>
-                    <a href="https://github.com/imranraad07" class="quick-link">💻 GitHub</a>
-                    <a href="https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en" class="quick-link">🎓 Google Scholar</a>
-                    <a href="mailto:imranm@mst.edu" class="quick-link">✉️ Email</a>
+                    <a href="posts/documents/CV.pdf" class="quick-link">CV</a>
+                    <a href="https://linkedin.com/in/imranraad" class="quick-link">LinkedIn</a>
+                    <a href="https://github.com/imranraad07" class="quick-link">GitHub</a>
+                    <a href="https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en" class="quick-link">Google Scholar</a>
+                    <a href="mailto:imranm@mst.edu" class="quick-link">Email</a>
                 </div>
             </div>
         </div>
 
         <div class="content">
             <div class="announcement">
-                <p>🚀 I'm currently seeking collaborations with industry partners and enthusiastic undergraduate students to join my research team. Please contact me if you are interested.</p>
+                <p>I'm currently seeking collaborations with industry partners and enthusiastic undergraduate students to join my research team. Please contact me if you are interested.</p>
             </div>
 
-            <h2>📰 News</h2>
+            <h2>News</h2>
             <div class="news-item">
                 <span class="date">January 2026:</span> Our Short Paper titled <a href="/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments.pdf">"TODO: Fix the Mess Gemini Created": Towards Understanding GenAI-Induced Self-Admitted Technical Debt</a> got accepted at TechDebt 2026! First paper of Mujahid (Congrats Mujahid)!
             </div>
@@ -300,7 +299,7 @@
                 <span class="date">March 2025:</span> Our paper titled <a href="https://dl.acm.org/doi/pdf/10.1145/3696630.3728701">LLPut: Investigating Large Language Models for Bug Report-Based Input Generation</a> got accepted at LLanMER 2025 (FSE Companion)!
             </div>
 
-            <h2>🔬 Reviewing and Community Services</h2>
+            <h2>Reviewing and Community Services</h2>
             
             <div class="section">
                 <h3>Conference Committee:</h3>
@@ -321,7 +320,7 @@
                 </ul>
             </div>
 
-            <h2>👨‍🎓 Prospective Students</h2>
+            <h2>Prospective Students</h2>
             <div class="section">
                 <p>If you are already an undergrad student at Missouri S&T, please feel free to email me to talk about potential research opportunities.</p>
                 
