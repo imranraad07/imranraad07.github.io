@@ -16,14 +16,6 @@ permalink: /posts/publications/
     </tr>
   </thead>
   <tbody>
-
-    <tr>
-      <td> “TODO: Fix the Mess Gemini Created”: Towards Understanding GenAI-Induced Self-Admitted Technical Debt</td>
-      <td>TechDebt 2026</td>
-      <td><a href="/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments.pdf">PDF</a></td>
-      <td><a href="Coming Soon!">Coming Soon</a></td>
-    </tr>
-
     <tr>
       <td> Toxicity Ahead: Forecasting Conversational Derailment on GitHub</td>
       <td>ICSE 2026</td>
@@ -37,6 +29,22 @@ permalink: /posts/publications/
       <td><a href="/posts/documents/ICSE_SEET_2026.pdf">PDF</a></td>
       <td><a href="https://zenodo.org/records/17145615">Replication</a></td>
     </tr>
+
+
+    <tr>
+      <td>Where Do AI Coding Agents Fail? An Empirical Study of Failed Agentic Pull Requests in GitHub</td>
+      <td>MSR Mining Challenge 2026</td>
+      <td><a href="https://arxiv.org/abs/2601.15195">PDF</a></td>
+      <td><a href="Coming Soon!">Coming Soon</a></td>
+    </tr>
+
+    <tr>
+      <td> “TODO: Fix the Mess Gemini Created”: Towards Understanding GenAI-Induced Self-Admitted Technical Debt</td>
+      <td>TechDebt 2026</td>
+      <td><a href="/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments.pdf">PDF</a></td>
+      <td><a href="https://zenodo.org/records/18194031">Zenodo</a></td>
+    </tr>
+
 
     <tr>
       <td> OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering</td>
