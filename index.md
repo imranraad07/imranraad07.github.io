@@ -15,13 +15,15 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 
 ### News
 
--- January 2026L Our Short Paper titled [“TODO: Fix the Mess Gemini Created”: Towards Understanding GenAI-Induced Self-Admitted Technical Debt](/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments.pdf) got accepted at TechDebt 2026 (Technical Track - Short Paper)! First paper of Mujahid (Congrats Mujahid)!
-
 -- Dec 2025: Our paper titled [**Toxicity Ahead: Forecasting Conversational Derailment on GitHub**](/posts/documents/ICSE_2026_Derailment.pdf) got accepted at ICSE 2026 (Research Track)!
 
 -- Dec 2025: Our paper titled [**Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming**](/posts/documents/ICSE_SEET_2026.pdf) got accepted at ICSE-SEET 2026 (Education Researech Track)!
 
 -- Dec 2025:  Our extended abstract titled [OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering](https://se-llm-annotation-olaf.github.io/olaf/) got accepted at WSESE Workshop 2026 (ICSE Companion)!
+
+-- January 2026: Our Short Paper titled [“TODO: Fix the Mess Gemini Created”: Towards Understanding GenAI-Induced Self-Admitted Technical Debt](/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments.pdf) got accepted at TechDebt 2026 (Technical Track - Short Paper)! First paper of Mujahid (Congrats Mujahid)!
+
+-- January 2026: Our MSR 2026 Mining Challenge track paper titled [Where Do AI Coding Agents Fail? An Empirical Study of Failed Agentic Pull Requests in GitHub](https://arxiv.org/abs/2601.15195) got accepted.
 
 -- Summer 2025: [Best Reviewer award at EASE 2025!](/posts/documents/ReviewerAward-Mia.pdf)
 
