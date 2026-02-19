@@ -35,6 +35,8 @@ Quick Link: [CV](posts/documents/CV.pdf) [Linkedin](https://linkedin.com/in/imra
 ### Reviewing and Community Services
  
 **Conference Committee**: 
+ * AIware 2026
+ * FSE 2026 (Idea and Vision Track)
  * SANER 2026 (Short Paper Track)
  * EASE 2026 (Short Paper Track)
  * SIGCSE TS 2026 (Experience Reports and Tools Track)
