@@ -7,16 +7,12 @@ permalink: /posts/teaching/cs5001/
 
 ## Some Helpful Items
 
-- [Excalidraw](https://excalidraw.com/)
-- [Padlet](https://padlet.com/)
 - [Standford CS146S: The Modern Software Developer](https://themodernsoftware.dev/)
 - [CMU 17-316/616: AI Tools for Software Development](https://ai-developer-tools.github.io/)
 - [USU DATA5570 - Building Software With Artificial Intelligence](https://catalog.usu.edu/courses/DATA5570)
 - [A Whole New World](https://annievella.com/posts/a-whole-new-world/)
 - [Wikipedia: AI-assisted software development](https://en.wikipedia.org/wiki/AI-assisted_software_development)
 - [IBM: AI in software development](https://www.ibm.com/think/topics/ai-in-software-development)
-- [MCP servers](https://mcp.so/)
-- [n8n](https://n8n.io/)
 
 ## Toos
 - Copilot
@@ -35,6 +31,10 @@ permalink: /posts/teaching/cs5001/
 - [Kiro](https://kiro.dev/)
 - [mintlify](https://www.mintlify.com/)
 - Aider.chat
+- [Excalidraw](https://excalidraw.com/)
+- [Padlet](https://padlet.com/)
+- [MCP servers](https://mcp.so/)
+- [n8n](https://n8n.io/)
 
 ## Topics We will Cover
 
