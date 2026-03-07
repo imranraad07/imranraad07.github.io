@@ -5,10 +5,32 @@ section: teaching
 permalink: /posts/teaching/
 ---
 
-- Spring, 2025: [CS 5001: AI-Augmented Software Engineering](/posts/teaching/cs5001/)
+<div class="courses-grid">
 
-- Fall, 2025: [CS 4090: SE Capstone I](/posts/teaching/cs4090/)
+  <div class="course-card">
+    <div class="course-meta">Spring 2026</div>
+    <div class="course-code">CS 5001</div>
+    <div class="course-name">AI-Augmented Software Engineering</div>
+    <a href="/posts/teaching/cs5001/" class="course-link">View course &rarr;</a>
+  </div>
 
-- Spring, 2025: CS 4090: SE Capstone I
+  <div class="course-card">
+    <div class="course-meta">Fall 2025</div>
+    <div class="course-code">CS 4090</div>
+    <div class="course-name">Software Engineering Capstone I</div>
+    <a href="/posts/teaching/cs4090/" class="course-link">View course &rarr;</a>
+  </div>
 
-- Spring, 2025: CS 4090: SE Capstone II
+  <div class="course-card">
+    <div class="course-meta">Spring 2025</div>
+    <div class="course-code">CS 4090</div>
+    <div class="course-name">Software Engineering Capstone I</div>
+  </div>
+
+  <div class="course-card">
+    <div class="course-meta">Spring 2025</div>
+    <div class="course-code">CS 4090</div>
+    <div class="course-name">Software Engineering Capstone II</div>
+  </div>
+
+</div>

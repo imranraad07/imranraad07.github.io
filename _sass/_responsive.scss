@@ -1,0 +1,28 @@
+// Mobile breakpoint — collapse all multi-column layouts
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    padding: 1.75rem;
+  }
+
+  .site-main {
+    padding: 2rem;
+  }
+
+  .research-themes,
+  .students-grid,
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-item {
+    grid-template-columns: 90px 1fr;
+  }
+
+  .workshop-item {
+    grid-template-columns: 50px 1fr;
+  }
+}

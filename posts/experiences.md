@@ -5,48 +5,47 @@ section: experiences
 permalink: /posts/experiences/
 ---
 
-
-<table border="1">
-  <tr>
-    <th>Position</th>
-    <th>Organization</th>
-    <th>Location</th>
-    <th>Year</th>
-  </tr>
-  <tr>
-    <td>Assistant Professor</td>
-    <td>Missouri University of Science and Technology</td>
-    <td>USA</td>
-    <td>2024-</td>
-  </tr>
-  <tr>
-    <td>Graduate Research Assistant</td>
-    <td>Virginia Commonwealth University</td>
-    <td>USA</td>
-    <td>2020-2024</td>
-  </tr>
-  <tr>
-    <td>Software Engineering Intern</td>
-    <td>Google</td>
-    <td>USA</td>
-    <td>2022</td>
-  </tr>
-  <tr>
-    <td>Software Engineer</td>
-    <td>Impel IT Solutions</td>
-    <td>Bangladesh</td>
-    <td>2019</td>
-  </tr>
-  <tr>
-    <td>Software Engineer</td>
-    <td>AnyConnect Private Limited</td>
-    <td>Bangladesh</td>
-    <td>2018-2019</td>
-  </tr>
-  <tr>
-    <td>Software Engineer</td>
-    <td>IPVision Canada Inc</td>
-    <td>Bangladesh</td>
-    <td>2016-2018</td>
-  </tr>
-</table>
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-year">2024&ndash;</div>
+    <div class="timeline-content">
+      <strong>Assistant Professor</strong>
+      <div class="timeline-org">Missouri University of Science and Technology &middot; USA</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-year">2020&ndash;2024</div>
+    <div class="timeline-content">
+      <strong>Graduate Research Assistant</strong>
+      <div class="timeline-org">Virginia Commonwealth University &middot; USA</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-year">2022</div>
+    <div class="timeline-content">
+      <strong>Software Engineering Intern</strong>
+      <div class="timeline-org">Google &middot; USA</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-year">2019</div>
+    <div class="timeline-content">
+      <strong>Software Engineer</strong>
+      <div class="timeline-org">Impel IT Solutions &middot; Bangladesh</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-year">2018&ndash;2019</div>
+    <div class="timeline-content">
+      <strong>Software Engineer</strong>
+      <div class="timeline-org">AnyConnect Private Limited &middot; Bangladesh</div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-year">2016&ndash;2018</div>
+    <div class="timeline-content">
+      <strong>Software Engineer</strong>
+      <div class="timeline-org">IPVision Canada Inc &middot; Bangladesh</div>
+    </div>
+  </div>
+</div>

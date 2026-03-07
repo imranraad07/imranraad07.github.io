@@ -1,0 +1,71 @@
+// Publications page — year-grouped card list
+.pub-year-group {
+  margin-bottom: 2.5rem;
+}
+
+.pub-year-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.pub-card {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #f1f5f9;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.pub-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+
+  a {
+    color: #111827;
+    text-decoration: none;
+
+    &:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+  }
+}
+
+.pub-venue {
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin-bottom: 0.4rem;
+}
+
+.pub-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pub-link {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid #c7d2fe;
+  border-radius: 999px;
+  color: #1d4ed8 !important;
+  text-decoration: none !important;
+  background: #f0f4ff;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #dbeafe;
+    border-color: #93c5fd;
+  }
+}

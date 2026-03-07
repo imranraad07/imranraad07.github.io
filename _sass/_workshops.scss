@@ -1,0 +1,42 @@
+// Workshops page — year-labeled list
+.workshop-list {
+  margin-top: 1rem;
+}
+
+.workshop-item {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #f1f5f9;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.workshop-year {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #6b7280;
+  padding-top: 0.15rem;
+}
+
+.workshop-content {
+  strong {
+    font-size: 0.95rem;
+    color: #111827;
+  }
+}
+
+.workshop-venue {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-top: 0.15rem;
+}
+
+.workshop-authors {
+  font-size: 0.82rem;
+  color: #6b7280;
+  margin-top: 0.1rem;
+}

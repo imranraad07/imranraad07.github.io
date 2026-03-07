@@ -1,0 +1,117 @@
+// Course schedule table
+.schedule-table-wrap {
+  overflow-x: auto;
+  margin: 1rem 0 1.5rem;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  th {
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7280;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid #e5e7eb;
+  }
+
+  td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: top;
+
+    &:first-child {
+      width: 2.5rem;
+      color: #9ca3af;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover td {
+    background: #f8faff;
+  }
+}
+
+// Tool chips grid
+.tool-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.tool-item {
+  padding: 0.3rem 0.85rem;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #374151;
+
+  a {
+    color: #374151;
+    text-decoration: none;
+
+    &:hover {
+      color: #2563eb;
+    }
+  }
+}
+
+// Teaching page — course card grid
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.course-card {
+  background: #f8faff;
+  border: 1px solid #e0e7ff;
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+}
+
+.course-meta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  margin-bottom: 0.3rem;
+}
+
+.course-code {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+.course-name {
+  font-size: 0.9rem;
+  color: #374151;
+  margin-top: 0.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.course-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #2563eb;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

@@ -5,8 +5,33 @@ section: workshops
 permalink: /posts/workshops/
 ---
 
-- M.M. Imran. "App Design: An Introduction to Computer Science" [Jackling Summer Camp, Missouri S&T, 2025](https://docs.google.com/presentation/d/1TRU2rITediWZjXPUkd5n5OVXbl6P9yMYBRh19bjN7pc/edit?usp=sharing).
+<div class="workshop-list">
 
-- H. Ali, M.M. Imran, K. Damevski, I. Ahmed. "Natural Language Processing (NLP) for Digital Forensics" [DFRWS 2023](documents/NLP_DF.pdf).
+  <div class="workshop-item">
+    <div class="workshop-year">2025</div>
+    <div class="workshop-content">
+      <strong>"App Design: An Introduction to Computer Science"</strong>
+      <div class="workshop-venue"><a href="https://docs.google.com/presentation/d/1TRU2rITediWZjXPUkd5n5OVXbl6P9yMYBRh19bjN7pc/edit?usp=sharing" target="_blank" rel="noopener">Jackling Summer Camp &mdash; Missouri S&amp;T</a></div>
+      <div class="workshop-authors">M.M. Imran</div>
+    </div>
+  </div>
 
-- H. Ali, M.M. Imran, K. Damevski, I. Ahmed. "Natural Language Processing (NLP) for Digital Forensics" Virginia State Police 2024.
+  <div class="workshop-item">
+    <div class="workshop-year">2024</div>
+    <div class="workshop-content">
+      <strong>"Natural Language Processing (NLP) for Digital Forensics"</strong>
+      <div class="workshop-venue">Virginia State Police</div>
+      <div class="workshop-authors">H. Ali, M.M. Imran, K. Damevski, I. Ahmed</div>
+    </div>
+  </div>
+
+  <div class="workshop-item">
+    <div class="workshop-year">2023</div>
+    <div class="workshop-content">
+      <strong>"Natural Language Processing (NLP) for Digital Forensics"</strong>
+      <div class="workshop-venue"><a href="documents/NLP_DF.pdf">DFRWS 2023</a></div>
+      <div class="workshop-authors">H. Ali, M.M. Imran, K. Damevski, I. Ahmed</div>
+    </div>
+  </div>
+
+</div>

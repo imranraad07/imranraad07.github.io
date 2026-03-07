@@ -5,126 +5,169 @@ section: publications
 permalink: /posts/publications/
 ---
 
+<div class="pub-year-group">
+<div class="pub-year-label">2026</div>
 
-<table border="1">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Conference/Journal</th>
-      <th>Document</th>
-      <th>Repository</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> Toxicity Ahead: Forecasting Conversational Derailment on GitHub</td>
-      <td>ICSE 2026</td>
-      <td><a href="/posts/documents/ICSE_2026_Derailment.pdf">PDF</a></td>
-      <td><a href="https://zenodo.org/records/15725618">Replication</a></td>
-    </tr>
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/ICSE_2026_Derailment.pdf">Toxicity Ahead: Forecasting Conversational Derailment on GitHub</a></div>
+  <div class="pub-venue">ICSE 2026</div>
+  <div class="pub-links">
+    <a href="/posts/documents/ICSE_2026_Derailment.pdf" class="pub-link">PDF</a>
+    <a href="https://zenodo.org/records/15725618" class="pub-link">Replication</a>
+  </div>
+</div>
 
-    <tr>
-      <td> Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming</td>
-      <td>ICSE 2026 (SEET track)</td>
-      <td><a href="/posts/documents/ICSE_SEET_2026.pdf">PDF</a></td>
-      <td><a href="https://zenodo.org/records/17145615">Replication</a></td>
-    </tr>
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/ICSE_SEET_2026.pdf">Learning Programming in Informal Spaces: Using Emotion as a Lens to Understand Novice Struggles on r/learnprogramming</a></div>
+  <div class="pub-venue">ICSE 2026 &mdash; SEET Track</div>
+  <div class="pub-links">
+    <a href="/posts/documents/ICSE_SEET_2026.pdf" class="pub-link">PDF</a>
+    <a href="https://zenodo.org/records/17145615" class="pub-link">Replication</a>
+  </div>
+</div>
 
+<div class="pub-card">
+  <div class="pub-title"><a href="https://arxiv.org/abs/2601.15195">Where Do AI Coding Agents Fail? An Empirical Study of Failed Agentic Pull Requests in GitHub</a></div>
+  <div class="pub-venue">MSR 2026 &mdash; Mining Challenge</div>
+  <div class="pub-links">
+    <a href="https://arxiv.org/abs/2601.15195" class="pub-link">ArXiv</a>
+  </div>
+</div>
 
-    <tr>
-      <td>Where Do AI Coding Agents Fail? An Empirical Study of Failed Agentic Pull Requests in GitHub</td>
-      <td>MSR Mining Challenge 2026</td>
-      <td><a href="https://arxiv.org/abs/2601.15195">PDF</a></td>
-      <td><a href="Coming Soon!">Coming Soon</a></td>
-    </tr>
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments.pdf">"TODO: Fix the Mess Gemini Created": Towards Understanding GenAI-Induced Self-Admitted Technical Debt</a></div>
+  <div class="pub-venue">TechDebt 2026</div>
+  <div class="pub-links">
+    <a href="/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments.pdf" class="pub-link">PDF</a>
+    <a href="https://zenodo.org/records/18194031" class="pub-link">Zenodo</a>
+  </div>
+</div>
 
-    <tr>
-      <td> “TODO: Fix the Mess Gemini Created”: Towards Understanding GenAI-Induced Self-Admitted Technical Debt</td>
-      <td>TechDebt 2026</td>
-      <td><a href="/posts/documents/TechDebt_26_SATD_in_SA_genAI_Comments.pdf">PDF</a></td>
-      <td><a href="https://zenodo.org/records/18194031">Zenodo</a></td>
-    </tr>
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/WSESE_2026.pdf">OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering</a></div>
+  <div class="pub-venue">ICSE Companion &mdash; WSESE Workshop 2026</div>
+  <div class="pub-links">
+    <a href="/posts/documents/WSESE_2026.pdf" class="pub-link">PDF</a>
+    <a href="https://se-llm-annotation-olaf.github.io/olaf/" class="pub-link">Project</a>
+  </div>
+</div>
 
+<div class="pub-card">
+  <div class="pub-title"><a href="https://arxiv.org/pdf/2503.10072"><em>"Silent Is Not Actually Silent"</em>: An Investigation of Toxicity on Bug Report Discussion</a></div>
+  <div class="pub-venue">FSE 2026 &mdash; Ideas, Visions and Reflections Track</div>
+  <div class="pub-links">
+    <a href="https://arxiv.org/pdf/2503.10072" class="pub-link">ArXiv</a>
+    <a href="https://zenodo.org/records/15015619" class="pub-link">Replication</a>
+  </div>
+</div>
 
-    <tr>
-      <td> OLAF: Towards Robust LLM-Based Annotation Framework in Empirical Software Engineering</td>
-      <td>ICSE Companion: WSESE 2026 </td>
-      <td><a href="/posts/documents/WSESE_2026.pdf">PDF</a></td>
-      <td><a href="https://se-llm-annotation-olaf.github.io/olaf/">OLAF</a></td>
-    </tr>
+</div>
 
+<div class="pub-year-group">
+<div class="pub-year-label">2025</div>
 
-    <tr>
-      <td> <em>"Silent Is Not Actually Silent"</em>: An Investigation of Toxicity on Bug Report Discussion 	</td>
-      <td>FSE 2025 (IVR Track)</td>
-      <td><a href="https://arxiv.org/pdf/2503.10072">ArXiV</a></td>
-      <td><a href="https://zenodo.org/records/15015619">Replication</a></td>
-    </tr>
-    
-    <tr>
-      <td> LLPut: Investigating Large Language Models for Bug Report-Based Input Generation </td>
-      <td>FSE Companion 2025</td>
-      <td><a href="https://dl.acm.org/doi/pdf/10.1145/3696630.3728701">ACM</a></td>
-      <td><a href="https://zenodo.org/records/15092886">Replication</a></td>
-    </tr>
+<div class="pub-card">
+  <div class="pub-title"><a href="https://dl.acm.org/doi/pdf/10.1145/3696630.3728701">LLPut: Investigating Large Language Models for Bug Report-Based Input Generation</a></div>
+  <div class="pub-venue">FSE Companion 2025 &mdash; LLanMER Workshop</div>
+  <div class="pub-links">
+    <a href="https://dl.acm.org/doi/pdf/10.1145/3696630.3728701" class="pub-link">ACM</a>
+    <a href="https://zenodo.org/records/15092886" class="pub-link">Replication</a>
+  </div>
+</div>
 
-    <tr>
-      <td> Understanding and Predicting Derailment in Toxic Conversations on GitHub 	</td>
-      <td> Submitted </td>
-      <td><a href="https://arxiv.org/pdf/2503.02191">ArXiV</a></td>
-      <td><a href="https://anonymous.4open.science/r/derailment-oss-replication-C8B1">Replication</a></td>
-    </tr>
+<div class="pub-card">
+  <div class="pub-title"><a href="https://arxiv.org/pdf/2503.02191">Understanding and Predicting Derailment in Toxic Conversations on GitHub</a></div>
+  <div class="pub-venue">Under Review</div>
+  <div class="pub-links">
+    <a href="https://arxiv.org/pdf/2503.02191" class="pub-link">ArXiv</a>
+    <a href="https://anonymous.4open.science/r/derailment-oss-replication-C8B1" class="pub-link">Replication</a>
+  </div>
+</div>
 
+</div>
 
-    <tr>
-      <td>Towards Effective Developer Communication in Open Source Software via Emotional Awareness</td>
-      <td>PhD Dissertation</td>
-      <td><a href="https://scholarscompass.vcu.edu/cgi/viewcontent.cgi?article=8939&context=etd">PDF</a></td>
-      <td><a href="https://scholarscompass.vcu.edu/etd/7776/">Link</a></td>
-    </tr>
+<div class="pub-year-group">
+<div class="pub-year-label">2024</div>
 
-    <tr>
-      <td>Uncovering the Causes of Emotions in Software Developer Communication Using Zero-shot LLMs</td>
-      <td>ICSE 2024</td>
-      <td><a href="posts/documents/Emotion_Cause_SE.pdf">PDF</a></td>
-      <td><a href="https://github.com/vcu-swim-lab/SE-Emotion-Cause-Replication">Repo</a></td>
-    </tr>
-    <tr>
-      <td>Shedding Light on Software Engineering-specific Metaphors and Idioms</td>
-      <td>ICSE 2024</td>
-      <td><a href="/posts/documents/Figurative_Language_SE.pdf">PDF</a></td>
-      <td><a href="https://github.com/vcu-swim-lab/SE-Figurative-Language">Repo</a></td>
-    </tr>
-    <tr>
-      <td>Emotion Classification In Software Engineering Texts: A Comparative Analysis of Pre-trained Transformers Language Models</td>
-      <td>NLBSE 2024</td>
-      <td><a href="/posts/documents/Emotion_SE_LLM.pdf">PDF</a></td>
-      <td><a href="https://github.com/vcu-swim-lab/SE-Figurative-Language">Repo</a></td>
-    </tr>
-    <tr>
-      <td>Incivility in Open Source Projects: A Comprehensive Annotated Dataset of Locked GitHub Issue Threads</td>
-      <td>MSR 2024</td>
-      <td><a href="/posts/documents/Emotion_SE_LLM.pdf">PDF</a></td>
-      <td><a href="https://github.com/vcu-swim-lab/incivility-dataset">Repo</a></td>
-    </tr>
-    <tr>
-      <td>Data Augmentation for Improving Emotion Recognition in Software Engineering Communication</td>
-      <td>ASE 2022</td>
-      <td><a href="/posts/documents/Emotion_SE_Data_Augmentation.pdf">PDF</a></td>
-      <td><a href="https://github.com/vcu-swim-lab/SE-Emotion-Study">Repo</a></td>
-    </tr>
-    <tr>
-      <td>Using Clarification Questions to Improve Software Developers’ Web Search</td>
-      <td>Information and Software Technology 2022</td>
-      <td><a href="/posts/documents/Web_CQ.pdf">PDF</a></td>
-      <td><a href="https://github.com/vcu-swim-lab/Query-Expansion-Questions">Repo</a></td>
-    </tr>
-    <tr>
-      <td>Automatically Selecting Follow-up Questions for Deficient Bug Reports</td>
-      <td>MSR 2021</td>
-      <td><a href="/posts/documents/BugAutoQ.pdf">PDF</a></td>
-      <td><a href="https://github.com/vcu-swim-lab/BugAutoQ">Repo</a></td>
-    </tr>
-  </tbody>
-</table>
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/Emotion_Cause_SE.pdf">Uncovering the Causes of Emotions in Software Developer Communication Using Zero-shot LLMs</a></div>
+  <div class="pub-venue">ICSE 2024</div>
+  <div class="pub-links">
+    <a href="/posts/documents/Emotion_Cause_SE.pdf" class="pub-link">PDF</a>
+    <a href="https://github.com/vcu-swim-lab/SE-Emotion-Cause-Replication" class="pub-link">Repo</a>
+  </div>
+</div>
 
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/Figurative_Language_SE.pdf">Shedding Light on Software Engineering-specific Metaphors and Idioms</a></div>
+  <div class="pub-venue">ICSE 2024</div>
+  <div class="pub-links">
+    <a href="/posts/documents/Figurative_Language_SE.pdf" class="pub-link">PDF</a>
+    <a href="https://github.com/vcu-swim-lab/SE-Figurative-Language" class="pub-link">Repo</a>
+  </div>
+</div>
+
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/Emotion_SE_LLM.pdf">Emotion Classification In Software Engineering Texts: A Comparative Analysis of Pre-trained Transformers</a></div>
+  <div class="pub-venue">NLBSE 2024</div>
+  <div class="pub-links">
+    <a href="/posts/documents/Emotion_SE_LLM.pdf" class="pub-link">PDF</a>
+  </div>
+</div>
+
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/Incivility_SE.pdf">Incivility in Open Source Projects: A Comprehensive Annotated Dataset of Locked GitHub Issue Threads</a></div>
+  <div class="pub-venue">MSR 2024</div>
+  <div class="pub-links">
+    <a href="/posts/documents/Incivility_SE.pdf" class="pub-link">PDF</a>
+    <a href="https://github.com/vcu-swim-lab/incivility-dataset" class="pub-link">Repo</a>
+  </div>
+</div>
+
+<div class="pub-card">
+  <div class="pub-title"><a href="https://scholarscompass.vcu.edu/cgi/viewcontent.cgi?article=8939&context=etd">Towards Effective Developer Communication in Open Source Software via Emotional Awareness</a></div>
+  <div class="pub-venue">Ph.D. Dissertation &mdash; Virginia Commonwealth University</div>
+  <div class="pub-links">
+    <a href="https://scholarscompass.vcu.edu/cgi/viewcontent.cgi?article=8939&context=etd" class="pub-link">PDF</a>
+    <a href="https://scholarscompass.vcu.edu/etd/7776/" class="pub-link">VCU Scholars</a>
+  </div>
+</div>
+
+</div>
+
+<div class="pub-year-group">
+<div class="pub-year-label">2022</div>
+
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/Emotion_SE_Data_Augmentation.pdf">Data Augmentation for Improving Emotion Recognition in Software Engineering Communication</a></div>
+  <div class="pub-venue">ASE 2022</div>
+  <div class="pub-links">
+    <a href="/posts/documents/Emotion_SE_Data_Augmentation.pdf" class="pub-link">PDF</a>
+    <a href="https://github.com/vcu-swim-lab/SE-Emotion-Study" class="pub-link">Repo</a>
+  </div>
+</div>
+
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/Web_CQ.pdf">Using Clarification Questions to Improve Software Developers' Web Search</a></div>
+  <div class="pub-venue">Information and Software Technology 2022</div>
+  <div class="pub-links">
+    <a href="/posts/documents/Web_CQ.pdf" class="pub-link">PDF</a>
+    <a href="https://github.com/vcu-swim-lab/Query-Expansion-Questions" class="pub-link">Repo</a>
+  </div>
+</div>
+
+</div>
+
+<div class="pub-year-group">
+<div class="pub-year-label">2021</div>
+
+<div class="pub-card">
+  <div class="pub-title"><a href="/posts/documents/BugAutoQ.pdf">Automatically Selecting Follow-up Questions for Deficient Bug Reports</a></div>
+  <div class="pub-venue">MSR 2021</div>
+  <div class="pub-links">
+    <a href="/posts/documents/BugAutoQ.pdf" class="pub-link">PDF</a>
+    <a href="https://github.com/vcu-swim-lab/BugAutoQ" class="pub-link">Repo</a>
+  </div>
+</div>
+
+</div>

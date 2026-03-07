@@ -1,0 +1,113 @@
+// Container
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+// Header
+.site-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.site-header .container {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.site-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #111827;
+}
+
+.site-tagline {
+  display: block;
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-top: 0.25rem;
+}
+
+// Page layout grid
+.layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 3rem;
+  align-items: stretch;
+}
+
+// Sidebar — default
+.sidebar {
+  background-color: #eef2ff;
+  color: #1e293b;
+  padding: 2rem 1.75rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.sidebar-nav ul,
+.sidebar-external ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav li,
+.sidebar-external li {
+  margin-bottom: 0.8rem;
+}
+
+.sidebar a {
+  color: #1e3a8a;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sidebar a:hover {
+  color: #063ceb;
+  text-decoration: underline;
+}
+
+.sidebar-divider {
+  margin: 1.75rem 0;
+  border-top: 1px solid #c7d2fe;
+}
+
+// Sidebar color by section
+body.teaching .sidebar    { background-color: rgba(255, 243, 226, 0.796); }
+body.publications .sidebar { background-color: #D8E3DB; }
+body.research .sidebar    { background-color: #fff7ed; }
+body.cv .sidebar          { background-color: #dddedf; }
+
+// Main content area
+.site-main {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 8px;
+  color: #111827;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.25;
+}
+
+// Footer
+.site-footer {
+  margin-top: 3rem;
+  background-color: #ffffff;
+  border-top: 1px solid #d1d5db;
+}
+
+.site-footer .container {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
