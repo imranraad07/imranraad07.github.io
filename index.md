@@ -47,8 +47,18 @@ Mia Mohammad Imran is an Assistant Professor in the Department of Computer Scien
 
 ---
 
-### Service
+### Reviewing and Community Services
 
-**Program Committee:** AIware 2026 · FSE 2026 (IVR) · SANER 2026 · EASE 2026 · SIGCSE TS 2026 · EASE 2025 · AI IDE 2025
+**Conference Committee:**
 
-**Journals:** IEEE TSE · Empirical Software Engineering · Information and Software Technology · Automated Software Engineering
+- ICSME 2026 (Visions and Emerging Results Track)
+- ESEC/FSE 2026 (Ideas, Visions and Reflections Track)
+- AIware 2026 (Main Track)
+- SANER 2026 (Short Papers and Posters Track)
+- EASE 2026 (Short Papers and Emerging Results Track)
+- SIGCSE TS 2026 (Program Committee Reviewer)
+- AI IDE 2025 (FSE Workshop)
+- EASE 2025 (Short Paper Track)
+- EASE 2025 (Learnings & Reflections within the Learnings/Reflections of Evaluation and Assessment projects in Software Engineering-track)
+
+**Journals:** Reviewer at journals such as IEEE Transactions on Software Engineering, Empirical Software Engineering, Information and Software Technology, Automated Software Engineering.
