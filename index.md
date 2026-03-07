@@ -7,36 +7,13 @@ layout: default
 
 Mia Mohammad Imran is an Assistant Professor in the Department of Computer Science at [Missouri University of Science and Technology](https://cs.mst.edu). His research focuses on the human side of software engineering — how developers communicate, how GenAI reshapes code quality, and how emotion and toxicity shape open-source communities. His methods combine empirical analysis, NLP, and LLMs to understand and improve software development at scale.
 
-<div class="quick-links">
-  <a href="/posts/documents/CV.pdf" class="pill">CV</a>
-  <a href="https://linkedin.com/in/imranraad" class="pill" target="_blank" rel="noopener">LinkedIn</a>
-  <a href="https://github.com/imranraad07" class="pill" target="_blank" rel="noopener">GitHub</a>
-  <a href="https://scholar.google.com/citations?user=uVCaRjAAAAAJ&hl=en" class="pill" target="_blank" rel="noopener">Google Scholar</a>
-  <a href="mailto:imranm@mst.edu" class="pill">Email</a>
-</div>
+{% include home-quick-links.html %}
 
 ---
 
 ### Research
 
-<div class="research-themes">
-  <div class="theme-card">
-    <div class="theme-label">GenAI &amp; Code Quality</div>
-    <p>How AI tools reshape development practice, introduce technical debt, and affect code quality in the wild.</p>
-  </div>
-  <div class="theme-card">
-    <div class="theme-label">Toxicity &amp; Community Health</div>
-    <p>Understanding and predicting toxic conversations and derailment in open-source developer communities.</p>
-  </div>
-  <div class="theme-card">
-    <div class="theme-label">Emotion in Software Engineering</div>
-    <p>Using emotion as a lens to study developer communication and the struggles of novice programmers.</p>
-  </div>
-  <div class="theme-card">
-    <div class="theme-label">Bug Reports &amp; Developer Tools</div>
-    <p>Improving software quality through better bug reporting, LLM-based input generation, and developer tooling.</p>
-  </div>
-</div>
+{% include home-research-themes.html %}
 
 <a href="/posts/research" class="view-all-link">View research overviews &rarr;</a> &nbsp; <a href="/posts/publications" class="view-all-link">View all publications &rarr;</a>
 
@@ -64,25 +41,9 @@ Mia Mohammad Imran is an Assistant Professor in the Department of Computer Scien
 
 ### Students
 
-<div class="students-grid">
-  <div class="student-group">
-    <div class="student-group-label">Current</div>
-    <ul>
-      <li>Abdullah Al Mujahid <span class="student-meta">PhD · 2025&ndash;</span></li>
-      <li>Fariha Tanjim Shifat <span class="student-meta">PhD · 2025&ndash;</span></li>
-    </ul>
-  </div>
-  <div class="student-group">
-    <div class="student-group-label">Alumni</div>
-    <ul>
-      <li>Hariswar Baburaj <span class="student-meta">2026</span></li>
-      <li>Carson Kempf <span class="student-meta">Undergraduate · 2025</span></li>
-      <li>Piper Jeffries <span class="student-meta">Undergraduate · 2025</span></li>
-    </ul>
-  </div>
-</div>
+{% include home-students.html %}
 
-*I'm currently seeking collaborations with industry partners and enthusiastic undergraduate students. [Contact me](mailto:imranm@mst.edu) if interested. Note: **not** currently hiring PhD or Master's students.*
+*Mia Mohammad Imran is currently seeking collaborations with industry partners and enthusiastic undergraduate students. [Contact him](mailto:imranm@mst.edu) if interested. Note: **not** currently hiring PhD or Master's students.*
 
 ---
 

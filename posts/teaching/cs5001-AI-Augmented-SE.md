@@ -11,82 +11,13 @@ This course explores how AI — particularly large language models and agentic s
 
 ## Schedule
 
-<div class="schedule-table-wrap">
-<table class="schedule-table">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Topic</th>
-      <th>Slides</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Introduction</td>
-      <td><a href=”/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_1_Introduction.pdf”>PDF</a></td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>LLMs and their Application in Software Engineering</td>
-      <td><a href=”/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_2_LLM_and_its_Application_in_SE.pdf”>PDF</a></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Prompt Engineering in Software Engineering</td>
-      <td><a href=”/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_3_Prompt_Engineering_in_SE.pdf”>PDF</a></td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>RAG-Based Prompting</td>
-      <td><a href=”/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_4_RAG_Based_Prompting.pdf”>PDF</a></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>Retrieval-Augmented Generation (Deep Dive)</td>
-      <td><a href=”/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_Retrieval-Augmented_Generation.pdf”>PDF</a></td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>Building a CLI Agent</td>
-      <td><a href=”/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_5_Building_A_CLI_Agent.pdf”>PDF</a></td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Agentic AI Design Patterns</td>
-      <td><a href=”/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_6_Agentic_AI_Design_Patterns.pdf”>PDF</a></td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Towards a &ldquo;Personalized&rdquo; AI Assistant</td>
-      <td><a href=”/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_7_Towards_Personalized_AI_Assistant.pdf”>PDF</a></td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>AI Agent Orchestration</td>
-      <td><a href=”/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_8_AI_Agents_Orchestration.pdf”>PDF</a></td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>Agentic Protocols</td>
-      <td><a href=”/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_9_Agentic_Protocols.pdf”>PDF</a></td>
-    </tr>
-  </tbody>
-</table>
-</div>
+{% include cs5001-schedule.html %}
 
 ---
 
 ## Tools
 
-<div class="tool-grid">
-  <div class="tool-item">Copilot</div>
-  <div class="tool-item">Ollama</div>
-  <div class="tool-item">LangChain / LangSmith</div>
-  <div class="tool-item">AutoGen</div>
-  <div class="tool-item"><a href="https://mcp.so/">MCP Servers</a></div>
-  <div class="tool-item"><a href="https://n8n.io/">n8n</a></div>
-</div>
+{% include cs5001-tools.html %}
 
 ---
 
