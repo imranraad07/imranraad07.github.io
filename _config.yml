@@ -16,6 +16,9 @@ repository: imranraad07/imranraad07.github.io
 markdown: kramdown
 highlighter: rouge
 
+kramdown:
+  parse_block_html: true
+
 permalink: pretty
 
 # =========================
