@@ -5,7 +5,7 @@ section: research
 permalink: /posts/research/
 ---
 
-My research sits at the intersection of **Software Engineering**, **NLP**, and **Empirical Methods**. I use large-scale data analysis, machine learning, and LLMs to study how developers communicate, how AI tools change the way software is built, and how emotion and toxicity shape open-source communities.
+His research sits at the intersection of **Software Engineering**, **NLP**, and **Empirical Methods**, using large-scale data analysis, machine learning, and LLMs to study how developers communicate, how AI tools change the way software is built, and how emotion and toxicity shape open-source communities.
 
 ---
 

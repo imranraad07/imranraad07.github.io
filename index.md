@@ -5,7 +5,7 @@
 layout: default
 ---
 
-I am an Assistant Professor in the Department of Computer Science at [Missouri University of Science and Technology](https://cs.mst.edu). I study the human side of software engineering — how developers communicate, how GenAI reshapes code quality, and how emotion and toxicity shape open-source communities. My methods combine empirical analysis, NLP, and LLMs to understand and improve software development at scale.
+Mia Mohammad Imran is an Assistant Professor in the Department of Computer Science at [Missouri University of Science and Technology](https://cs.mst.edu). His research focuses on the human side of software engineering — how developers communicate, how GenAI reshapes code quality, and how emotion and toxicity shape open-source communities. His methods combine empirical analysis, NLP, and LLMs to understand and improve software development at scale.
 
 <div class="quick-links">
   <a href="/posts/documents/CV.pdf" class="pill">CV</a>

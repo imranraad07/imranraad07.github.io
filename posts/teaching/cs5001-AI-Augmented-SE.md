@@ -24,52 +24,52 @@ This course explores how AI — particularly large language models and agentic s
     <tr>
       <td>1</td>
       <td>Introduction</td>
-      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 1_ Introduction.pdf">PDF</a></td>
+      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 1_Introduction.pdf">PDF</a></td>
     </tr>
     <tr>
       <td>2</td>
       <td>LLMs and their Application in Software Engineering</td>
-      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 2_ LLM and its Application in SE.pdf">PDF</a></td>
+      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 2_LLM and its Application in SE.pdf">PDF</a></td>
     </tr>
     <tr>
       <td>3</td>
       <td>Prompt Engineering in Software Engineering</td>
-      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 3_ Prompt Engineering in SE.pdf">PDF</a></td>
+      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 3_Prompt Engineering in SE.pdf">PDF</a></td>
     </tr>
     <tr>
       <td>4</td>
       <td>RAG-Based Prompting</td>
-      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 4_ RAG Based Prompting.pdf">PDF</a></td>
+      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 4_RAG Based Prompting.pdf">PDF</a></td>
     </tr>
     <tr>
       <td></td>
       <td>Retrieval-Augmented Generation (Deep Dive)</td>
-      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_ Retrieval-Augmented Generation.pdf">PDF</a></td>
+      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture_Retrieval-Augmented Generation.pdf">PDF</a></td>
     </tr>
     <tr>
       <td>5</td>
       <td>Building a CLI Agent</td>
-      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 5_ Building A CLI Agent.pdf">PDF</a></td>
+      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 5_Building A CLI Agent.pdf">PDF</a></td>
     </tr>
     <tr>
       <td>6</td>
       <td>Agentic AI Design Patterns</td>
-      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 6_ Agentic AI design patterns.pdf">PDF</a></td>
+      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 6_Agentic AI design patterns.pdf">PDF</a></td>
     </tr>
     <tr>
       <td>7</td>
       <td>Towards a "Personalized" AI Assistant</td>
-      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 7_ Towards "Personalized" AI Assistant.pdf">PDF</a></td>
+      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 7_Towards “Personalized” AI Assistant.pdf">PDF</a></td>
     </tr>
     <tr>
       <td>8</td>
       <td>AI Agent Orchestration</td>
-      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 8_ AI Agents Orchestration.pdf">PDF</a></td>
+      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 8_AI Agents Orchestration.pdf">PDF</a></td>
     </tr>
     <tr>
       <td>9</td>
       <td>Agentic Protocols</td>
-      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 9_ Agentic Protocols.pdf">PDF</a></td>
+      <td><a href="/posts/teaching/CS_5001_Spring_2026_cs5001-AI-Augmented-SE/Lecture 9_Agentic Protocols.pdf">PDF</a></td>
     </tr>
   </tbody>
 </table>
