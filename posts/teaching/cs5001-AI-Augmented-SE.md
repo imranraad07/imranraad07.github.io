@@ -7,6 +7,8 @@ permalink: /posts/teaching/cs5001/
 
 This course explores how AI — particularly large language models and agentic systems — is transforming software engineering practice. Students learn to use, evaluate, and reason critically about AI-augmented development tools, from prompt engineering and retrieval-augmented generation to autonomous coding agents and multi-agent orchestration. The course blends conceptual foundations with hands-on projects.
 
+[GitHub Repository](https://github.com/imranraad07/CS-5001-AI-Augmented-SE/tree/master)
+
 ---
 
 ## Schedule
