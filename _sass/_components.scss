@@ -36,17 +36,38 @@
   line-height: 1.55;
 }
 
-// News timeline (auto-styled via adjacent sibling)
-#news + ul {
-  list-style: none;
-  padding-left: 0;
+// News timeline
+.news-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0.5rem 0 1rem;
+}
 
-  > li {
-    border-left: 3px solid #2563eb;
-    padding: 0.15rem 0 0.15rem 1rem;
-    margin-bottom: 1rem;
-    list-style: none;
-  }
+.news-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  border-left: 3px solid #2563eb;
+  padding: 0.3rem 0 0.3rem 1rem;
+}
+
+.news-date {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 4px;
+  padding: 0.1rem 0.45rem;
+  white-space: nowrap;
+}
+
+.news-text {
+  font-size: 0.92rem;
+  color: #374151;
+  line-height: 1.5;
 }
 
 // Paper entry accent (list items that contain a .finding)
@@ -55,4 +76,77 @@
   padding-left: 1rem;
   margin-bottom: 2rem;
   list-style: none;
+}
+
+// Heading anchor links
+.heading-anchor {
+  margin-left: 0.4rem;
+  font-size: 0.8em;
+  color: #94a3b8;
+  text-decoration: none !important;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+h2:hover .heading-anchor,
+h3:hover .heading-anchor {
+  opacity: 1;
+}
+
+// Back-to-top button
+#back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, background 0.15s;
+  z-index: 100;
+
+  &.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &:hover {
+    background: #1d4ed8;
+  }
+}
+
+// 404 page
+.not-found {
+  text-align: center;
+  padding: 5rem 1rem;
+}
+
+.not-found-code {
+  font-size: 5rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  line-height: 1;
+}
+
+.not-found-msg {
+  font-size: 1.2rem;
+  color: #64748b;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.not-found-link {
+  color: #2563eb;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

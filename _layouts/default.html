@@ -15,6 +15,7 @@
   <meta name="description"
         content="{{ page.description | default: site.description | strip_html | truncate: 160 }}">
 
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
 </head>
 
@@ -106,10 +107,38 @@
   <footer class="site-footer">
     <div class="container">
       <p>
-        © {{ site.time | date: '%Y' }} {{ site.title }}
+        &copy; {{ site.time | date: '%Y' }} {{ site.title }}
+        &nbsp;&middot;&nbsp;
+        <a href="mailto:imranm@mst.edu">imranm@mst.edu</a>
+        &nbsp;&middot;&nbsp;
+        Missouri S&amp;T, Computer Science
       </p>
     </div>
   </footer>
+
+  <!-- Back to top -->
+  <button id="back-to-top" aria-label="Back to top" title="Back to top">&#8593;</button>
+
+  <script>
+    // Back-to-top button
+    var btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', function () {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Anchor links on headings
+    document.querySelectorAll('.site-main h2, .site-main h3').forEach(function (h) {
+      if (!h.id) return;
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.className = 'heading-anchor';
+      a.textContent = '#';
+      h.appendChild(a);
+    });
+  </script>
 
 </body>
 </html>
