@@ -1,0 +1,327 @@
+// =====================
+// Knowledge System page
+// =====================
+
+// Flow diagram
+.ks-flow {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.ks-step {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  flex: 1;
+  min-width: 110px;
+}
+
+.ks-step-number {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #16a34a;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+
+.ks-step-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #14532d;
+  margin-bottom: 0.35rem;
+}
+
+.ks-step-desc {
+  font-size: 0.8rem;
+  color: #374151;
+  line-height: 1.45;
+}
+
+.ks-arrow {
+  display: flex;
+  align-items: center;
+  padding-top: 1.2rem;
+  color: #6b7280;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.ks-repeat-badge {
+  display: inline-block;
+  margin: 0.75rem 0 1.5rem;
+  padding: 0.3rem 1rem;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #15803d;
+}
+
+// Before/after contrast columns
+.ks-contrast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.ks-contrast-col {
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  ul li {
+    font-size: 0.875rem;
+    color: #374151;
+    margin-bottom: 0.4rem;
+    border-left: none !important;
+    padding-left: 0 !important;
+
+    &::before {
+      content: "— ";
+      color: #9ca3af;
+    }
+  }
+}
+
+.ks-contrast-before {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.ks-contrast-after {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.ks-contrast-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.75rem;
+}
+
+.ks-contrast-before .ks-contrast-label { color: #6b7280; }
+.ks-contrast-after  .ks-contrast-label { color: #15803d; }
+
+// =====================
+// Chatbot
+// =====================
+
+.ks-chatbot {
+  margin-top: 1.5rem;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f9fafb;
+}
+
+// Groq connect screen
+.ks-connect {
+  padding: 1.5rem 1.75rem;
+}
+
+.ks-connect-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ks-key-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ks-connect-hint {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin: 0;
+
+  a { color: #16a34a; }
+}
+
+.ks-model-select {
+  flex: 1;
+  min-width: 140px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  background: #fff;
+
+  &:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15);
+  }
+}
+
+.ks-key-btn {
+  padding: 0.5rem 1.25rem;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    background: #15803d;
+  }
+}
+
+// Chat interface
+.ks-chat-interface {
+  display: flex;
+  flex-direction: column;
+}
+
+.ks-messages {
+  height: 320px;
+  overflow-y: auto;
+  padding: 1.25rem 1.25rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ks-msg {
+  display: flex;
+
+  &--user {
+    justify-content: flex-end;
+
+    .ks-msg-bubble {
+      background: #16a34a;
+      color: #fff;
+      border-radius: 14px 14px 3px 14px;
+    }
+  }
+
+  &--assistant {
+    justify-content: flex-start;
+
+    .ks-msg-bubble {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      color: #111827;
+      border-radius: 14px 14px 14px 3px;
+    }
+  }
+}
+
+.ks-msg-bubble {
+  max-width: 85%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+// Suggestion chips
+.ks-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.5rem 1.25rem;
+}
+
+.ks-suggestion {
+  padding: 0.3rem 0.75rem;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: #15803d;
+  cursor: pointer;
+  font-weight: 500;
+
+  &:hover {
+    background: #dcfce7;
+  }
+}
+
+// Input row
+.ks-input-row {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.ks-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+
+  &:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15);
+  }
+}
+
+.ks-send-btn {
+  padding: 0.5rem 0.9rem;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: #15803d;
+  }
+
+  &:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+  }
+}
+
+.ks-chat-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 1rem 0.5rem;
+  background: #fff;
+}
+
+#ks-status {
+  font-size: 0.78rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.ks-reset-btn {
+  background: none;
+  border: none;
+  font-size: 0.78rem;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    color: #6b7280;
+    text-decoration: underline;
+  }
+}

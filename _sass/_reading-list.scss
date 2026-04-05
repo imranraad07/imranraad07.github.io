@@ -1,0 +1,151 @@
+// =====================
+// Reading List page
+// =====================
+
+.rl-count {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #7c3aed;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.rl-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rl-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
+  border-radius: 0 8px 8px 0;
+
+  // override global li styles from _components.scss
+  border-left: 3px solid #7c3aed !important;
+  padding-left: 1.25rem !important;
+  margin-bottom: 0 !important;
+}
+
+.rl-item-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.rl-title {
+  flex: 1;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1e1b4b;
+  text-decoration: none;
+  text-transform: capitalize;
+  line-height: 1.4;
+
+  &:hover {
+    color: #7c3aed;
+    text-decoration: underline;
+  }
+}
+
+.rl-badge {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #7c3aed;
+  background: #ede9fe;
+  border: 1px solid #ddd6fe;
+  border-radius: 4px;
+  padding: 0.15rem 0.45rem;
+  margin-top: 0.1rem;
+}
+
+.rl-summary {
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.6;
+  margin: 0;
+
+  &--pending {
+    color: #9ca3af;
+    font-style: italic;
+    font-size: 0.82rem;
+  }
+}
+
+.rl-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.15rem;
+}
+
+.rl-action {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.15s;
+
+  &--read {
+    background: #7c3aed;
+    color: #fff;
+
+    &:hover { background: #6d28d9; }
+  }
+
+  &--download {
+    background: #ede9fe;
+    color: #5b21b6;
+    border: 1px solid #ddd6fe;
+
+    &:hover { background: #ddd6fe; }
+  }
+
+  &--delete {
+    background: none;
+    color: #9ca3af;
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    font-family: inherit;
+
+    &:hover {
+      background: #fee2e2;
+      color: #dc2626;
+      border-color: #fca5a5;
+    }
+  }
+}
+
+.rl-empty {
+  margin: 2rem 0;
+  padding: 2rem;
+  text-align: center;
+  border: 1px dashed #d8b4fe;
+  border-radius: 8px;
+  color: #6b7280;
+
+  p { margin: 0 0 0.5rem; }
+}
+
+.rl-empty-hint {
+  font-size: 0.85rem;
+  color: #9ca3af;
+
+  code {
+    background: #f3f4f6;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+  }
+}
