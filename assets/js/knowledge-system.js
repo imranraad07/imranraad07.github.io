@@ -5,8 +5,120 @@
   var PDFJS_CDN    = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
   var PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
+  var GH_OWNER = 'imranraad07';
+  var GH_REPO  = 'imranraad07.github.io';
+  var GH_PATH  = 'assets/ks-data/wiki.json';
+  var GH_API   = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + GH_PATH;
+
   var RL_PAPERS  = JSON.parse(document.getElementById('ks-rl-data').textContent  || '[]');
   var LAB_PAPERS = JSON.parse(document.getElementById('ks-lab-data').textContent || '[]');
+
+  // ── In-memory store (no localStorage) ────────────────────────────
+  var wikiData   = {};
+  var ghToken    = '';
+  var _fileSha   = '';
+  var _saveTimer = null;
+
+  var _fileHandle    = null;
+  var _localSaveTimer = null;
+
+  function getItem(key)      { return wikiData.hasOwnProperty(key) ? wikiData[key] : null; }
+  function setItem(key, val) { wikiData[key] = val; scheduleSave(); scheduleLocalSave(); }
+
+  // ── GitHub remote save ────────────────────────────────────────────
+  function scheduleSave() {
+    clearTimeout(_saveTimer);
+    _saveTimer = setTimeout(commitWiki, 2000);
+  }
+
+  // ── Local disk save (File System Access API) ──────────────────────
+  function scheduleLocalSave() {
+    if (!_fileHandle) return;
+    clearTimeout(_localSaveTimer);
+    _localSaveTimer = setTimeout(writeToLocalFile, 1000);
+  }
+
+  function writeToLocalFile() {
+    if (!_fileHandle) return;
+    _fileHandle.createWritable()
+      .then(function (writable) {
+        return writable.write(JSON.stringify(wikiData, null, 2)).then(function () { return writable.close(); });
+      })
+      .then(function () {
+        var btn = document.getElementById('ks-local-save-btn');
+        if (btn) btn.textContent = 'Disk: saved ✓';
+        statusEl.textContent = statusLabel() + ' · Saved to disk ✓';
+        setTimeout(function () { statusEl.textContent = statusLabel(); }, 2500);
+      })
+      .catch(function () { statusEl.textContent = statusLabel() + ' · Disk save failed'; });
+  }
+
+  function pickLocalFile() {
+    if (!window.showOpenFilePicker) {
+      // Fallback for browsers without File System Access API
+      var blob = new Blob([JSON.stringify(wikiData, null, 2)], { type: 'application/json' });
+      var url  = URL.createObjectURL(blob);
+      var a    = document.createElement('a');
+      a.href = url; a.download = 'wiki.json'; a.click();
+      URL.revokeObjectURL(url);
+      return;
+    }
+    window.showOpenFilePicker({ types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }], multiple: false })
+      .then(function (handles) {
+        _fileHandle = handles[0];
+        return writeToLocalFile();
+      })
+      .then(function () {
+        var btn = document.getElementById('ks-local-save-btn');
+        if (btn) { btn.textContent = 'Disk: auto-saving ✓'; btn.classList.add('ks-io-btn--active'); }
+      })
+      .catch(function (e) { if (e.name !== 'AbortError') statusEl.textContent = 'Could not open file'; });
+  }
+
+  function toBase64(str) {
+    var bytes = new TextEncoder().encode(str);
+    var bin = '';
+    bytes.forEach(function (b) { bin += String.fromCharCode(b); });
+    return btoa(bin);
+  }
+
+
+  function commitWiki() {
+    if (!ghToken) return;
+    statusEl.textContent = 'Saving…';
+    // Fresh SHA fetch before each write to avoid conflicts
+    fetch(GH_API, { headers: { 'Authorization': 'token ' + ghToken } })
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (f) {
+        if (f.sha) _fileSha = f.sha;
+        var body = { message: 'Update wiki data [auto]', content: toBase64(JSON.stringify(wikiData, null, 2)) };
+        if (_fileSha) body.sha = _fileSha;
+        return fetch(GH_API, {
+          method: 'PUT',
+          headers: { 'Authorization': 'token ' + ghToken, 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+      })
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error(r.status)); })
+      .then(function (d) {
+        _fileSha = d.content.sha;
+        statusEl.textContent = statusLabel() + ' · Saved ✓';
+        setTimeout(function () { statusEl.textContent = statusLabel(); }, 2500);
+      })
+      .catch(function () {
+        statusEl.textContent = statusLabel() + ' · Save failed — check token';
+      });
+  }
+
+  // Load from the static file served by Jekyll (works locally and on GitHub Pages)
+  var WIKI_STATIC_URL = (document.getElementById('ks-chatbot').dataset.wikiUrl || '/assets/ks-data/wiki.json');
+
+  function loadFromRepo() {
+    return fetch(WIKI_STATIC_URL + '?_=' + Date.now())
+      .then(function (r) { return r.ok ? r.json() : {}; })
+      .then(function (data) { wikiData = data || {}; })
+      .catch(function () { wikiData = {}; });
+  }
 
   // ── Provider ──────────────────────────────────────────────────────
   var provider = 'groq', apiKey = '', ollamaModel = '', selectedModel = 'llama-3.3-70b-versatile';
@@ -22,7 +134,7 @@
   function chatModel()   { return provider === 'ollama' ? ollamaModel : selectedModel; }
   function statusLabel() { return provider === 'ollama' ? 'Ollama · ' + ollamaModel : 'Groq · ' + selectedModel; }
 
-  // ── Storage ───────────────────────────────────────────────────────
+  // ── Storage keys ──────────────────────────────────────────────────
   var WIKI_PREFIX     = 'ks_wiki_';
   var LAB_WIKI_PREFIX = 'ks_lab_wiki_';
   var WIKI_INDEX_KEY  = 'ks_wiki_index';
@@ -30,13 +142,13 @@
   var WIKI_LOG_KEY    = 'ks_wiki_log';
   var LINT_OUTPUT_KEY = 'ks_lint_output';
 
-  function getIndex(key)          { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; } }
-  function saveIndex(key, idx)    { localStorage.setItem(key, JSON.stringify(idx)); }
-  function getPage(prefix, k)     { return localStorage.getItem(prefix + k) || null; }
-  function savePage(prefix, k, c) { localStorage.setItem(prefix + k, c); }
+  function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]'); } catch(e) { return []; } }
+  function saveIndex(key, idx)    { setItem(key, JSON.stringify(idx)); }
+  function getPage(prefix, k)     { return getItem(prefix + k); }
+  function savePage(prefix, k, c) { setItem(prefix + k, c); }
   function appendLog(action, detail) {
     var ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
-    localStorage.setItem(WIKI_LOG_KEY, (localStorage.getItem(WIKI_LOG_KEY) || '') + '## [' + ts + '] ' + action + ' | ' + detail + '\n');
+    setItem(WIKI_LOG_KEY, (getItem(WIKI_LOG_KEY) || '') + '## [' + ts + '] ' + action + ' | ' + detail + '\n');
   }
 
   // ── Wiki builders ─────────────────────────────────────────────────
@@ -68,7 +180,7 @@
   }
 
   function buildLogMd() {
-    var entries = (localStorage.getItem(WIKI_LOG_KEY) || '').split('\n').filter(function (l) { return l.startsWith('## ['); });
+    var entries = (getItem(WIKI_LOG_KEY) || '').split('\n').filter(function (l) { return l.startsWith('## ['); });
     return entries.length ? entries.slice().reverse().slice(0, 40).join('\n') : '*No activity logged yet.*';
   }
 
@@ -84,13 +196,13 @@
   var _prompt = null, _promptKey = '';
 
   function getCachedSystemPrompt() {
-    var k = (localStorage.getItem(LAB_INDEX_KEY) || '') + (localStorage.getItem(WIKI_INDEX_KEY) || '');
+    var k = (getItem(LAB_INDEX_KEY) || '') + (getItem(WIKI_INDEX_KEY) || '');
     if (_prompt && _promptKey === k) return _prompt;
     _promptKey = k;
-    _prompt = 'You are a research assistant for the LENS Lab (Lab for Empirical Navigation in Software) at Missouri S&T, led by Dr. Mia Mohammad Imran. '
+    _prompt = 'You are a research assistant for the LENS Lab (Lens for Empirical Navigation in Software Lab) at Missouri S&T, led by Dr. Mia Mohammad Imran. '
       + 'Answer questions about the lab\'s research. Be concise and cite specific papers.\n\n'
       + '## Lab\n'
-      + 'LENS Lab (Lab for Empirical Navigation in Software) — Dr. Mia Mohammad Imran, Assistant Professor, CS, Missouri S&T. Research: Software Engineering, NLP, Empirical Methods.\n\n'
+      + 'LENS Lab (Lens for Empirical Navigation in Software Lab) — Dr. Mia Mohammad Imran, Assistant Professor, CS, Missouri S&T. Research: Software Engineering, NLP, Empirical Methods.\n\n'
       + '## Theme 1: GenAI & Code Quality\n'
       + '- "TODO: Fix the Mess Gemini Created" (TechDebt 2026): GenAI-Induced SATD (GIST) in 81 comments. AI roles: Source, Catalyst, Mitigator, Neutral.\n'
       + '- OLAF (WSESE 2026): LLM annotation pipeline replicating human annotation on SE datasets.\n'
@@ -145,6 +257,8 @@
   var ollamaSelEl     = document.getElementById('ks-ollama-model-select');
   var ollamaCustomEl  = document.getElementById('ks-ollama-custom');
   var ollamaCustomRow = document.getElementById('ks-ollama-custom-row');
+  var ghTokenInput    = document.getElementById('ks-gh-token');
+
   modelSelect.value = selectedModel;
 
   // ── Ollama ────────────────────────────────────────────────────────
@@ -199,13 +313,15 @@
     if (mode === 'lab')  renderIngestPanel(LAB_PAPERS, 'ks-lab-list', LAB_WIKI_PREFIX, LAB_INDEX_KEY);
     if (mode === 'rl')   renderIngestPanel(RL_PAPERS,  'ks-rl-list',  WIKI_PREFIX,     WIKI_INDEX_KEY);
     if (mode === 'lint') {
-      var saved = localStorage.getItem(LINT_OUTPUT_KEY);
+      var saved = getItem(LINT_OUTPUT_KEY);
       if (saved) renderMarkdown(document.getElementById('ks-lint-output'), saved);
     }
-    if (mode === 'wiki') {
-      renderMarkdown(document.getElementById('ks-wiki-index-content'), buildIndexMd());
-      renderMarkdown(document.getElementById('ks-wiki-log-content'),   buildLogMd());
-    }
+    if (mode === 'wiki') renderWikiTab();
+  }
+
+  function renderWikiTab() {
+    renderMarkdown(document.getElementById('ks-wiki-index-content'), buildIndexMd());
+    renderMarkdown(document.getElementById('ks-wiki-log-content'),   buildLogMd());
   }
 
   document.querySelectorAll('.ks-mode-tab').forEach(function (tab) {
@@ -218,7 +334,7 @@
     connectEl.style.display = 'none';
     chatEl.style.display    = 'flex';
     document.getElementById('ks-browse-notice').style.display = browseOnly ? 'flex' : 'none';
-    statusEl.textContent    = browseOnly ? 'Browse mode — connect to query or ingest' : statusLabel();
+    statusEl.textContent = browseOnly ? 'Browse mode' + (ghToken ? '' : ' — no token, changes won\'t save') : statusLabel();
     if (browseOnly) switchMode('lab'); else inputEl.focus();
   }
 
@@ -238,21 +354,35 @@
       if (!m) return;
       ollamaModel = m; apiKey = '';
     }
+    ghToken = ghTokenInput ? ghTokenInput.value.trim() : '';
     openChat(false);
   });
 
-  document.getElementById('ks-browse-btn').addEventListener('click', function () { openChat(true); });
+  document.getElementById('ks-browse-btn').addEventListener('click', function () {
+    ghToken = ghTokenInput ? ghTokenInput.value.trim() : '';
+    openChat(true);
+  });
   keyInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
   ollamaCustomEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
 
   document.getElementById('ks-reset-btn').addEventListener('click', function () {
-    apiKey = ''; ollamaModel = ''; history = []; browseOnly = false;
+    apiKey = ''; ollamaModel = ''; ghToken = ''; history = []; browseOnly = false;
     chatEl.style.display    = 'none';
     connectEl.style.display = 'block';
     keyInput.value = '';
+    if (ghTokenInput) ghTokenInput.value = '';
   });
 
-  if (getIndex(LAB_INDEX_KEY).length || getIndex(WIKI_INDEX_KEY).length) openChat(true);
+  // ── Local disk save / Download backup ────────────────────────────
+  document.getElementById('ks-local-save-btn').addEventListener('click', pickLocalFile);
+
+  document.getElementById('ks-export-btn').addEventListener('click', function () {
+    var blob = new Blob([JSON.stringify(wikiData, null, 2)], { type: 'application/json' });
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement('a');
+    a.href = url; a.download = 'wiki.json'; a.click();
+    URL.revokeObjectURL(url);
+  });
 
   // ── SSE streaming ─────────────────────────────────────────────────
   function streamResponse(res, onToken) {
@@ -407,7 +537,7 @@
       + '<button class="ks-ingest-btn' + (ingested ? ' ks-ingest-btn--reingest' : '') + '">' + (ingested ? 'Re-ingest' : 'Ingest') + '</button>'
       + '<button class="ks-deep-wiki-btn">Deep Wiki</button>'
       + (ingested ? '<button class="ks-view-wiki-btn">View Wiki Page</button>' : '')
-      + (paper.type === 'rl' ? '<button class="ks-summary-btn">' + (localStorage.getItem(paper.key) ? 'Re-summary' : 'Summary') + '</button>' : '')
+      + (paper.type === 'rl' ? '<button class="ks-summary-btn">' + (getItem(paper.key) ? 'Re-summary' : 'Summary') + '</button>' : '')
       + '</div>'
       + (ingested ? '<div class="ks-wiki-preview" style="display:none;"><div class="ks-wiki-content"></div></div>' : '');
 
@@ -488,7 +618,7 @@
         + 'Paper: ' + paper.name + '\n\nExtracted text:\n' + result.text
       }] });
     }).then(function (content) {
-      if (content) { localStorage.setItem(paper.key, content.trim()); appendLog('summary', paper.name); }
+      if (content) { setItem(paper.key, content.trim()); appendLog('summary', paper.name); }
       btn.disabled = false;
       btn.textContent = 'Re-summary';
       statusEl.textContent = statusLabel();
@@ -521,7 +651,7 @@
   }
 
   // ── Ingest prompts ────────────────────────────────────────────────
-  var LENS_WIKI   = 'You are building the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T). ';
+  var LENS_WIKI   = 'You are building the LENS Lab Wiki (Lens for Empirical Navigation in Software Lab, Missouri S&T). ';
   var LENS_THEMES = 'Toxicity/Derailment in OSS, Emotion in SE, Bug Reports, GenAI & Code Quality';
 
   function buildIngestPrompt(paper, text, otherIndex, today, isLab, deep) {
@@ -543,16 +673,8 @@
         + 'Generate a wiki page with EXACTLY these sections. Be specific and detailed in each.\n\n'
         + '# [Exact Paper Title from PDF]\n**Authors:** [full author list from PDF]\n'
         + '**Venue:** [conference/journal name and year]\n**Ingested:** ' + today + '\n\n'
-        + '## Problem & Motivation\nWhat specific gap or problem does this paper address? Why does it matter?\n\n'
-        + '## Research Questions\nList each RQ exactly as stated.\n\n'
-        + '## Dataset & Study Design\nData sources, size, collection method, any filtering criteria.\n\n'
-        + '## Methodology\nExact techniques, models, tools, and evaluation metrics used.\n\n'
-        + '## Key Results\nSpecific findings with numbers, percentages, and statistical significance where reported.\n\n'
-        + '## Takeaways\nThe 3-5 most important conclusions a reader should retain.\n\n'
-        + '## Limitations\nWhat the authors acknowledge as limitations. What is NOT covered.\n\n'
-        + '## Connections to LENS Lab\nHow this paper relates to LENS Lab themes. Which specific LENS Lab papers it connects to and why.\n\n'
-        + '## Open Questions\nQuestions this paper raises but does not answer. Good follow-up directions.\n\n'
-        + '## Citation\nFull bibliographic reference as it appears in the paper.\n\n'
+        + '## Problem & Motivation\n## Research Questions\n## Dataset & Study Design\n## Methodology\n'
+        + '## Key Results\n## Takeaways\n## Limitations\n## Connections to LENS Lab\n## Open Questions\n## Citation\n\n'
         + 'Ground every claim in the PDF text. Be detailed. Output only the markdown.';
     }
     return LENS_WIKI + 'This is an EXTERNAL paper being read by the lab — not the lab\'s own publication. Generate a structured wiki page.\n\n'
@@ -601,7 +723,7 @@
           saveIndex(indexKey, index);
           if (!isLab) {
             var sm = content.match(/## Summary\n([\s\S]*?)(?=\n##)/);
-            if (sm) localStorage.setItem(paper.key, sm[1].trim().slice(0, 500));
+            if (sm) setItem(paper.key, sm[1].trim().slice(0, 500));
           }
           appendLog((deep ? 'deep-ingest' : isLab ? 'lab-ingest' : 'rl-ingest'), paper.name);
           _prompt = null;
@@ -648,23 +770,29 @@
       rlSecs  = all.slice(labSecs.length);
     }
 
-    var prompt = 'You are health-checking the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T).\n\n'
+    var prompt = 'You are health-checking the LENS Lab Wiki (Lens for Empirical Navigation in Software Lab, Missouri S&T).\n\n'
       + 'Here are all ingested wiki pages:\n\n'
       + toLintBlock('Lab Papers', labSecs) + toLintBlock('Reading List (External)', rlSecs)
-      + 'Produce a health-check report with exactly these six sections. '
+      + 'Produce a health-check report with exactly these eight sections. '
       + 'For any section with nothing to report, write "None found." — do not pad.\n\n'
-      + '## Contradictions\nTwo or more pages that make directly opposing empirical claims about the same phenomenon. Cite exact pages and the conflicting claims. Skip if domains or methods differ.\n\n'
-      + '## Stale Claims\nClaims in older pages that appear to be superseded or contradicted by findings in newer pages. Name the page, the stale claim, and the newer page that updates it.\n\n'
-      + '## Orphan Pages\nPages that are never referenced or cross-linked from any other page. List by name. These risk being forgotten as the wiki grows.\n\n'
-      + '## Missing Concept Pages\nImportant concepts, methods, datasets, or tools that appear repeatedly across pages but have no dedicated wiki page of their own. List the concept and which pages mention it.\n\n'
-      + '## Missing Cross-References\nPairs of pages that clearly relate to each other but do not link to or mention each other. Name both pages and explain the connection that is missing.\n\n'
-      + '## New Questions & Sources\nSpecific questions that the current wiki raises but does not answer, and types of sources (papers, datasets, surveys) that would fill those gaps. Ground each question in a specific page or finding — no generic suggestions.';
+      + '## Contradictions\nTwo or more pages that make directly opposing empirical claims about the same phenomenon. Cite exact pages and conflicting claims.\n\n'
+      + '## Stale Claims\nClaims in older pages superseded or contradicted by findings in newer pages. Name the page, the stale claim, and the newer page that updates it.\n\n'
+      + '## Orphan Pages\nPages never referenced or cross-linked from any other page.\n\n'
+      + '## Missing Concept Pages\nImportant concepts appearing repeatedly across pages but with no dedicated wiki page.\n\n'
+      + '## Missing Cross-References\nPairs of pages that clearly relate but do not mention each other. Name both pages and explain the missing connection.\n\n'
+      + '## New Questions & Sources\nSpecific questions the wiki raises but does not answer. Ground each in a specific page or finding — no generic suggestions.\n\n'
+      + '## Reading List → Lab Research Connections\nFor each reading list paper, identify which LENS Lab papers it most directly connects to and explain how. '
+      + 'Focus on methodological overlap, shared datasets, complementary findings, or problems the external paper raises that the lab has already studied. '
+      + 'Be specific — cite exact findings from both sides.\n\n'
+      + '## Future Research Directions\nBased on the gaps, connections, and open questions across all wiki pages, suggest 5–8 concrete research directions the lab could pursue. '
+      + 'Each direction must: (1) name the specific gap or opportunity it addresses, (2) identify which existing lab papers it builds on, '
+      + '(3) identify which reading list papers inform it, and (4) describe a concrete study design or approach. No vague suggestions.';
 
     var lintText = '';
     llmStream({ model: chatModel(), stream: true, messages: [{ role: 'user', content: prompt }] },
       function (token) { lintText += token; outputEl.textContent = lintText; }
     ).then(function () {
-      localStorage.setItem(LINT_OUTPUT_KEY, lintText);
+      setItem(LINT_OUTPUT_KEY, lintText);
       renderMarkdown(outputEl, lintText);
       appendLog('lint', (labIndex.length + rlIndex.length) + ' pages checked');
       lintBtn.disabled = false;
@@ -674,6 +802,11 @@
       lintBtn.disabled = false;
       statusEl.textContent = statusLabel();
     });
+  });
+
+  // ── Init ──────────────────────────────────────────────────────────
+  loadFromRepo().then(function () {
+    if (getIndex(LAB_INDEX_KEY).length || getIndex(WIKI_INDEX_KEY).length) openChat(true);
   });
 
 })();

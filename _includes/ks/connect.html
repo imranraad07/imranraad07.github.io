@@ -43,6 +43,14 @@
       </p>
     </div>
 
+    <div class="ks-gh-row">
+      <input type="password" id="ks-gh-token" class="ks-model-select" placeholder="GitHub token — ghp_… (for saving wiki to repo)" autocomplete="off" />
+      <p class="ks-connect-hint">
+        Optional. Without it, wiki loads but won't save back.
+        <a href="https://github.com/settings/tokens/new?scopes=repo&description=LENS+Wiki" target="_blank" rel="noopener">Create token</a> with <code>repo</code> scope.
+      </p>
+    </div>
+
     <button class="ks-key-btn" id="ks-connect-btn">Start</button>
     <div class="ks-browse-row">
       <button class="ks-browse-btn" id="ks-browse-btn">Browse ingested papers without connecting →</button>

@@ -5,7 +5,7 @@ section: about
 permalink: /posts/about/
 ---
 
-Mia Mohammad Imran is an Assistant Professor in the Department of Computer Science at Missouri University of Science and Technology and the director of the **LENS Lab** (Lab for Empirical Navigation in Software). His research sits at the intersection of Software Engineering, NLP, and Empirical Methods — studying how developers communicate, how GenAI shapes code quality, and how emotion and toxicity affect open-source communities.
+Mia Mohammad Imran is an Assistant Professor in the Department of Computer Science at Missouri University of Science and Technology and the director of the **LENS Lab** (Lens for Empirical Navigation in Software Lab). His research sits at the intersection of Software Engineering, NLP, and Empirical Methods — studying how developers communicate, how GenAI shapes code quality, and how emotion and toxicity affect open-source communities.
 
 ---
 

@@ -5,7 +5,7 @@
 layout: default
 ---
 
-The **LENS Lab** (Lab for Empirical Navigation in Software) is led by [Dr. Mia Mohammad Imran](posts/about), Assistant Professor in the Department of Computer Science at [Missouri University of Science and Technology](https://cs.mst.edu). The lab studies the human side of software engineering — how developers communicate, how GenAI reshapes code quality, and how emotion and toxicity shape open-source communities — using empirical analysis, NLP, and LLMs.
+The **LENS Lab** (Lens for Empirical Navigation in Software Lab) is led by [Dr. Mia Mohammad Imran](posts/about), Assistant Professor in the Department of Computer Science at [Missouri University of Science and Technology](https://cs.mst.edu). The lab studies the human side of software engineering — how developers communicate, how GenAI reshapes code quality, and how emotion and toxicity shape open-source communities — using empirical analysis, NLP, and LLMs.
 
 {% include home-quick-links.html %}
 
