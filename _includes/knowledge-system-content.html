@@ -68,17 +68,39 @@
           <input type="text" id="ks-ollama-custom" class="ks-model-select"
                  placeholder="Model name (e.g. llama3.2:8b)" autocomplete="off" style="width:100%;" />
         </div>
-        <div style="margin-top:0.4rem;">
-          <input type="text" id="ks-ollama-url" class="ks-model-select"
-                 placeholder="Remote URL — e.g. https://xxxx.trycloudflare.com  (blank = localhost)"
-                 autocomplete="off" style="width:100%;" />
-        </div>
         <p class="ks-connect-hint">
-          Not running locally?
-          <a href="https://github.com/imranraad07/imranraad07.github.io/actions/workflows/ollama.yml"
-             target="_blank" rel="noopener" class="ks-gh-actions-link">Run via GitHub Actions →</a>
-          — copy the tunnel URL from the workflow log and paste it above.
+          Ollama must be running at <code>localhost:11434</code>.
+          Get it at <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a>.
         </p>
+        <div id="ks-ollama-setup" class="ks-ollama-setup" style="display:none;">
+          <div class="ks-ollama-setup-title">&#9888; One-time setup required</div>
+          <p class="ks-ollama-setup-desc">
+            Ollama is running but hasn't been configured to allow requests from this page.
+            Run the command for your OS, then click &#8635; to retry.
+          </p>
+          <div class="ks-ollama-os-tabs">
+            <button class="ks-os-tab ks-os-tab--active" data-os="mac">macOS</button>
+            <button class="ks-os-tab" data-os="linux">Linux</button>
+            <button class="ks-os-tab" data-os="windows">Windows</button>
+          </div>
+          <div class="ks-ollama-cmd" id="ks-cmd-mac">
+            <code>launchctl setenv OLLAMA_ORIGINS "https://imranraad07.github.io"</code>
+            <br><code style="color:#9ca3af;">Then restart Ollama from the menu bar.</code>
+            <button class="ks-copy-btn" data-copy='launchctl setenv OLLAMA_ORIGINS "https://imranraad07.github.io"'>Copy</button>
+          </div>
+          <div class="ks-ollama-cmd" id="ks-cmd-linux" style="display:none;">
+            <code>sudo systemctl edit ollama.service</code>
+            <br><code style="color:#9ca3af;"># Add under [Service]:</code>
+            <br><code>Environment="OLLAMA_ORIGINS=https://imranraad07.github.io"</code>
+            <br><code>sudo systemctl restart ollama</code>
+            <button class="ks-copy-btn" data-copy='Environment="OLLAMA_ORIGINS=https://imranraad07.github.io"'>Copy env line</button>
+          </div>
+          <div class="ks-ollama-cmd" id="ks-cmd-windows" style="display:none;">
+            <code>[System.Environment]::SetEnvironmentVariable("OLLAMA_ORIGINS","https://imranraad07.github.io","User")</code>
+            <br><code style="color:#9ca3af;">Run in PowerShell, then restart Ollama.</code>
+            <button class="ks-copy-btn" data-copy='[System.Environment]::SetEnvironmentVariable("OLLAMA_ORIGINS","https://imranraad07.github.io","User")'>Copy</button>
+          </div>
+        </div>
       </div>
 
       <button class="ks-key-btn" id="ks-connect-btn">Start</button>
@@ -179,8 +201,8 @@
 
 <script>
 (function () {
-  var GROQ_URL      = 'https://api.groq.com/openai/v1/chat/completions';
-  var OLLAMA_BASE   = 'http://localhost:11434'; // overridden by remote URL input at connect time
+  var GROQ_URL     = 'https://api.groq.com/openai/v1/chat/completions';
+  var OLLAMA_URL   = 'http://localhost:11434/v1/chat/completions';
   var MARKED_CDN   = 'https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js';
   var PDFJS_CDN    = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
   var PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -192,7 +214,7 @@
   var provider = 'groq', apiKey = '', ollamaModel = '', selectedModel = 'llama-3.3-70b-versatile';
   var browseOnly = false;
 
-  function apiUrl()      { return provider === 'ollama' ? OLLAMA_BASE + '/v1/chat/completions' : GROQ_URL; }
+  function apiUrl()      { return provider === 'ollama' ? OLLAMA_URL : GROQ_URL; }
   function apiHeaders()  {
     var h = { 'Content-Type': 'application/json' };
     if (provider === 'groq' && apiKey) h['Authorization'] = 'Bearer ' + apiKey;
@@ -325,18 +347,19 @@
   var ollamaSelEl     = document.getElementById('ks-ollama-model-select');
   var ollamaCustomEl  = document.getElementById('ks-ollama-custom');
   var ollamaCustomRow = document.getElementById('ks-ollama-custom-row');
-  var ollamaUrlEl     = document.getElementById('ks-ollama-url');
 
   modelSelect.value = selectedModel;
 
   // ── Ollama ────────────────────────────────────────────────────────
+  var ollamaSetupEl = document.getElementById('ks-ollama-setup');
+
   function fetchOllamaModels() {
-    var base = (ollamaUrlEl.value.trim().replace(/\/$/, '')) || 'http://localhost:11434';
     ollamaSelEl.innerHTML = '<option value="">Detecting models…</option>';
     ollamaSelEl.disabled  = true;
-    fetch(base + '/api/tags')
+    fetch('http://localhost:11434/api/tags')
       .then(function (r) { return r.json(); })
       .then(function (d) {
+        ollamaSetupEl.style.display = 'none';
         var names = (d.models || []).map(function (m) { return m.name; });
         ollamaSelEl.innerHTML = (names.length
           ? names.map(function (n) { return '<option>' + n + '</option>'; }).join('')
@@ -345,9 +368,15 @@
         ollamaSelEl.disabled = false;
         ollamaCustomRow.style.display = 'none';
       })
-      .catch(function () {
-        ollamaSelEl.innerHTML = '<option value="">Ollama not reachable</option><option value="__custom__">— Enter model name manually —</option>';
-        ollamaSelEl.disabled  = false;
+      .catch(function (err) {
+        // TypeError = CORS block (Ollama running but origin not whitelisted)
+        // Other errors = Ollama not running at all
+        var corsBlocked = err instanceof TypeError;
+        ollamaSetupEl.style.display = corsBlocked ? 'block' : 'none';
+        ollamaSelEl.innerHTML = corsBlocked
+          ? '<option value="">CORS blocked — see setup below</option><option value="__custom__">— Enter model name manually —</option>'
+          : '<option value="">Ollama not running</option><option value="__custom__">— Enter model name manually —</option>';
+        ollamaSelEl.disabled = false;
       });
   }
 
@@ -355,6 +384,28 @@
     ollamaCustomRow.style.display = this.value === '__custom__' ? 'block' : 'none';
   });
   document.getElementById('ks-ollama-refresh').addEventListener('click', fetchOllamaModels);
+
+  // OS tabs
+  document.querySelectorAll('.ks-os-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.ks-os-tab').forEach(function (t) { t.classList.remove('ks-os-tab--active'); });
+      tab.classList.add('ks-os-tab--active');
+      ['mac', 'linux', 'windows'].forEach(function (os) {
+        document.getElementById('ks-cmd-' + os).style.display = os === tab.dataset.os ? 'block' : 'none';
+      });
+    });
+  });
+
+  // Copy buttons
+  document.querySelectorAll('.ks-copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      navigator.clipboard.writeText(btn.dataset.copy).then(function () {
+        var orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = orig; }, 1500);
+      });
+    });
+  });
 
   // ── Provider tabs ─────────────────────────────────────────────────
   document.querySelectorAll('.ks-provider-tab').forEach(function (tab) {
@@ -423,7 +474,6 @@
     } else {
       var m = ollamaSelEl.value === '__custom__' ? ollamaCustomEl.value.trim() : ollamaSelEl.value;
       if (!m) return;
-      OLLAMA_BASE = (ollamaUrlEl.value.trim().replace(/\/$/, '')) || 'http://localhost:11434';
       ollamaModel = m; apiKey = '';
     }
     openChat(false);
@@ -435,10 +485,9 @@
 
   document.getElementById('ks-reset-btn').addEventListener('click', function () {
     apiKey = ''; ollamaModel = ''; history = []; browseOnly = false;
-    OLLAMA_BASE = 'http://localhost:11434';
     chatEl.style.display    = 'none';
     connectEl.style.display = 'block';
-    keyInput.value = ''; ollamaUrlEl.value = '';
+    keyInput.value = '';
   });
 
   // Auto-open in browse mode if ingested content already exists
