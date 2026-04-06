@@ -117,27 +117,35 @@
     </div>
 
     <div id="ks-mode-lab" style="display:none;">
-      <div class="ks-panel-info"><p>Build detailed wiki pages from the lab's own published papers.</p></div>
+      <div class="ks-panel-info">
+        <p><strong>Ingest</strong> — fast wiki page from PDF (~10 s). &nbsp;<strong>Deep Wiki</strong> — detailed, streaming (~30–60 s). &nbsp;<strong>View Wiki Page</strong> — show stored page.</p>
+      </div>
       <div id="ks-lab-list"></div>
     </div>
 
     <div id="ks-mode-rl" style="display:none;">
-      <div class="ks-panel-info"><p>Build wiki pages from external papers being read by the lab.</p></div>
+      <div class="ks-panel-info">
+        <p><strong>Ingest</strong> — wiki page from PDF. &nbsp;<strong>Deep Wiki</strong> — detailed version. &nbsp;<strong>Summary</strong> — 4–6 sentence prose for the Reading List page. &nbsp;<strong>View Wiki Page</strong> — show stored page.</p>
+      </div>
       <div id="ks-rl-list"></div>
     </div>
 
     <div id="ks-mode-lint" style="display:none;">
-      <div class="ks-panel-info"><p>Health-check the wiki: contradictions, stale claims, orphan pages, missing links, and future research directions.</p></div>
+      <div class="ks-panel-info">
+        <p>Audits all ingested wiki pages — contradictions, stale claims, missing cross-links, open questions, and future directions. Requires at least one ingested paper.</p>
+      </div>
       <button class="ks-lint-run-btn" id="ks-lint-btn">Run Health Check</button>
       <div id="ks-lint-output" class="ks-lint-output"></div>
     </div>
 
     <div id="ks-mode-wiki" style="display:none;">
+      <div class="ks-panel-info">
+        <p><strong>💾 Save to disk</strong> — Save As dialog, then auto-saves on every ingest. &nbsp;<strong>↓ Download backup</strong> — one-shot download. &nbsp;<strong>↻ Regen Wiki</strong> — re-ingests all pages sequentially.</p>
+      </div>
       <div class="ks-wiki-io">
         <button class="ks-io-btn ks-io-btn--import" id="ks-local-save-btn">&#128190; Save to disk</button>
         <button class="ks-io-btn" id="ks-export-btn">&#8595; Download backup</button>
         <button class="ks-io-btn ks-io-btn--regen" id="ks-regen-btn">&#8635; Regen Wiki</button>
-        <span class="ks-io-hint">Pick <code>assets/ks-data/wiki.json</code> once — auto-saves on every ingest</span>
       </div>
       <div class="ks-wiki-file">
         <div class="ks-wiki-file-header">

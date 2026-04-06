@@ -91,7 +91,7 @@
   var WIKI_LOG_KEY    = 'ks_wiki_log';
   var LINT_OUTPUT_KEY = 'ks_lint_output';
 
-  function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]'); } catch(e) { return []; } }
+function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]'); } catch(e) { return []; } }
   function saveIndex(key, idx)    { setItem(key, JSON.stringify(idx)); }
   function getPage(prefix, k)     { return getItem(prefix + k); }
   function savePage(prefix, k, c) { setItem(prefix + k, c); }
@@ -336,24 +336,25 @@
 
     var regenBtn = this;
     regenBtn.disabled = true;
-    var done = 0, total = tasks.length;
+    var completed = 0, total = tasks.length;
 
-    function runNext() {
-      if (!tasks.length) {
-        regenBtn.disabled = false;
-        statusEl.textContent = statusLabel() + ' · Regenerated ' + done + '/' + total + ' pages ✓';
-        setTimeout(function () { statusEl.textContent = statusLabel(); }, 3000);
-        return;
-      }
-      var task = tasks.shift();
-      var fakeBtn = document.createElement('button');
-      statusEl.textContent = 'Regenerating (' + (done + 1) + '/' + total + '): ' + task.paper.name + '…';
-      ingestPaper(task.paper, fakeBtn, task.prefix, task.indexKey, task.listId, false, function () {
-        done++; runNext();
+    tasks.forEach(function (task, i) {
+      enqueueTask(function () {
+        var fakeBtn = document.createElement('button');
+        statusEl.textContent = 'Regenerating (' + (i + 1) + '/' + total + '): ' + task.paper.name + '…';
+        return new Promise(function (res) {
+          ingestPaper(task.paper, fakeBtn, task.prefix, task.indexKey, task.listId, false, function () {
+            completed++;
+            if (completed === total) {
+              regenBtn.disabled = false;
+              statusEl.textContent = statusLabel() + ' · Regenerated ' + completed + '/' + total + ' pages ✓';
+              setTimeout(function () { statusEl.textContent = statusLabel(); }, 3000);
+            }
+            res();
+          });
+        });
       });
-    }
-
-    runNext();
+    });
   });
 
   // ── SSE streaming ─────────────────────────────────────────────────
@@ -438,22 +439,28 @@
 
   function send(text) {
     var q = (text || inputEl.value).trim();
-    if (!q || sendBtn.disabled || browseOnly) return;
+    if (!q || browseOnly) return;
     inputEl.value = ''; suggestionsEl.style.display = 'none';
     appendMsg('user', q); appendLog('query', q.slice(0, 100));
     history.push({ role: 'user', content: q });
-    sendBtn.disabled = true; statusEl.textContent = 'Thinking…';
+    sendBtn.disabled = true;
     var bubble = appendMsg('assistant', '').querySelector('.ks-msg-bubble');
     var fullReply = '';
-    llmStream(
-      { model: chatModel(), stream: true, messages: [{ role: 'system', content: getCachedSystemPrompt() }].concat(history) },
-      function (token) { fullReply += token; bubble.textContent = fullReply; messagesEl.scrollTop = messagesEl.scrollHeight; }
-    ).then(function () {
-      history.push({ role: 'assistant', content: fullReply });
-      sendBtn.disabled = false; statusEl.textContent = statusLabel();
-    }).catch(function (err) {
-      bubble.textContent = 'Error: ' + (err.message || 'Could not reach API.');
-      sendBtn.disabled = false; statusEl.textContent = statusLabel();
+    enqueueTask(async function () {
+      statusEl.textContent = 'Thinking…';
+      try {
+        await llmStream(
+          { model: chatModel(), stream: true, messages: [{ role: 'system', content: getCachedSystemPrompt() }].concat(history) },
+          function (token) { fullReply += token; bubble.textContent = fullReply; messagesEl.scrollTop = messagesEl.scrollHeight; }
+        );
+        history.push({ role: 'assistant', content: fullReply });
+        renderMarkdown(bubble, fullReply);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      } catch (err) {
+        bubble.textContent = 'Error: ' + (err.message || 'Could not reach API.');
+      } finally {
+        sendBtn.disabled = false; statusEl.textContent = statusLabel();
+      }
     });
   }
 
@@ -487,7 +494,7 @@
     item.querySelector('.ks-deep-wiki-btn').addEventListener('click', function () { enqueueIngest(paper, this, prefix, indexKey, listId, true); });
 
     var summaryBtn = item.querySelector('.ks-summary-btn');
-    if (summaryBtn) summaryBtn.addEventListener('click', function () { summarizePaper(paper, summaryBtn); });
+    if (summaryBtn) summaryBtn.addEventListener('click', function () { enqueueSummary(paper, summaryBtn); });
 
     if (ingested) {
       var preview = item.querySelector('.ks-wiki-preview');
@@ -528,9 +535,31 @@
     });
   }
 
+  // ── Unified LLM queue (all tabs share one execution slot) ─────────
+  var _llmQueue = [], _llmRunning = false;
+
+  function enqueueTask(fn) {
+    _llmQueue.push(fn);
+    drainLlmQueue();
+  }
+
+  function drainLlmQueue() {
+    if (_llmRunning || !_llmQueue.length) return;
+    _llmRunning = true;
+    if (_llmQueue.length > 1) statusEl.textContent = (_llmQueue.length - 1) + ' task' + (_llmQueue.length - 1 !== 1 ? 's' : '') + ' queued…';
+    var fn = _llmQueue.shift();
+    Promise.resolve().then(fn).then(finish, finish);
+    function finish() { _llmRunning = false; drainLlmQueue(); }
+  }
+
   // ── Summary ───────────────────────────────────────────────────────
-  function summarizePaper(paper, btn) {
+  function enqueueSummary(paper, btn) {
     if (browseOnly) { btn.title = 'Connect to generate summary'; return; }
+    btn.disabled = true; btn.textContent = 'Queued…';
+    enqueueTask(function () { return new Promise(function (res) { summarizePaper(paper, btn, res); }); });
+  }
+
+  function summarizePaper(paper, btn, done) {
     btn.disabled = true; btn.textContent = 'Generating…';
     statusEl.textContent = 'Generating summary: ' + paper.name + '…';
     extractPdfText(paper.path).then(function (result) {
@@ -550,27 +579,14 @@
     }).catch(function (err) {
       statusEl.textContent = 'Error: ' + (err.message || 'Summary failed.');
       btn.disabled = false; btn.textContent = 'Summary';
-    });
+    }).finally(function () { if (done) done(); });
   }
 
   // ── Ingest queue ──────────────────────────────────────────────────
-  var _ingestQueue = [], _ingestRunning = false;
-
   function enqueueIngest(paper, btn, prefix, indexKey, listId, deep) {
     if (browseOnly) { btn.title = 'Connect with Groq or Ollama to ingest'; return; }
     btn.disabled = true; btn.textContent = 'Queued…';
-    _ingestQueue.push({ paper: paper, btn: btn, prefix: prefix, indexKey: indexKey, listId: listId, deep: !!deep });
-    drainIngestQueue();
-  }
-
-  function drainIngestQueue() {
-    if (_ingestRunning || !_ingestQueue.length) return;
-    _ingestRunning = true;
-    var task = _ingestQueue.shift();
-    if (_ingestQueue.length) statusEl.textContent = _ingestQueue.length + ' more in queue…';
-    ingestPaper(task.paper, task.btn, task.prefix, task.indexKey, task.listId, task.deep, function () {
-      _ingestRunning = false; drainIngestQueue();
-    });
+    enqueueTask(function () { return new Promise(function (res) { ingestPaper(paper, btn, prefix, indexKey, listId, deep, res); }); });
   }
 
   // ── Ingest prompts ────────────────────────────────────────────────
@@ -608,7 +624,7 @@
       var otherIndex = getIndex(indexKey).map(function (e) { return '- ' + e.name; }).join('\n') || '(none yet)';
       statusEl.textContent = (deep ? 'Deep wiki: ' : 'Building wiki page: ') + paper.name + '…';
       var prompt = buildIngestPrompt(paper, result.text, otherIndex, today, isLab, deep);
-      var body = { model: ingestModel(), max_tokens: deep ? 3000 : 1200, stream: deep, messages: [{ role: 'user', content: prompt }] };
+      var body = { model: ingestModel(), stream: deep, messages: [{ role: 'user', content: prompt }] };
       var acc = '', content;
       if (deep) {
         await llmStream(body, function (t) { acc += t; statusEl.textContent = 'Writing: ' + paper.name + ' (' + acc.length + ' chars)…'; });
@@ -645,7 +661,7 @@
     var labIndex = getIndex(LAB_INDEX_KEY), rlIndex = getIndex(WIKI_INDEX_KEY);
     if (browseOnly) { outputEl.textContent = 'Connect with Groq or Ollama to run the health check.'; return; }
     if (!labIndex.length && !rlIndex.length) { outputEl.textContent = 'No wiki pages ingested yet. Use the Lab Papers or Reading List tabs first.'; return; }
-    lintBtn.disabled = true; statusEl.textContent = 'Running wiki health check…'; outputEl.textContent = '';
+    lintBtn.disabled = true; lintBtn.textContent = 'Queued…'; outputEl.textContent = '';
 
     var labSecs = labIndex.map(function (e) { return { name: e.name, content: getPage(LAB_WIKI_PREFIX, e.key) || '(page not found)' }; });
     var rlSecs  = rlIndex.map(function (e)  { return { name: e.name, content: getPage(WIKI_PREFIX, e.key)     || '(page not found)' }; });
@@ -670,16 +686,20 @@
       + '## Future Research Directions\nSuggest 5–8 concrete research directions. Each must: (1) name the gap, (2) identify lab papers it builds on, '
       + '(3) identify reading list papers that inform it, and (4) describe a concrete study design. No vague suggestions.';
 
-    var lintText = '';
-    llmStream({ model: chatModel(), stream: true, messages: [{ role: 'user', content: prompt }] },
-      function (token) { lintText += token; outputEl.textContent = lintText; }
-    ).then(function () {
-      setItem(LINT_OUTPUT_KEY, lintText); renderMarkdown(outputEl, lintText);
-      appendLog('lint', (labIndex.length + rlIndex.length) + ' pages checked');
-      lintBtn.disabled = false; statusEl.textContent = statusLabel();
-    }).catch(function (err) {
-      outputEl.textContent = 'Error: ' + (err.message || 'Could not reach API.');
-      lintBtn.disabled = false; statusEl.textContent = statusLabel();
+    enqueueTask(async function () {
+      statusEl.textContent = 'Running wiki health check…';
+      var lintText = '';
+      try {
+        await llmStream({ model: chatModel(), stream: true, messages: [{ role: 'user', content: prompt }] },
+          function (token) { lintText += token; outputEl.textContent = lintText; }
+        );
+        setItem(LINT_OUTPUT_KEY, lintText); renderMarkdown(outputEl, lintText);
+        appendLog('lint', (labIndex.length + rlIndex.length) + ' pages checked');
+      } catch (err) {
+        outputEl.textContent = 'Error: ' + (err.message || 'Could not reach API.');
+      } finally {
+        lintBtn.disabled = false; lintBtn.textContent = 'Run Health Check'; statusEl.textContent = statusLabel();
+      }
     });
   });
 

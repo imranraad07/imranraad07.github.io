@@ -25,6 +25,19 @@
     margin: 0.6rem 0;
   }
 
+  pre, code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  table {
+    width: 100%;
+    table-layout: fixed;
+    word-break: break-word;
+  }
+
   > *:last-child { margin-bottom: 0; }
 }
 
@@ -304,12 +317,16 @@
 
 // Shared panel styles
 .ks-panel-info {
-  padding: 0.65rem 1.25rem;
+  padding: 0.65rem 1.25rem 0.75rem;
   font-size: 0.82rem;
   color: #6b7280;
   border-bottom: 1px solid #f3f4f6;
   background: #fafafa;
-  p { margin: 0; }
+  p { margin: 0 0 0.4rem; }
+  ul { margin: 0.35rem 0 0 1.1rem; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+  li { margin: 0; }
+  strong { color: #374151; }
+  code { background: #f3f4f6; padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.79rem; }
 }
 
 .ks-panel-empty {
@@ -486,7 +503,7 @@
 .ks-wiki-filename { font-size: 0.8rem; font-weight: 700; color: #15803d; background: none; padding: 0; font-family: 'SFMono-Regular', Consolas, monospace; }
 .ks-wiki-file-desc { font-size: 0.75rem; color: #9ca3af; }
 
-.ks-wiki-content--file { padding: 0.85rem 1rem; overflow-y: auto; background: #fff; }
+.ks-wiki-content--file { padding: 0.85rem 1rem; overflow-y: auto; overflow-x: hidden; background: #fff; word-break: break-word; }
 #ks-wiki-index-content { max-height: 800px; }
 #ks-wiki-log-content   { max-height: 180px; }
 
