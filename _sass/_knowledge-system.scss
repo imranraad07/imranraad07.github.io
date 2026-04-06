@@ -1,12 +1,46 @@
-// =====================
 // Knowledge System page
-// =====================
 
+// Shared markdown rendering rules (used by .ks-wiki-content and .ks-lint-output)
+%md-body {
+  p { margin: 0 0 0.45rem; }
 
-// =====================
-// Chatbot
-// =====================
+  ul, ol {
+    margin: 0.2rem 0 0.45rem 1.1rem;
+    padding: 0;
+  }
 
+  li {
+    margin-bottom: 0.2rem;
+    border-left: none !important;
+    padding-left: 0 !important;
+    &::before { content: none !important; }
+  }
+
+  strong { font-weight: 600; color: #111827; }
+  em     { font-style: italic; }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 0.6rem 0;
+  }
+
+  > *:last-child { margin-bottom: 0; }
+}
+
+// Shared ghost-button base (summary + deep wiki)
+%ghost-action-btn {
+  background: none;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  font-family: inherit;
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+// Chatbot container
 .ks-chatbot {
   margin-top: 1rem;
   border: 1px solid #bbf7d0;
@@ -17,18 +51,11 @@
   display: flex;
   flex-direction: column;
 
-  .ks-connect, .ks-chat-interface {
-    flex: 1;
-    min-height: 0;
-  }
+  .ks-connect, .ks-chat-interface { flex: 1; min-height: 0; }
 }
 
 // Provider tabs
-.ks-provider-tabs {
-  display: flex;
-  gap: 0.4rem;
-  margin-bottom: 0.75rem;
-}
+.ks-provider-tabs { display: flex; gap: 0.4rem; margin-bottom: 0.75rem; }
 
 .ks-provider-tab {
   padding: 0.35rem 0.9rem;
@@ -45,15 +72,8 @@
   gap: 0.4rem;
 
   &:hover { border-color: #9ca3af; color: #374151; }
-
-  &--active {
-    background: #f0fdf4;
-    border-color: #86efac;
-    color: #15803d;
-    font-weight: 600;
-  }
+  &--active { background: #f0fdf4; border-color: #86efac; color: #15803d; font-weight: 600; }
 }
-
 
 .ks-ollama-refresh {
   flex-shrink: 0;
@@ -66,7 +86,6 @@
   cursor: pointer;
   font-family: inherit;
   line-height: 1;
-
   &:hover { background: #e5e7eb; color: #374151; }
 }
 
@@ -75,35 +94,20 @@
   font-weight: 500;
   color: #9ca3af;
   letter-spacing: 0.02em;
-
   .ks-provider-tab--active & { color: #6b7280; }
 }
 
-// Groq connect screen
-.ks-connect {
-  padding: 1.5rem 1.75rem;
-}
-
-.ks-connect-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.ks-key-row {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
+// Connect screen
+.ks-connect        { padding: 1.5rem 1.75rem; }
+.ks-connect-inner  { display: flex; flex-direction: column; gap: 0.6rem; }
+.ks-key-row        { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
 .ks-connect-hint {
   font-size: 0.8rem;
   color: #9ca3af;
   margin: 0;
-
   a { color: #16a34a; }
 }
-
 
 .ks-model-select {
   flex: 1;
@@ -114,11 +118,7 @@
   font-size: 0.9rem;
   outline: none;
   background: #fff;
-
-  &:focus {
-    border-color: #16a34a;
-    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15);
-  }
+  &:focus { border-color: #16a34a; box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15); }
 }
 
 .ks-key-btn {
@@ -130,11 +130,7 @@
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  white-space: nowrap;
-
-  &:hover {
-    background: #15803d;
-  }
+  &:hover { background: #15803d; }
 }
 
 .ks-browse-notice {
@@ -160,14 +156,10 @@
   font-size: 0.8rem;
   cursor: pointer;
   white-space: nowrap;
-
   &:hover { background: #fef3c7; }
 }
 
-.ks-browse-row {
-  margin-top: 0.75rem;
-  text-align: center;
-}
+.ks-browse-row { margin-top: 0.75rem; text-align: center; }
 
 .ks-browse-btn {
   background: none;
@@ -178,7 +170,6 @@
   padding: 0;
   text-decoration: underline;
   text-underline-offset: 2px;
-
   &:hover { color: #374151; }
 }
 
@@ -205,23 +196,11 @@
 
   &--user {
     justify-content: flex-end;
-
-    .ks-msg-bubble {
-      background: #16a34a;
-      color: #fff;
-      border-radius: 14px 14px 3px 14px;
-    }
+    .ks-msg-bubble { background: #16a34a; color: #fff; border-radius: 14px 14px 3px 14px; }
   }
-
   &--assistant {
     justify-content: flex-start;
-
-    .ks-msg-bubble {
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      color: #111827;
-      border-radius: 14px 14px 14px 3px;
-    }
+    .ks-msg-bubble { background: #fff; border: 1px solid #e5e7eb; color: #111827; border-radius: 14px 14px 14px 3px; }
   }
 }
 
@@ -235,12 +214,7 @@
 }
 
 // Suggestion chips
-.ks-suggestions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  padding: 0.5rem 1.25rem;
-}
+.ks-suggestions { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.5rem 1.25rem; }
 
 .ks-suggestion {
   padding: 0.3rem 0.75rem;
@@ -251,10 +225,7 @@
   color: #15803d;
   cursor: pointer;
   font-weight: 500;
-
-  &:hover {
-    background: #dcfce7;
-  }
+  &:hover { background: #dcfce7; }
 }
 
 // Input row
@@ -273,11 +244,7 @@
   border-radius: 6px;
   font-size: 0.9rem;
   outline: none;
-
-  &:focus {
-    border-color: #16a34a;
-    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15);
-  }
+  &:focus { border-color: #16a34a; box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15); }
 }
 
 .ks-send-btn {
@@ -288,15 +255,8 @@
   border-radius: 6px;
   font-size: 1rem;
   cursor: pointer;
-
-  &:hover:not(:disabled) {
-    background: #15803d;
-  }
-
-  &:disabled {
-    background: #9ca3af;
-    cursor: not-allowed;
-  }
+  &:hover:not(:disabled) { background: #15803d; }
+  &:disabled { background: #9ca3af; cursor: not-allowed; }
 }
 
 .ks-chat-footer {
@@ -307,11 +267,7 @@
   background: #fff;
 }
 
-#ks-status {
-  font-size: 0.78rem;
-  color: #6b7280;
-  font-style: italic;
-}
+#ks-status { font-size: 0.78rem; color: #6b7280; font-style: italic; }
 
 .ks-reset-btn {
   background: none;
@@ -320,17 +276,10 @@
   color: #9ca3af;
   cursor: pointer;
   padding: 0;
-
-  &:hover {
-    color: #6b7280;
-    text-decoration: underline;
-  }
+  &:hover { color: #6b7280; text-decoration: underline; }
 }
 
-// =====================
 // Mode tabs
-// =====================
-
 .ks-mode-tabs {
   display: flex;
   border-bottom: 1px solid #e5e7eb;
@@ -349,27 +298,17 @@
   cursor: pointer;
   font-family: inherit;
   transition: color 0.1s;
-
   &:hover { color: #374151; }
-
-  &--active {
-    color: #16a34a;
-    border-bottom-color: #16a34a;
-    font-weight: 600;
-  }
+  &--active { color: #16a34a; border-bottom-color: #16a34a; font-weight: 600; }
 }
 
-// =====================
 // Shared panel styles
-// =====================
-
 .ks-panel-info {
   padding: 0.65rem 1.25rem;
   font-size: 0.82rem;
   color: #6b7280;
   border-bottom: 1px solid #f3f4f6;
   background: #fafafa;
-
   p { margin: 0; }
 }
 
@@ -378,33 +317,13 @@
   text-align: center;
   font-size: 0.875rem;
   color: #9ca3af;
-
-  code {
-    background: #f3f4f6;
-    padding: 0.1rem 0.35rem;
-    border-radius: 3px;
-    font-size: 0.82rem;
-  }
+  code { background: #f3f4f6; padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.82rem; }
 }
 
-// =====================
 // Ingest panels
-// =====================
+#ks-mode-lab, #ks-mode-rl { flex: 1; min-height: 0; overflow-y: auto; }
 
-#ks-mode-lab,
-#ks-mode-rl {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
-
-#ks-lab-list,
-#ks-rl-list {
-  padding: 0.75rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
+#ks-lab-list, #ks-rl-list { padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
 
 .ks-ingest-year {
   font-size: 1rem;
@@ -414,7 +333,6 @@
   border-bottom: 2px solid #e5e7eb;
   margin-bottom: 0.4rem;
   margin-top: 0.6rem;
-
   &:first-child { margin-top: 0; }
 }
 
@@ -425,24 +343,13 @@
   letter-spacing: 0.08em;
   padding: 0.35rem 0 0.25rem;
   margin-top: 0.4rem;
-
   &--full  { color: #15803d; }
   &--short { color: #9ca3af; }
 }
 
-.ks-ingest-item {
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  padding: 0.75rem 1rem;
-  background: #fff;
-}
+.ks-ingest-item { border: 1px solid #e5e7eb; border-radius: 6px; padding: 0.75rem 1rem; background: #fff; }
 
-.ks-ingest-item-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
+.ks-ingest-item-header { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.5rem; }
 
 .ks-ingest-title {
   flex: 1;
@@ -461,24 +368,11 @@
   letter-spacing: 0.05em;
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
-
-  &--ingested {
-    background: #dcfce7;
-    color: #15803d;
-    border: 1px solid #bbf7d0;
-  }
-
-  &--pending {
-    background: #f9fafb;
-    color: #9ca3af;
-    border: 1px solid #e5e7eb;
-  }
+  &--ingested { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+  &--pending  { background: #f9fafb; color: #9ca3af; border: 1px solid #e5e7eb; }
 }
 
-.ks-ingest-actions {
-  display: flex;
-  gap: 0.5rem;
-}
+.ks-ingest-actions { display: flex; gap: 0.5rem; }
 
 .ks-ingest-btn {
   font-size: 0.8rem;
@@ -490,9 +384,15 @@
   border-radius: 5px;
   cursor: pointer;
   font-family: inherit;
-
   &:hover:not(:disabled) { background: #15803d; }
   &:disabled { background: #9ca3af; cursor: not-allowed; }
+
+  &--reingest {
+    background: none;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+    &:hover:not(:disabled) { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
+  }
 }
 
 .ks-view-wiki-btn {
@@ -505,17 +405,27 @@
   border-radius: 5px;
   cursor: pointer;
   font-family: inherit;
-
   &:hover { background: #dcfce7; }
 }
 
-.ks-wiki-preview {
-  margin-top: 0.75rem;
-  border-top: 1px solid #f3f4f6;
-  padding-top: 0.75rem;
+.ks-summary-btn {
+  @extend %ghost-action-btn;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  &:hover:not(:disabled) { background: #e0f2fe; border-color: #7dd3fc; }
 }
 
+.ks-deep-wiki-btn {
+  @extend %ghost-action-btn;
+  color: #7c3aed;
+  border: 1px solid #ddd6fe;
+  &:hover:not(:disabled) { background: #ede9fe; border-color: #c4b5fd; }
+}
+
+.ks-wiki-preview { margin-top: 0.75rem; border-top: 1px solid #f3f4f6; padding-top: 0.75rem; }
+
 .ks-wiki-content {
+  @extend %md-body;
   background: #f9fafb;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
@@ -526,68 +436,12 @@
   line-height: 1.6;
   color: #374151;
 
-  h1 {
-    font-size: 0.98rem;
-    font-weight: 700;
-    color: #111827;
-    margin: 0 0 0.6rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid #e5e7eb;
-    line-height: 1.3;
-  }
-
-  h2 {
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #16a34a;
-    margin: 1rem 0 0.3rem;
-  }
-
-  h3 {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #374151;
-    margin: 0.6rem 0 0.2rem;
-  }
-
-  p {
-    margin: 0 0 0.45rem;
-  }
-
-  ul, ol {
-    margin: 0.2rem 0 0.45rem 1.1rem;
-    padding: 0;
-  }
-
-  li {
-    margin-bottom: 0.2rem;
-    border-left: none !important;
-    padding-left: 0 !important;
-    &::before { content: none !important; }
-  }
-
-  strong {
-    font-weight: 600;
-    color: #111827;
-  }
-
-  em { font-style: italic; }
-
-  hr {
-    border: none;
-    border-top: 1px solid #e5e7eb;
-    margin: 0.6rem 0;
-  }
-
-  > *:last-child { margin-bottom: 0; }
+  h1 { font-size: 0.98rem; font-weight: 700; color: #111827; margin: 0 0 0.6rem; padding-bottom: 0.4rem; border-bottom: 1px solid #e5e7eb; line-height: 1.3; }
+  h2 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #16a34a; margin: 1rem 0 0.3rem; }
+  h3 { font-size: 0.85rem; font-weight: 600; color: #374151; margin: 0.6rem 0 0.2rem; }
 }
 
-// =====================
 // Wiki panel (index.md + log.md)
-// =====================
-
 #ks-mode-wiki {
   flex: 1;
   min-height: 0;
@@ -598,12 +452,7 @@
   gap: 0.75rem;
 }
 
-.ks-wiki-io {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-}
+.ks-wiki-io { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
 
 .ks-io-btn {
   padding: 0.35rem 0.85rem;
@@ -615,36 +464,15 @@
   color: #374151;
   cursor: pointer;
   font-family: inherit;
-
   &:hover { background: #f3f4f6; border-color: #9ca3af; }
-
-  &--import {
-    background: #eff6ff;
-    border-color: #bfdbfe;
-    color: #1d4ed8;
-    &:hover { background: #dbeafe; }
-  }
-
-  &--active {
-    background: #f0fdf4;
-    border-color: #86efac;
-    color: #15803d;
-    &:hover { background: #dcfce7; }
-  }
+  &--import { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; &:hover { background: #dbeafe; } }
+  &--active  { background: #f0fdf4; border-color: #86efac; color: #15803d; &:hover { background: #dcfce7; } }
+  &--regen   { background: #fefce8; border-color: #fde68a; color: #92400e; &:hover { background: #fef9c3; } &:disabled { opacity: 0.5; cursor: not-allowed; } }
 }
 
+.ks-io-hint { font-size: 0.75rem; color: #9ca3af; margin-left: auto; }
 
-.ks-io-hint {
-  font-size: 0.75rem;
-  color: #9ca3af;
-  margin-left: auto;
-}
-
-.ks-wiki-file {
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  overflow: hidden;
-}
+.ks-wiki-file { border: 1px solid #e5e7eb; border-radius: 6px; overflow: hidden; }
 
 .ks-wiki-file-header {
   display: flex;
@@ -655,86 +483,15 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.ks-wiki-filename {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #15803d;
-  background: none;
-  padding: 0;
-  font-family: 'SFMono-Regular', Consolas, monospace;
-}
+.ks-wiki-filename { font-size: 0.8rem; font-weight: 700; color: #15803d; background: none; padding: 0; font-family: 'SFMono-Regular', Consolas, monospace; }
+.ks-wiki-file-desc { font-size: 0.75rem; color: #9ca3af; }
 
-.ks-wiki-file-desc {
-  font-size: 0.75rem;
-  color: #9ca3af;
-}
+.ks-wiki-content--file { padding: 0.85rem 1rem; overflow-y: auto; background: #fff; }
+#ks-wiki-index-content { max-height: 800px; }
+#ks-wiki-log-content   { max-height: 180px; }
 
-.ks-wiki-content--file {
-  padding: 0.85rem 1rem;
-  max-height: 500px;
-  overflow-y: auto;
-  background: #fff;
-}
-
-.ks-ingest-btn--reingest {
-  background: none;
-  color: #6b7280;
-  border: 1px solid #d1d5db;
-
-  &:hover:not(:disabled) {
-    background: #fee2e2;
-    color: #dc2626;
-    border-color: #fca5a5;
-  }
-}
-
-.ks-summary-btn {
-  background: none;
-  color: #0369a1;
-  border: 1px solid #bae6fd;
-  border-radius: 5px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  padding: 0.25rem 0.75rem;
-  cursor: pointer;
-  font-family: inherit;
-
-  &:hover:not(:disabled) {
-    background: #e0f2fe;
-    border-color: #7dd3fc;
-  }
-
-  &:disabled { opacity: 0.5; cursor: not-allowed; }
-}
-
-.ks-deep-wiki-btn {
-  background: none;
-  color: #7c3aed;
-  border: 1px solid #ddd6fe;
-  border-radius: 5px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  padding: 0.25rem 0.75rem;
-  cursor: pointer;
-  font-family: inherit;
-
-  &:hover:not(:disabled) {
-    background: #ede9fe;
-    border-color: #c4b5fd;
-  }
-
-  &:disabled { opacity: 0.5; cursor: not-allowed; }
-}
-
-// =====================
 // Lint panel
-// =====================
-
-#ks-mode-lint {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
+#ks-mode-lint { flex: 1; min-height: 0; overflow-y: auto; }
 
 .ks-lint-run-btn {
   display: block;
@@ -748,89 +505,27 @@
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
-
   &:hover:not(:disabled) { background: #15803d; }
   &:disabled { background: #9ca3af; cursor: not-allowed; }
 }
 
 .ks-lint-output {
+  @extend %md-body;
   margin: 0 1.25rem 1rem;
   font-size: 0.82rem;
   line-height: 1.65;
   color: #374151;
-
-  // During streaming (plain text)
   &:not(:empty) { min-height: 1rem; }
 
-  h1, h2, h3 {
-    color: #111827;
-    margin: 1rem 0 0.3rem;
-    line-height: 1.3;
-  }
+  h1, h2, h3 { color: #111827; margin: 1rem 0 0.3rem; line-height: 1.3; }
+  h2 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #16a34a; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.25rem; }
+  h3 { font-size: 0.85rem; font-weight: 600; color: #374151; }
 
-  h2 {
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #16a34a;
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 0.25rem;
-  }
-
-  h3 {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #374151;
-  }
-
-  p { margin: 0 0 0.45rem; }
-
-  ul, ol {
-    margin: 0.2rem 0 0.5rem 1.1rem;
-    padding: 0;
-  }
-
-  li {
-    margin-bottom: 0.25rem;
-    border-left: none !important;
-    padding-left: 0 !important;
-    &::before { content: none !important; }
-  }
-
-  strong { font-weight: 600; color: #111827; }
-  em { font-style: italic; }
-
-  hr {
-    border: none;
-    border-top: 1px solid #e5e7eb;
-    margin: 0.75rem 0;
-  }
-
-  // Tables (lint often generates them)
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.8rem;
-    margin: 0.5rem 0 0.75rem;
-  }
-
-  th {
-    background: #f3f4f6;
-    font-weight: 600;
-    color: #111827;
-    padding: 0.35rem 0.6rem;
-    border: 1px solid #e5e7eb;
-    text-align: left;
-  }
-
-  td {
-    padding: 0.3rem 0.6rem;
-    border: 1px solid #e5e7eb;
-    vertical-align: top;
-  }
-
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin: 0.5rem 0 0.75rem; }
+  th { background: #f3f4f6; font-weight: 600; color: #111827; padding: 0.35rem 0.6rem; border: 1px solid #e5e7eb; text-align: left; }
+  td { padding: 0.3rem 0.6rem; border: 1px solid #e5e7eb; vertical-align: top; }
   tr:nth-child(even) td { background: #fafafa; }
 
-  > *:last-child { margin-bottom: 0; }
+  ul, ol { margin-bottom: 0.5rem; }
+  li { margin-bottom: 0.25rem; }
 }

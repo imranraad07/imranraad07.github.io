@@ -55,7 +55,7 @@
         <p class="ks-connect-hint">Get a free key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p>
       </div>
 
-<div id="ks-ollama-fields" style="display:none;">
+      <div id="ks-ollama-fields" style="display:none;">
         <div class="ks-key-row">
           <select id="ks-ollama-model-select" class="ks-model-select">
             <option value="">Click Ollama tab to detect models…</option>
@@ -136,12 +136,13 @@
       <div class="ks-wiki-io">
         <button class="ks-io-btn ks-io-btn--import" id="ks-local-save-btn">&#128190; Save to disk</button>
         <button class="ks-io-btn" id="ks-export-btn">&#8595; Download backup</button>
+        <button class="ks-io-btn ks-io-btn--regen" id="ks-regen-btn">&#8635; Regen Wiki</button>
         <span class="ks-io-hint">Pick <code>assets/ks-data/wiki.json</code> once — auto-saves on every ingest</span>
       </div>
       <div class="ks-wiki-file">
         <div class="ks-wiki-file-header">
-          <code class="ks-wiki-filename">index.md</code>
-          <span class="ks-wiki-file-desc">Catalog of all ingested pages</span>
+          <code class="ks-wiki-filename">wiki.md</code>
+          <span class="ks-wiki-file-desc">Full wiki pages — all ingested papers</span>
         </div>
         <div id="ks-wiki-index-content" class="ks-wiki-content ks-wiki-content--file"></div>
       </div>
