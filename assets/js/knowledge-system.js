@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   var GROQ_URL     = 'https://api.groq.com/openai/v1/chat/completions';
   var OLLAMA_URL   = 'http://localhost:11434/v1/chat/completions';
   var MARKED_CDN   = 'https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js';
@@ -20,16 +22,19 @@
     _saveTimer = setTimeout(writeToLocalFile, 1000);
   }
 
-  function writeToLocalFile() {
+  async function writeToLocalFile() {
     if (!_fileHandle) return;
-    _fileHandle.createWritable().then(function (w) {
-      return w.write(JSON.stringify(wikiData, null, 2)).then(function () { return w.close(); });
-    }).then(function () {
+    try {
+      var w = await _fileHandle.createWritable();
+      await w.write(JSON.stringify(wikiData, null, 2));
+      await w.close();
       var btn = document.getElementById('ks-local-save-btn');
       if (btn) btn.textContent = 'Disk: saved ✓';
       statusEl.textContent = statusLabel() + ' · Saved ✓';
       setTimeout(function () { statusEl.textContent = statusLabel(); }, 2500);
-    }).catch(function () { statusEl.textContent = statusLabel() + ' · Disk save failed'; });
+    } catch (e) {
+      statusEl.textContent = statusLabel() + ' · Disk save failed';
+    }
   }
 
   function downloadJson() {
@@ -38,18 +43,16 @@
     a.click(); URL.revokeObjectURL(url);
   }
 
-  function pickLocalFile() {
+  async function pickLocalFile() {
     if (!window.showSaveFilePicker) { downloadJson(); return; }
-    window.showSaveFilePicker({ suggestedName: 'wiki.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] })
-      .then(function (handle) {
-        _fileHandle = handle;
-        return writeToLocalFile();
-      })
-      .then(function () {
-        var btn = document.getElementById('ks-local-save-btn');
-        if (btn) { btn.textContent = 'Disk: auto-saving ✓'; btn.classList.add('ks-io-btn--active'); }
-      })
-      .catch(function (e) { if (e.name !== 'AbortError') statusEl.textContent = 'Could not save file'; });
+    try {
+      _fileHandle = await window.showSaveFilePicker({ suggestedName: 'wiki.json', types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }] });
+      await writeToLocalFile();
+      var btn = document.getElementById('ks-local-save-btn');
+      if (btn) { btn.textContent = 'Disk: auto-saving ✓'; btn.classList.add('ks-io-btn--active'); }
+    } catch (e) {
+      if (e.name !== 'AbortError') statusEl.textContent = 'Could not save file';
+    }
   }
 
   async function loadFromRepo() {
@@ -91,7 +94,7 @@
   var WIKI_LOG_KEY    = 'ks_wiki_log';
   var LINT_OUTPUT_KEY = 'ks_lint_output';
 
-function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]'); } catch(e) { return []; } }
+  function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]'); } catch (e) { return []; } }
   function saveIndex(key, idx)    { setItem(key, JSON.stringify(idx)); }
   function getPage(prefix, k)     { return getItem(prefix + k); }
   function savePage(prefix, k, c) { setItem(prefix + k, c); }
@@ -201,41 +204,41 @@ function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]');
 
   // ── DOM refs ──────────────────────────────────────────────────────
   var history = [];
-  var connectEl      = document.getElementById('ks-connect');
-  var chatEl         = document.getElementById('ks-chat-interface');
-  var keyInput       = document.getElementById('ks-api-key');
-  var modelSelect    = document.getElementById('ks-model-select');
-  var connectBtn     = document.getElementById('ks-connect-btn');
-  var messagesEl     = document.getElementById('ks-messages');
-  var inputEl        = document.getElementById('ks-input');
-  var sendBtn        = document.getElementById('ks-send-btn');
-  var statusEl       = document.getElementById('ks-status');
-  var suggestionsEl  = document.getElementById('ks-suggestions');
-  var ollamaSelEl    = document.getElementById('ks-ollama-model-select');
-  var ollamaCustomEl = document.getElementById('ks-ollama-custom');
-  var ollamaCustomRow = document.getElementById('ks-ollama-custom-row');
+  var connectEl        = document.getElementById('ks-connect');
+  var chatEl           = document.getElementById('ks-chat-interface');
+  var keyInput         = document.getElementById('ks-api-key');
+  var modelSelect      = document.getElementById('ks-model-select');
+  var connectBtn       = document.getElementById('ks-connect-btn');
+  var messagesEl       = document.getElementById('ks-messages');
+  var inputEl          = document.getElementById('ks-input');
+  var sendBtn          = document.getElementById('ks-send-btn');
+  var statusEl         = document.getElementById('ks-status');
+  var suggestionsEl    = document.getElementById('ks-suggestions');
+  var ollamaSelEl      = document.getElementById('ks-ollama-model-select');
+  var ollamaCustomEl   = document.getElementById('ks-ollama-custom');
+  var ollamaCustomRow  = document.getElementById('ks-ollama-custom-row');
   var remoteUrlInput   = document.getElementById('ks-or-url');
   var remoteModelInput = document.getElementById('ks-or-model');
 
   modelSelect.value = selectedModel;
 
   // ── Ollama local model detection ──────────────────────────────────
-  function fetchOllamaModels() {
+  async function fetchOllamaModels() {
     ollamaSelEl.innerHTML = '<option value="">Detecting models…</option>';
     ollamaSelEl.disabled  = true;
-    fetch('http://localhost:11434/api/tags')
-      .then(function (r) { return r.json(); })
-      .then(function (d) {
-        var names = (d.models || []).map(function (m) { return m.name; });
-        ollamaSelEl.innerHTML = (names.length ? names.map(function (n) { return '<option>' + n + '</option>'; }).join('') : '<option value="">No models installed</option>')
-          + '<option value="__custom__">— Enter model name manually —</option>';
-        ollamaSelEl.disabled = false;
-        ollamaCustomRow.style.display = 'none';
-      })
-      .catch(function () {
-        ollamaSelEl.innerHTML = '<option value="">Ollama not running</option><option value="__custom__">— Enter model name manually —</option>';
-        ollamaSelEl.disabled = false;
-      });
+    try {
+      var r = await fetch('http://localhost:11434/api/tags');
+      var d = await r.json();
+      var names = (d.models || []).map(function (m) { return m.name; });
+      ollamaSelEl.innerHTML = (names.length
+        ? names.map(function (n) { return '<option>' + n + '</option>'; }).join('')
+        : '<option value="">No models installed</option>')
+        + '<option value="__custom__">— Enter model name manually —</option>';
+    } catch (e) {
+      ollamaSelEl.innerHTML = '<option value="">Ollama not running</option><option value="__custom__">— Enter model name manually —</option>';
+    }
+    ollamaSelEl.disabled = false;
+    ollamaCustomRow.style.display = 'none';
   }
 
   ollamaSelEl.addEventListener('change', function () { ollamaCustomRow.style.display = this.value === '__custom__' ? 'block' : 'none'; });
@@ -321,7 +324,6 @@ function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]');
     var labIdx = getIndex(LAB_INDEX_KEY), rlIdx = getIndex(WIKI_INDEX_KEY);
     if (!labIdx.length && !rlIdx.length) { statusEl.textContent = 'No ingested pages to regenerate.'; return; }
 
-    // Build ordered task list matching index entries to available PDFs
     var tasks = [];
     labIdx.forEach(function (e) {
       var p = LAB_PAPERS.find(function (p) { return p.key === e.key; });
@@ -331,73 +333,74 @@ function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]');
       var p = RL_PAPERS.find(function (p) { return p.key === e.key; });
       if (p) tasks.push({ paper: p, prefix: WIKI_PREFIX, indexKey: WIKI_INDEX_KEY, listId: 'ks-rl-list' });
     });
-
     if (!tasks.length) { statusEl.textContent = 'PDF source files not found — cannot regenerate.'; return; }
 
-    var regenBtn = this;
+    var regenBtn = this, completed = 0, total = tasks.length;
     regenBtn.disabled = true;
-    var completed = 0, total = tasks.length;
 
     tasks.forEach(function (task, i) {
-      enqueueTask(function () {
-        var fakeBtn = document.createElement('button');
+      enqueueTask(async function () {
         statusEl.textContent = 'Regenerating (' + (i + 1) + '/' + total + '): ' + task.paper.name + '…';
-        return new Promise(function (res) {
-          ingestPaper(task.paper, fakeBtn, task.prefix, task.indexKey, task.listId, false, function () {
-            completed++;
-            if (completed === total) {
-              regenBtn.disabled = false;
-              statusEl.textContent = statusLabel() + ' · Regenerated ' + completed + '/' + total + ' pages ✓';
-              setTimeout(function () { statusEl.textContent = statusLabel(); }, 3000);
-            }
-            res();
-          });
-        });
+        await ingestPaper(task.paper, document.createElement('button'), task.prefix, task.indexKey, task.listId, false);
+        completed++;
+        if (completed === total) {
+          regenBtn.disabled = false;
+          statusEl.textContent = statusLabel() + ' · Regenerated ' + completed + '/' + total + ' pages ✓';
+          setTimeout(function () { statusEl.textContent = statusLabel(); }, 3000);
+        }
       });
     });
   });
 
   // ── SSE streaming ─────────────────────────────────────────────────
-  function streamResponse(res, onToken) {
+  async function streamResponse(res, onToken) {
     var reader = res.body.getReader(), decoder = new TextDecoder(), buffer = '';
-    function pump() {
-      return reader.read().then(function (chunk) {
-        if (chunk.done) return;
-        buffer += decoder.decode(chunk.value, { stream: true });
-        var lines = buffer.split('\n'); buffer = lines.pop();
-        lines.forEach(function (line) {
-          if (!line.startsWith('data: ') || line === 'data: [DONE]') return;
-          try { var t = JSON.parse(line.slice(6)).choices[0].delta.content; if (t) onToken(t); } catch (e) {}
-        });
-        return pump();
-      });
+    while (true) {
+      var chunk = await reader.read();
+      if (chunk.done) break;
+      buffer += decoder.decode(chunk.value, { stream: true });
+      var lines = buffer.split('\n'); buffer = lines.pop();
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        if (!line.startsWith('data: ') || line === 'data: [DONE]') continue;
+        try { var t = JSON.parse(line.slice(6)).choices[0].delta.content; if (t) onToken(t); } catch (e) {}
+      }
     }
-    return pump();
   }
 
   // ── LLM helpers ───────────────────────────────────────────────────
   function llmFetch(body) { return fetch(apiUrl(), { method: 'POST', headers: apiHeaders(), body: JSON.stringify(body) }); }
-  function rejectOnError(r) {
-    if (!r.ok) return r.json().then(function (e) { throw new Error(e.error && e.error.message || 'API error'); });
-    return null;
+
+  async function llmComplete(body) {
+    var r = await llmFetch(body);
+    if (!r.ok) { var e = await r.json(); throw new Error((e.error && e.error.message) || 'API error'); }
+    var d = await r.json();
+    return d.choices[0].message.content;
   }
-  async function llmComplete(body) { var r = await llmFetch(body); return rejectOnError(r) || r.json().then(function (d) { return d.choices[0].message.content; }); }
-  async function llmStream(body, onToken) { var r = await llmFetch(body); return rejectOnError(r) || streamResponse(r, onToken); }
+
+  async function llmStream(body, onToken) {
+    var r = await llmFetch(body);
+    if (!r.ok) { var e = await r.json(); throw new Error((e.error && e.error.message) || 'API error'); }
+    return streamResponse(r, onToken);
+  }
 
   // ── Script / markdown / PDF ───────────────────────────────────────
-  function loadScript(src, key) {
+  async function loadScript(src, key) {
+    if (window[key]) return window[key];
     return new Promise(function (resolve, reject) {
-      if (window[key]) { resolve(window[key]); return; }
       var s = document.createElement('script');
       s.src = src; s.onload = function () { resolve(window[key]); }; s.onerror = reject;
       document.head.appendChild(s);
     });
   }
 
-  function renderMarkdown(el, md) {
-    loadScript(MARKED_CDN, 'marked')
-      .then(function (m) { el.innerHTML = m.parse(md, { breaks: true }); })
-      .catch(function () { el.textContent = md; });
+  async function renderMarkdown(el, md) {
+    try {
+      var m = await loadScript(MARKED_CDN, 'marked');
+      el.innerHTML = m.parse(md, { breaks: true });
+    } catch (e) {
+      el.textContent = md;
+    }
   }
 
   async function extractPdfText(url) {
@@ -535,7 +538,7 @@ function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]');
     });
   }
 
-  // ── Unified LLM queue (all tabs share one execution slot) ─────────
+  // ── Unified LLM queue ─────────────────────────────────────────────
   var _llmQueue = [], _llmRunning = false;
 
   function enqueueTask(fn) {
@@ -556,14 +559,15 @@ function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]');
   function enqueueSummary(paper, btn) {
     if (browseOnly) { btn.title = 'Connect to generate summary'; return; }
     btn.disabled = true; btn.textContent = 'Queued…';
-    enqueueTask(function () { return new Promise(function (res) { summarizePaper(paper, btn, res); }); });
+    enqueueTask(function () { return summarizePaper(paper, btn); });
   }
 
-  function summarizePaper(paper, btn, done) {
+  async function summarizePaper(paper, btn) {
     btn.disabled = true; btn.textContent = 'Generating…';
     statusEl.textContent = 'Generating summary: ' + paper.name + '…';
-    extractPdfText(paper.path).then(function (result) {
-      return llmComplete({ model: ingestModel(), stream: false, messages: [{ role: 'user', content:
+    try {
+      var result = await extractPdfText(paper.path);
+      var content = await llmComplete({ model: ingestModel(), stream: false, messages: [{ role: 'user', content:
         'Write a reading-list summary for this research paper. The summary must be 4–6 complete sentences and cover ALL of the following:\n'
         + '1. What problem or gap does the paper address and why it matters?\n'
         + '2. What is the research approach, method, or dataset used?\n'
@@ -573,23 +577,23 @@ function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]');
         + 'Do not start with "This paper". Write every sentence completely — do not trail off or cut short.\n\n'
         + 'Paper title: ' + paper.name + '\n\nExtracted text:\n' + result.text
       }] });
-    }).then(function (content) {
       if (content) { setItem(paper.key, content.trim()); localStorage.setItem(paper.key, content.trim()); appendLog('summary', paper.name); }
-      btn.disabled = false; btn.textContent = 'Re-summary'; statusEl.textContent = statusLabel();
-    }).catch(function (err) {
+      btn.textContent = 'Re-summary';
+    } catch (err) {
       statusEl.textContent = 'Error: ' + (err.message || 'Summary failed.');
-      btn.disabled = false; btn.textContent = 'Summary';
-    }).finally(function () { if (done) done(); });
+      btn.textContent = 'Summary';
+    } finally {
+      btn.disabled = false; statusEl.textContent = statusLabel();
+    }
   }
 
-  // ── Ingest queue ──────────────────────────────────────────────────
+  // ── Ingest ────────────────────────────────────────────────────────
   function enqueueIngest(paper, btn, prefix, indexKey, listId, deep) {
     if (browseOnly) { btn.title = 'Connect with Groq or Ollama to ingest'; return; }
     btn.disabled = true; btn.textContent = 'Queued…';
-    enqueueTask(function () { return new Promise(function (res) { ingestPaper(paper, btn, prefix, indexKey, listId, deep, res); }); });
+    enqueueTask(function () { return ingestPaper(paper, btn, prefix, indexKey, listId, deep); });
   }
 
-  // ── Ingest prompts ────────────────────────────────────────────────
   var LENS_WIKI   = 'You are building the LENS Lab Wiki (Lens for Empirical Navigation in Software Lab, Missouri S&T). ';
   var LENS_THEMES = 'Toxicity/Derailment in OSS, Emotion in SE, Bug Reports, GenAI & Code Quality';
 
@@ -608,14 +612,16 @@ function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]');
         + '## Problem & Motivation\n## Research Questions\n## Dataset & Study Design\n## Methodology\n## Key Results\n## Takeaways\n## Limitations\n## Connections to LENS Lab\n## Open Questions\n## Citation'
       : '# [Exact Paper Title]\n**Authors/Venue:** [from text]\n**Ingested:** ' + today + '\n\n'
         + '## Summary\n## Key Concepts\n## Methodology\n## Key Findings\n## Contributions\n## Limitations\n## Connections to Lab Research\n## Open Questions';
-    var detail = deep ? 'Generate a THOROUGH, DETAILED wiki page. Every section must be substantive — pull specific numbers, quotes, table results, and named methods directly from the PDF. No vague summaries.' : 'Generate a structured wiki page.';
+    var detail = deep
+      ? 'Generate a THOROUGH, DETAILED wiki page. Every section must be substantive — pull specific numbers, quotes, table results, and named methods directly from the PDF. No vague summaries.'
+      : 'Generate a structured wiki page.';
     return LENS_WIKI + 'This is an EXTERNAL paper on the reading list. ' + detail + '\n\n'
       + base + 'Other reading list papers in the wiki:\n' + otherIndex + '\n\nLENS Lab research themes: ' + LENS_THEMES + '.\n\n'
       + 'Generate a wiki page with EXACTLY these sections' + (deep ? '. Be specific and detailed in each.' : ':') + '\n\n'
       + sections + '\n\nGround every claim in the PDF text.' + (deep ? ' Be detailed.' : '') + ' Output only the markdown.';
   }
 
-  async function ingestPaper(paper, btn, prefix, indexKey, listId, deep, done) {
+  async function ingestPaper(paper, btn, prefix, indexKey, listId, deep) {
     var isLab = paper.type === 'lab';
     btn.disabled = true; statusEl.textContent = 'Reading PDF: ' + paper.name + '…';
     try {
@@ -625,8 +631,9 @@ function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]');
       statusEl.textContent = (deep ? 'Deep wiki: ' : 'Building wiki page: ') + paper.name + '…';
       var prompt = buildIngestPrompt(paper, result.text, otherIndex, today, isLab, deep);
       var body = { model: ingestModel(), stream: deep, messages: [{ role: 'user', content: prompt }] };
-      var acc = '', content;
+      var content;
       if (deep) {
+        var acc = '';
         await llmStream(body, function (t) { acc += t; statusEl.textContent = 'Writing: ' + paper.name + ' (' + acc.length + ' chars)…'; });
         content = acc;
       } else {
@@ -634,21 +641,20 @@ function getIndex(key)          { try { return JSON.parse(getItem(key) || '[]');
       }
       if (content) {
         savePage(prefix, paper.key, content.trim());
-        var index = getIndex(indexKey), i = index.findIndex(function (e) { return e.key === paper.key; });
+        var index = getIndex(indexKey), idx = index.findIndex(function (e) { return e.key === paper.key; });
         var entry = { key: paper.key, name: paper.name, date: today, pages: result.pages };
-        if (i >= 0) index[i] = entry; else index.push(entry);
+        if (idx >= 0) index[idx] = entry; else index.push(entry);
         saveIndex(indexKey, index);
         if (!isLab) { var sm = content.match(/## Summary\n([\s\S]*?)(?=\n##)/); if (sm) { var sv = sm[1].trim().slice(0, 500); setItem(paper.key, sv); localStorage.setItem(paper.key, sv); } }
         appendLog((deep ? 'deep-ingest' : isLab ? 'lab-ingest' : 'rl-ingest'), paper.name);
         _prompt = null;
       }
-      statusEl.textContent = statusLabel(); btn.disabled = false;
-      renderIngestPanel(isLab ? LAB_PAPERS : RL_PAPERS, listId, prefix, indexKey);
     } catch (err) {
       statusEl.textContent = 'Error: ' + (err.message || 'Ingest failed.');
-      btn.disabled = false;
+    } finally {
+      btn.disabled = false; statusEl.textContent = statusLabel();
+      renderIngestPanel(isLab ? LAB_PAPERS : RL_PAPERS, listId, prefix, indexKey);
     }
-    if (done) done();
   }
 
   // ── Lint ──────────────────────────────────────────────────────────
