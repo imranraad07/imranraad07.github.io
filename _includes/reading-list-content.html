@@ -44,72 +44,14 @@
 
 <script>
 (function () {
-  var DELETE_LIMIT = 3;
-  var QUOTA_KEY = 'rl_delete_quota';
-
-  function getQuota() {
-    var today = new Date().toISOString().slice(0, 10);
-    try {
-      var q = JSON.parse(localStorage.getItem(QUOTA_KEY));
-      if (q && q.date === today) return q;
-    } catch (e) {}
-    return { date: today, count: 0 };
-  }
-
-  function saveQuota(q) {
-    localStorage.setItem(QUOTA_KEY, JSON.stringify(q));
-  }
-
-  function deletesLeft() {
-    return Math.max(0, DELETE_LIMIT - getQuota().count);
-  }
-
-  function updateAllDeleteBtns() {
-    var left = deletesLeft();
-    document.querySelectorAll('.rl-action--delete').forEach(function (btn) {
-      if (left === 0) {
-        btn.disabled = true;
-        btn.title = 'Delete limit reached (3/day). Try again tomorrow.';
-      } else {
-        btn.disabled = false;
-        btn.title = left + ' delete' + (left === 1 ? '' : 's') + ' remaining today';
-      }
-    });
-  }
-
   document.querySelectorAll('.rl-item[data-lskey]').forEach(function (li) {
     var key = li.dataset.lskey;
-    var p = li.querySelector('.rl-summary');
-    var actions = li.querySelector('.rl-actions');
-
-    function renderSummary() {
-      var s = localStorage.getItem(key);
-      if (s) {
-        p.textContent = s;
-        p.classList.remove('rl-summary--pending');
-        deleteBtn.style.display = 'inline-block';
-      } else {
-        p.textContent = 'AI summary generates when you open Research Q\u0026A with a Groq key.';
-        p.classList.add('rl-summary--pending');
-        deleteBtn.style.display = 'none';
-      }
-      updateAllDeleteBtns();
+    var p   = li.querySelector('.rl-summary');
+    var s   = localStorage.getItem(key);
+    if (s) {
+      p.textContent = s;
+      p.classList.remove('rl-summary--pending');
     }
-
-    var deleteBtn = document.createElement('button');
-    deleteBtn.className = 'rl-action rl-action--delete';
-    deleteBtn.textContent = 'Delete Summary';
-    deleteBtn.addEventListener('click', function () {
-      if (deletesLeft() === 0) return;
-      var q = getQuota();
-      q.count += 1;
-      saveQuota(q);
-      localStorage.removeItem(key);
-      renderSummary();
-    });
-    actions.appendChild(deleteBtn);
-
-    renderSummary();
   });
 })();
 </script>

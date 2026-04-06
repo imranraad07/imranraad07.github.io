@@ -127,6 +127,61 @@
   background: #f9fafb;
 }
 
+// Provider tabs
+.ks-provider-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.ks-provider-tab {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  &:hover { border-color: #9ca3af; color: #374151; }
+
+  &--active {
+    background: #f0fdf4;
+    border-color: #86efac;
+    color: #15803d;
+    font-weight: 600;
+  }
+}
+
+.ks-ollama-refresh {
+  flex-shrink: 0;
+  padding: 0.5rem 0.65rem;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #6b7280;
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1;
+
+  &:hover { background: #e5e7eb; color: #374151; }
+}
+
+.ks-provider-badge {
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #9ca3af;
+  letter-spacing: 0.02em;
+
+  .ks-provider-tab--active & { color: #6b7280; }
+}
+
 // Groq connect screen
 .ks-connect {
   padding: 1.5rem 1.75rem;
@@ -182,6 +237,51 @@
   &:hover {
     background: #15803d;
   }
+}
+
+.ks-browse-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: #fefce8;
+  border: 1px solid #fde68a;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #92400e;
+  margin-bottom: 0.5rem;
+}
+
+.ks-browse-notice-btn {
+  margin-left: auto;
+  background: none;
+  border: 1px solid #d97706;
+  color: #b45309;
+  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover { background: #fef3c7; }
+}
+
+.ks-browse-row {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.ks-browse-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:hover { color: #374151; }
 }
 
 // Chat interface
@@ -324,4 +424,467 @@
     color: #6b7280;
     text-decoration: underline;
   }
+}
+
+// =====================
+// Mode tabs
+// =====================
+
+.ks-mode-tabs {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+  padding: 0 0.75rem;
+}
+
+.ks-mode-tab {
+  padding: 0.55rem 1rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.1s;
+
+  &:hover { color: #374151; }
+
+  &--active {
+    color: #16a34a;
+    border-bottom-color: #16a34a;
+    font-weight: 600;
+  }
+}
+
+// =====================
+// Shared panel styles
+// =====================
+
+.ks-panel-info {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.82rem;
+  color: #6b7280;
+  border-bottom: 1px solid #f3f4f6;
+  background: #fafafa;
+
+  p { margin: 0; }
+}
+
+.ks-panel-empty {
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #9ca3af;
+
+  code {
+    background: #f3f4f6;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+  }
+}
+
+// =====================
+// Ingest panels
+// =====================
+
+#ks-mode-lab,
+#ks-mode-rl {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+#ks-lab-list,
+#ks-rl-list {
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ks-ingest-year {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  padding: 0.5rem 0 0.2rem;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 0.4rem;
+  margin-top: 0.6rem;
+
+  &:first-child { margin-top: 0; }
+}
+
+.ks-ingest-type {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.35rem 0 0.25rem;
+  margin-top: 0.4rem;
+
+  &--full  { color: #15803d; }
+  &--short { color: #9ca3af; }
+}
+
+.ks-ingest-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  background: #fff;
+}
+
+.ks-ingest-item-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ks-ingest-title {
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #111827;
+  text-transform: capitalize;
+  line-height: 1.4;
+}
+
+.ks-ingest-badge {
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+
+  &--ingested {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+  }
+
+  &--pending {
+    background: #f9fafb;
+    color: #9ca3af;
+    border: 1px solid #e5e7eb;
+  }
+}
+
+.ks-ingest-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ks-ingest-btn {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+
+  &:hover:not(:disabled) { background: #15803d; }
+  &:disabled { background: #9ca3af; cursor: not-allowed; }
+}
+
+.ks-view-wiki-btn {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #86efac;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+
+  &:hover { background: #dcfce7; }
+}
+
+.ks-wiki-preview {
+  margin-top: 0.75rem;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 0.75rem;
+}
+
+.ks-wiki-content {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  max-height: 380px;
+  overflow-y: auto;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #374151;
+
+  h1 {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.6rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #e5e7eb;
+    line-height: 1.3;
+  }
+
+  h2 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #16a34a;
+    margin: 1rem 0 0.3rem;
+  }
+
+  h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0.6rem 0 0.2rem;
+  }
+
+  p {
+    margin: 0 0 0.45rem;
+  }
+
+  ul, ol {
+    margin: 0.2rem 0 0.45rem 1.1rem;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 0.2rem;
+    border-left: none !important;
+    padding-left: 0 !important;
+    &::before { content: none !important; }
+  }
+
+  strong {
+    font-weight: 600;
+    color: #111827;
+  }
+
+  em { font-style: italic; }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 0.6rem 0;
+  }
+
+  > *:last-child { margin-bottom: 0; }
+}
+
+// =====================
+// Wiki panel (index.md + log.md)
+// =====================
+
+#ks-mode-wiki {
+  max-height: 480px;
+  overflow-y: auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ks-wiki-file {
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ks-wiki-file-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.85rem;
+  background: #f3f4f6;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ks-wiki-filename {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #15803d;
+  background: none;
+  padding: 0;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+}
+
+.ks-wiki-file-desc {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.ks-wiki-content--file {
+  padding: 0.85rem 1rem;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #fff;
+}
+
+.ks-ingest-btn--reingest {
+  background: none;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+
+  &:hover:not(:disabled) {
+    background: #fee2e2;
+    color: #dc2626;
+    border-color: #fca5a5;
+  }
+}
+
+.ks-summary-btn {
+  background: none;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  font-family: inherit;
+
+  &:hover:not(:disabled) {
+    background: #e0f2fe;
+    border-color: #7dd3fc;
+  }
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.ks-deep-wiki-btn {
+  background: none;
+  color: #7c3aed;
+  border: 1px solid #ddd6fe;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  font-family: inherit;
+
+  &:hover:not(:disabled) {
+    background: #ede9fe;
+    border-color: #c4b5fd;
+  }
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+// =====================
+// Lint panel
+// =====================
+
+#ks-mode-lint {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.ks-lint-run-btn {
+  display: block;
+  margin: 0.75rem 1.25rem;
+  padding: 0.5rem 1.25rem;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+
+  &:hover:not(:disabled) { background: #15803d; }
+  &:disabled { background: #9ca3af; cursor: not-allowed; }
+}
+
+.ks-lint-output {
+  margin: 0 1.25rem 1rem;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: #374151;
+
+  // During streaming (plain text)
+  &:not(:empty) { min-height: 1rem; }
+
+  h1, h2, h3 {
+    color: #111827;
+    margin: 1rem 0 0.3rem;
+    line-height: 1.3;
+  }
+
+  h2 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #16a34a;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.25rem;
+  }
+
+  h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  p { margin: 0 0 0.45rem; }
+
+  ul, ol {
+    margin: 0.2rem 0 0.5rem 1.1rem;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 0.25rem;
+    border-left: none !important;
+    padding-left: 0 !important;
+    &::before { content: none !important; }
+  }
+
+  strong { font-weight: 600; color: #111827; }
+  em { font-style: italic; }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 0.75rem 0;
+  }
+
+  // Tables (lint often generates them)
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  th {
+    background: #f3f4f6;
+    font-weight: 600;
+    color: #111827;
+    padding: 0.35rem 0.6rem;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+  }
+
+  td {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid #e5e7eb;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: #fafafa; }
+
+  > *:last-child { margin-bottom: 0; }
 }

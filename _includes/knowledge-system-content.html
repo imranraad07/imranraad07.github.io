@@ -1,70 +1,159 @@
+{% assign rl_pdfs = "" | split: "" %}
+{% for f in site.static_files %}
+  {% if f.path contains 'reading_list' and f.extname == '.pdf' %}
+    {% assign rl_pdfs = rl_pdfs | push: f %}
+  {% endif %}
+{% endfor %}
+
+{% assign lab_pdfs = "" | split: "" %}
+{% for f in site.static_files %}
+  {% if f.path contains 'documents/papers' and f.extname == '.pdf' %}
+    {% assign lab_pdfs = lab_pdfs | push: f %}
+  {% endif %}
+{% endfor %}
+
 <p>
-  Ask any question about the research — papers, findings, datasets, methods, or the current reading list.
-  Grounded in the lab's actual publications and powered by a free cloud model.
+  Ask questions about the lab's research — papers, findings, datasets, and methods.
+  Use the <strong>Ingest</strong> tabs to build wiki pages from PDFs so answers get richer over time.
 </p>
 
 <hr>
 
-<h2 id="ask">Ask the Knowledge Base</h2>
+<h2 id="ask">Research Q&amp;A</h2>
 
 <p>
-  Query this research directly. Powered by <a href="https://console.groq.com" target="_blank" rel="noopener">Groq</a> —
-  free cloud API running open-source models (Llama, Gemma). No local setup required.
+  Powered by <a href="https://console.groq.com" target="_blank" rel="noopener">Groq</a> (cloud, free tier)
+  or <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> (local).
+  No data is sent to any server — everything runs in your browser.
 </p>
 
 <div class="ks-chatbot" id="ks-chatbot">
 
-  <!-- API key setup -->
   <div class="ks-connect" id="ks-connect">
     <div class="ks-connect-inner">
-      <div class="ks-key-row">
-        <input type="password" id="ks-api-key" class="ks-model-select"
-               placeholder="Groq API key — gsk_…" autocomplete="off" />
-        <select id="ks-model-select" class="ks-model-select" style="max-width:220px;">
-          <option value="llama-3.3-70b-versatile" selected>Llama 3.3 70B</option>
-          <option value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout 17B</option>
-          <option value="openai/gpt-oss-120b">GPT OSS 120B</option>
-          <option value="openai/gpt-oss-20b">GPT OSS 20B</option>
-          <option value="moonshotai/kimi-k2-instruct">Kimi K2</option>
-          <option value="moonshotai/kimi-k2-instruct-0905">Kimi K2 (0905)</option>
-          <option value="qwen/qwen3-32b">Qwen 3 32B</option>
-          <option value="groq/compound">Groq Compound</option>
-          <option value="groq/compound-mini">Groq Compound Mini</option>
-          <option value="llama-3.1-8b-instant">Llama 3.1 8B</option>
-          <option value="allam-2-7b">ALLaM 2 7B</option>
-          <option value="openai/gpt-oss-safeguard-20b">GPT OSS Safeguard 20B</option>
-          <option value="meta-llama/llama-prompt-guard-2-86m">Llama Prompt Guard 2 86M</option>
-          <option value="meta-llama/llama-prompt-guard-2-22m">Llama Prompt Guard 2 22M</option>
-        </select>
-        <button class="ks-key-btn" id="ks-connect-btn">Start</button>
+
+      <div class="ks-provider-tabs">
+        <button class="ks-provider-tab ks-provider-tab--active" data-provider="groq">Groq <span class="ks-provider-badge">Cloud · Free</span></button>
+        <button class="ks-provider-tab" data-provider="ollama">Ollama <span class="ks-provider-badge">Local</span></button>
       </div>
-      <p class="ks-connect-hint">
-        Get a free API key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.
-        Your key is stored in this session only and never leaves your browser.
-      </p>
+
+      <div id="ks-groq-fields">
+        <div class="ks-key-row">
+          <input type="password" id="ks-api-key" class="ks-model-select" placeholder="Groq API key — gsk_…" autocomplete="off" />
+          <select id="ks-model-select" class="ks-model-select" style="max-width:220px;">
+            <option value="llama-3.3-70b-versatile" selected>Llama 3.3 70B</option>
+            <option value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout 17B</option>
+            <option value="openai/gpt-oss-120b">GPT OSS 120B</option>
+            <option value="openai/gpt-oss-20b">GPT OSS 20B</option>
+            <option value="moonshotai/kimi-k2-instruct">Kimi K2</option>
+            <option value="qwen/qwen3-32b">Qwen 3 32B</option>
+            <option value="groq/compound">Groq Compound</option>
+            <option value="groq/compound-mini">Groq Compound Mini</option>
+            <option value="llama-3.1-8b-instant">Llama 3.1 8B</option>
+          </select>
+        </div>
+        <p class="ks-connect-hint">
+          Get a free key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.
+        </p>
+      </div>
+
+      <div id="ks-ollama-fields" style="display:none;">
+        <div class="ks-key-row">
+          <select id="ks-ollama-model-select" class="ks-model-select">
+            <option value="">Click Ollama tab to detect models…</option>
+          </select>
+          <button type="button" class="ks-ollama-refresh" id="ks-ollama-refresh" title="Re-detect models">&#8635;</button>
+        </div>
+        <div id="ks-ollama-custom-row" style="display:none; margin-top:0.4rem;">
+          <input type="text" id="ks-ollama-custom" class="ks-model-select"
+                 placeholder="Model name (e.g. llama3.2:8b)" autocomplete="off" style="width:100%;" />
+        </div>
+        <p class="ks-connect-hint">
+          Ollama must be running at <code>localhost:11434</code>.
+          Get it at <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a>.
+        </p>
+      </div>
+
+      <button class="ks-key-btn" id="ks-connect-btn">Start</button>
+      <div class="ks-browse-row">
+        <button class="ks-browse-btn" id="ks-browse-btn">Browse ingested papers without connecting →</button>
+      </div>
     </div>
   </div>
 
-  <!-- Chat interface -->
   <div class="ks-chat-interface" id="ks-chat-interface" style="display:none;">
-    <div class="ks-messages" id="ks-messages">
-      <div class="ks-msg ks-msg--assistant">
-        <div class="ks-msg-bubble">Hi! I can answer questions about Dr. Imran's research — papers, findings, datasets, methods, and future directions. What would you like to know?</div>
+
+    <div class="ks-mode-tabs">
+      <button class="ks-mode-tab ks-mode-tab--active" data-mode="query">Query</button>
+      <button class="ks-mode-tab" data-mode="lab">Lab Papers</button>
+      <button class="ks-mode-tab" data-mode="rl">Reading List</button>
+      <button class="ks-mode-tab" data-mode="lint">Lint</button>
+      <button class="ks-mode-tab" data-mode="wiki">Wiki</button>
+    </div>
+
+    <div id="ks-mode-query" style="display:flex; flex-direction:column;">
+      <div id="ks-browse-notice" class="ks-browse-notice" style="display:none;">
+        Connect with Groq or Ollama to ask questions and ingest papers.
+        <button class="ks-browse-notice-btn" id="ks-browse-connect-btn">Connect →</button>
+      </div>
+      <div class="ks-messages" id="ks-messages">
+        <div class="ks-msg ks-msg--assistant">
+          <div class="ks-msg-bubble">Hi! Ask me anything about LENS Lab research. Ingest lab papers or reading list PDFs first for deeper answers.</div>
+        </div>
+      </div>
+      <div class="ks-suggestions" id="ks-suggestions">
+        <button class="ks-suggestion" data-q="What are the main research themes in this lab?">Research themes</button>
+        <button class="ks-suggestion" data-q="What did the derailment forecasting paper find?">Derailment forecasting</button>
+        <button class="ks-suggestion" data-q="What is the OLAF framework?">OLAF framework</button>
+        <button class="ks-suggestion" data-q="What datasets has this lab published?">Published datasets</button>
+        <button class="ks-suggestion" data-q="What is on the current reading list?">Reading list</button>
+      </div>
+      <div class="ks-input-row">
+        <input type="text" id="ks-input" class="ks-input"
+               placeholder="Ask about any paper, finding, or research direction…" autocomplete="off" />
+        <button class="ks-send-btn" id="ks-send-btn" aria-label="Send">&#9658;</button>
       </div>
     </div>
-    <div class="ks-suggestions" id="ks-suggestions">
-      <button class="ks-suggestion" data-q="What are the main research themes in this lab?">Research themes</button>
-      <button class="ks-suggestion" data-q="What did the derailment forecasting paper find?">Derailment forecasting</button>
-      <button class="ks-suggestion" data-q="What is the OLAF framework?">OLAF framework</button>
-      <button class="ks-suggestion" data-q="What datasets has this lab published?">Published datasets</button>
-      <button class="ks-suggestion" data-q="What is on the current reading list?">Reading list</button>
+
+    <div id="ks-mode-lab" style="display:none;">
+      <div class="ks-panel-info">
+        <p>Build detailed wiki pages from the lab's own published papers. The LLM reads each PDF and extracts research questions, methodology, findings, and contributions.</p>
+      </div>
+      <div id="ks-lab-list"></div>
     </div>
-    <div class="ks-input-row">
-      <input type="text" id="ks-input" class="ks-input"
-             placeholder="Ask about any paper, finding, or research direction…"
-             autocomplete="off" />
-      <button class="ks-send-btn" id="ks-send-btn" aria-label="Send">&#9658;</button>
+
+    <div id="ks-mode-rl" style="display:none;">
+      <div class="ks-panel-info">
+        <p>Build wiki pages from external papers being read by the lab. The LLM notes connections and contrasts with the lab's own work.</p>
+      </div>
+      <div id="ks-rl-list"></div>
     </div>
+
+    <div id="ks-mode-lint" style="display:none;">
+      <div class="ks-panel-info">
+        <p>Periodically health-check the wiki. Finds contradictions, stale claims, orphan pages, missing concept pages, broken cross-references, data gaps, and suggests new questions and sources to investigate.</p>
+      </div>
+      <button class="ks-lint-run-btn" id="ks-lint-btn">Run Health Check</button>
+      <div id="ks-lint-output" class="ks-lint-output"></div>
+    </div>
+
+    <div id="ks-mode-wiki" style="display:none;">
+      <div class="ks-wiki-file">
+        <div class="ks-wiki-file-header">
+          <code class="ks-wiki-filename">index.md</code>
+          <span class="ks-wiki-file-desc">Catalog of all ingested pages</span>
+        </div>
+        <div id="ks-wiki-index-content" class="ks-wiki-content ks-wiki-content--file"></div>
+      </div>
+      <div class="ks-wiki-file">
+        <div class="ks-wiki-file-header">
+          <code class="ks-wiki-filename">log.md</code>
+          <span class="ks-wiki-file-desc">Activity log — newest first</span>
+        </div>
+        <div id="ks-wiki-log-content" class="ks-wiki-content ks-wiki-content--file"></div>
+      </div>
+    </div>
+
     <div class="ks-chat-footer">
       <span id="ks-status"></span>
       <button class="ks-reset-btn" id="ks-reset-btn">&#8592; Change key / model</button>
@@ -73,282 +162,725 @@
 
 </div>
 
-{% assign rl_pdfs = "" | split: "" %}
-{% for f in site.static_files %}
-  {% if f.path contains 'reading_list' and f.extname == '.pdf' %}
-    {% assign rl_pdfs = rl_pdfs | push: f %}
-  {% endif %}
-{% endfor %}
-
 <script type="application/json" id="ks-rl-data">
-[{% for f in rl_pdfs %}{% assign n = f.basename | remove: '"' %}{"name":"{{ n | replace: "_", " " | replace: "-", " " }}","key":"ks_rl_{{ n | remove: " " | truncate: 60, "" }}","path":"{{ f.path | relative_url }}"}{% unless forloop.last %},{% endunless %}{% endfor %}]
+[{% for f in rl_pdfs %}{% assign n = f.basename | remove: '"' %}{"name":"{{ n | replace: "_", " " | replace: "-", " " }}","key":"ks_rl_{{ n | remove: " " | truncate: 60, "" }}","path":"{{ f.path | relative_url }}","type":"rl"}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>
+
+<script type="application/json" id="ks-lab-data">
+[{% for f in lab_pdfs %}{% assign n = f.basename | remove: '"' %}{"name":"{{ n | replace: "_", " " | replace: "-", " " }}","key":"ks_lab_{{ n | remove: " " | truncate: 60, "" }}","path":"{{ f.path | relative_url }}","type":"lab"}{% unless forloop.last %},{% endunless %}{% endfor %}]
 </script>
 
 <script>
 (function () {
-
-  var GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-
-  var RL_PAPERS = JSON.parse(document.getElementById('ks-rl-data').textContent || '[]');
-
-  var SYSTEM_PROMPT = 'You are a research assistant for Dr. Mia Mohammad Imran\'s lab at Missouri S&T. Answer questions about the lab\'s published research. Be concise and always cite specific papers when relevant.\n\n'
-    + '## Researcher\n'
-    + 'Dr. Mia Mohammad Imran — Assistant Professor, CS, Missouri S&T. Research: Software Engineering, NLP, Empirical Methods.\n\n'
-    + '## Theme 1: GenAI & Code Quality\n'
-    + '- "TODO: Fix the Mess Gemini Created" (TechDebt 2026): 15 cases of GenAI-Induced SATD (GIST) in 81 comments. AI roles: Source, Catalyst, Mitigator, Neutral.\n'
-    + '- OLAF (WSESE 2026 / ICSE Companion): LLM annotation pipeline. Structured prompting replicates human annotation on SE datasets.\n'
-    + '- DePro (FSE-IVR 2026): Test-case-driven LLM debugging. Reduces debugging attempts by 64%, time by 7.6 min vs. humans.\n'
-    + '- LLM Vulnerabilities in OSS (LLMSC 2026): Empirical study of security vulnerabilities in LLM-leveraging open-source systems.\n'
-    + '- AI Coding Agent Failures (MSR 2026): 33,000 agentic PRs. Agents succeed at docs/CI, fail at bug-fixing. Socio-technical misalignment is key failure driver.\n\n'
-    + '## Theme 2: Toxicity & Derailment in OSS\n'
-    + '- Toxicity Ahead (ICSE 2026): F1=0.901 (Qwen), F1=0.852 (Llama) forecasting derailment on 366 GitHub threads using LLM-generated Summaries of Conversation Dynamics (SCDs). Generalizes: F1=0.797 on external benchmark.\n'
-    + '- Derailment Prediction (ArXiv / Under Review): 70% F1. Linguistic markers: 2nd-person pronouns, negation, "Bitter Frustration and Impatience" emotion tone.\n'
-    + '- Silent Is Not Actually Silent (FSE-IVR 2025): 40% of bug threads (81/203) contain toxicity. Top drivers: misaligned severity perception, tool frustration, communication lapses. Toxic threads less likely to produce a PR resolution.\n'
-    + '- Incivility Dataset (MSR 2024): 338 locked GitHub issues, 1,365 comments across 9 uncivil types, 8 triggers, 5 target categories, 7 consequence types.\n\n'
-    + '## Theme 3: Emotion & Communication in SE\n'
-    + '- Cognitive-Load Aware Refactoring (EASE 2026): Automated refactoring to improve code comprehension for novice programmers.\n'
-    + '- Novice Emotion on r/learnprogramming (ICSE SEET 2026): 1,500 annotated posts. Frustration and confusion dominate. DBSCAN revealed patterns tied to specific learning barriers.\n'
-    + '- Emotion Causes in SE (ICSE 2024): Zero-shot LLMs identify emotion causes. Top triggers: technical disagreements, ambiguous requirements, unresponsive collaborators.\n'
-    + '- Figurative Language in SE (ICSE 2024): SE metaphors/idioms degrade NLP tool performance significantly.\n'
-    + '- Emotion Classifier Benchmark (NLBSE 2024): No single transformer dominates all SE emotion datasets — domain-aware selection is critical.\n'
-    + '- Data Augmentation for Emotion (ASE 2022): Augmentation improves minority-class emotion detection. Class imbalance is the main bottleneck.\n\n'
-    + '## Theme 4: Bug Reports & Developer Tools\n'
-    + '- LLPut (FSE Companion 2025): LLMs for bug-report-based input generation. Struggles with complex reproduction steps.\n'
-    + '- Clarification Questions for Web Search (IST 2022): Targeted questions improve developer query quality and search relevance.\n'
-    + '- BugAutoQ (MSR 2021): Neural ranking on 25,000 GitHub issues selects relevant follow-up questions for deficient bug reports.\n\n'
-    + '## Published Datasets\n'
-    + '- Incivility: 1,365 comments from 338 locked issues (github.com/vcu-swim-lab/incivility-dataset)\n'
-    + '- Derailment: 366 GitHub threads (Zenodo)\n'
-    + '- Emotion corpus (github.com/vcu-swim-lab/SE-Emotion-Study)\n'
-    + '- Novice emotion: 1,500 Reddit posts (Zenodo)\n\n'
-    + 'Answer only about this lab\'s research. If asked anything outside this scope, say you can only answer about this lab\'s work.'
-    + '\n\n## Reading List\nThe following are papers by OTHER researchers (not this lab) that are currently being read. They may be related to the lab\'s research themes but are external works:\n'
-    + buildReadingListContext()
-    + '\nWhen discussing reading list papers, clearly state they are external papers by other researchers — not publications from this lab. You may summarize them and explain how they relate to the lab\'s work.';
-
-  var apiKey = '';
-  var selectedModel = 'llama-3.3-70b-versatile';
-  var history = [];
-
-  var connectEl   = document.getElementById('ks-connect');
-  var chatEl      = document.getElementById('ks-chat-interface');
-  var keyInput    = document.getElementById('ks-api-key');
-  var modelSelect = document.getElementById('ks-model-select');
-  var connectBtn  = document.getElementById('ks-connect-btn');
-  var messagesEl  = document.getElementById('ks-messages');
-  var inputEl     = document.getElementById('ks-input');
-  var sendBtn     = document.getElementById('ks-send-btn');
-  var statusEl    = document.getElementById('ks-status');
-  var resetBtn    = document.getElementById('ks-reset-btn');
-  var suggestionsEl = document.getElementById('ks-suggestions');
-
-  // Restore saved model selection
-  modelSelect.value = selectedModel;
-
-  function buildReadingListContext() {
-    if (!RL_PAPERS.length) return '(No papers added yet.)';
-    return RL_PAPERS.map(function (p) {
-      var summary = localStorage.getItem(p.key);
-      return '- ' + p.name + (summary ? '\n  Summary: ' + summary : ' (summary pending)');
-    }).join('\n');
-  }
-
-  var PDFJS_CDN = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  var GROQ_URL     = 'https://api.groq.com/openai/v1/chat/completions';
+  var OLLAMA_URL   = 'http://localhost:11434/v1/chat/completions';
+  var MARKED_CDN   = 'https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js';
+  var PDFJS_CDN    = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
   var PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-  function loadPdfJs() {
-    return new Promise(function (resolve, reject) {
-      if (window.pdfjsLib) { resolve(window.pdfjsLib); return; }
-      var s = document.createElement('script');
-      s.src = PDFJS_CDN;
-      s.onload = function () {
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
-        resolve(window.pdfjsLib);
-      };
-      s.onerror = reject;
-      document.head.appendChild(s);
-    });
+  var RL_PAPERS  = JSON.parse(document.getElementById('ks-rl-data').textContent  || '[]');
+  var LAB_PAPERS = JSON.parse(document.getElementById('ks-lab-data').textContent || '[]');
+
+  // ── Provider ──────────────────────────────────────────────────────
+  var provider = 'groq', apiKey = '', ollamaModel = '', selectedModel = 'llama-3.3-70b-versatile';
+  var browseOnly = false;
+
+  function apiUrl()      { return provider === 'ollama' ? OLLAMA_URL : GROQ_URL; }
+  function apiHeaders()  {
+    var h = { 'Content-Type': 'application/json' };
+    if (provider === 'groq' && apiKey) h['Authorization'] = 'Bearer ' + apiKey;
+    return h;
+  }
+  function ingestModel() { return provider === 'ollama' ? ollamaModel : 'llama-3.3-70b-versatile'; }
+  function chatModel()   { return provider === 'ollama' ? ollamaModel : selectedModel; }
+  function statusLabel() { return provider === 'ollama' ? 'Ollama · ' + ollamaModel : 'Groq · ' + selectedModel; }
+
+  // ── Storage ───────────────────────────────────────────────────────
+  var WIKI_PREFIX     = 'ks_wiki_';
+  var LAB_WIKI_PREFIX = 'ks_lab_wiki_';
+  var WIKI_INDEX_KEY  = 'ks_wiki_index';
+  var LAB_INDEX_KEY   = 'ks_lab_wiki_index';
+  var WIKI_LOG_KEY    = 'ks_wiki_log';
+  var LINT_OUTPUT_KEY = 'ks_lint_output';
+
+  function getIndex(key)          { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; } }
+  function saveIndex(key, idx)    { localStorage.setItem(key, JSON.stringify(idx)); }
+  function getPage(prefix, k)     { return localStorage.getItem(prefix + k) || null; }
+  function savePage(prefix, k, c) { localStorage.setItem(prefix + k, c); }
+  function appendLog(action, detail) {
+    var ts = new Date().toISOString().slice(0, 16).replace('T', ' ');
+    localStorage.setItem(WIKI_LOG_KEY, (localStorage.getItem(WIKI_LOG_KEY) || '') + '## [' + ts + '] ' + action + ' | ' + detail + '\n');
   }
 
-  function extractPdfText(url) {
-    return loadPdfJs().then(function (pdfjs) {
-      return pdfjs.getDocument(url).promise;
-    }).then(function (pdf) {
-      var pages = [];
-      for (var i = 1; i <= pdf.numPages; i++) pages.push(i);
-      return pages.reduce(function (chain, pageNum) {
-        return chain.then(function (acc) {
-          return pdf.getPage(pageNum).then(function (page) {
-            return page.getTextContent();
-          }).then(function (tc) {
-            return acc + tc.items.map(function (it) { return it.str; }).join(' ') + '\n';
-          });
-        });
-      }, Promise.resolve(''));
-    }).then(function (text) {
-      return text.replace(/\s+/g, ' ').trim().slice(0, 12000);
-    });
-  }
+  // ── Wiki builders ─────────────────────────────────────────────────
+  function buildIndexMd() {
+    var labIdx = getIndex(LAB_INDEX_KEY), rlIdx = getIndex(WIKI_INDEX_KEY);
+    var total  = labIdx.length + rlIdx.length;
+    var md     = '# Wiki Index\n*Updated: ' + new Date().toISOString().slice(0, 10) + ' · ' + total + ' page' + (total !== 1 ? 's' : '') + '*\n\n';
 
-  function autoGenerateSummaries() {
-    var pending = RL_PAPERS.filter(function (p) { return !localStorage.getItem(p.key); });
-    if (!pending.length) return;
-    var idx = 0;
-    function next() {
-      if (idx >= pending.length) {
-        statusEl.textContent = modelSelect.options[modelSelect.selectedIndex].text;
-        return;
-      }
-      var paper = pending[idx++];
-      statusEl.textContent = 'Reading PDF: ' + paper.name + '…';
-      extractPdfText(paper.path)
-        .then(function (text) {
-          statusEl.textContent = 'Summarizing: ' + paper.name + '…';
-          return fetch(GROQ_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey },
-            body: JSON.stringify({
-              model: 'llama-3.1-8b-instant',
-              max_tokens: 150,
-              messages: [{
-                role: 'user',
-                content: 'Write a concise 2-3 sentence academic summary of the following paper. Focus on the main contribution, method, and key findings. Output only the summary, nothing else.\n\n' + text
-              }]
-            })
-          });
-        })
-        .then(function (r) { return r.json(); })
-        .then(function (d) {
-          var text = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
-          if (text) localStorage.setItem(paper.key, text.trim());
-          next();
-        })
-        .catch(function () { next(); });
+    function snippet(page, rx) {
+      if (!page) return '*(not ingested)*';
+      var m = page.match(rx);
+      return m ? m[1].trim().replace(/\n/g, ' ').slice(0, 160) : '*(summary unavailable)*';
     }
-    next();
+
+    if (labIdx.length) {
+      md += '## Lab Papers\n\n' + labIdx.slice().sort(paperSort).map(function (e) {
+        return '- **' + e.name + '** *(ingested ' + e.date + ')*\n  '
+          + snippet(getPage(LAB_WIKI_PREFIX, e.key), /## Research Question\n([\s\S]*?)(?=\n##)/);
+      }).join('\n') + '\n\n';
+    }
+    if (rlIdx.length) {
+      md += '## Reading List (External)\n\n' + rlIdx.slice().sort(paperSort).map(function (e) {
+        return '- **' + e.name + '** *(ingested ' + e.date + ')*\n  '
+          + snippet(getPage(WIKI_PREFIX, e.key), /## Summary\n([\s\S]*?)(?=\n##)/);
+      }).join('\n') + '\n';
+    }
+    if (!total) md += '*No pages ingested yet.*\n';
+    return md;
   }
 
-  function showChat() {
-    connectEl.style.display = 'none';
-    chatEl.style.display = 'flex';
-    statusEl.textContent = modelSelect.options[modelSelect.selectedIndex].text;
-    inputEl.focus();
-    autoGenerateSummaries();
+  function buildLogMd() {
+    var entries = (localStorage.getItem(WIKI_LOG_KEY) || '').split('\n').filter(function (l) { return l.startsWith('## ['); });
+    return entries.length ? entries.slice().reverse().slice(0, 40).join('\n') : '*No activity logged yet.*';
   }
+
+  function wikiSection(prefix, indexKey) {
+    var index = getIndex(indexKey);
+    if (!index.length) return '(No pages ingested yet.)\n';
+    return index.map(function (e) {
+      return getPage(prefix, e.key) || ('#### ' + e.name + '\n(Not yet ingested.)');
+    }).join('\n\n---\n\n');
+  }
+
+  // ── System prompt (cached) ────────────────────────────────────────
+  var _prompt = null, _promptKey = '';
+
+  function getCachedSystemPrompt() {
+    var k = (localStorage.getItem(LAB_INDEX_KEY) || '') + (localStorage.getItem(WIKI_INDEX_KEY) || '');
+    if (_prompt && _promptKey === k) return _prompt;
+    _promptKey = k;
+    _prompt = 'You are a research assistant for the LENS Lab (Lab for Empirical Navigation in Software) at Missouri S&T, led by Dr. Mia Mohammad Imran. '
+      + 'Answer questions about the lab\'s research. Be concise and cite specific papers.\n\n'
+      + '## Lab\n'
+      + 'LENS Lab (Lab for Empirical Navigation in Software) — Dr. Mia Mohammad Imran, Assistant Professor, CS, Missouri S&T. Research: Software Engineering, NLP, Empirical Methods.\n\n'
+      + '## Theme 1: GenAI & Code Quality\n'
+      + '- "TODO: Fix the Mess Gemini Created" (TechDebt 2026): GenAI-Induced SATD (GIST) in 81 comments. AI roles: Source, Catalyst, Mitigator, Neutral.\n'
+      + '- OLAF (WSESE 2026): LLM annotation pipeline replicating human annotation on SE datasets.\n'
+      + '- DePro (FSE-IVR 2026): Test-case-driven LLM debugging. Cuts attempts by 64%, saves 7.6 min vs. humans.\n'
+      + '- LLM Vulnerabilities in OSS (LLMSC 2026): Security vulnerabilities in LLM-leveraging open-source systems.\n'
+      + '- AI Coding Agent Failures (MSR 2026): 33,000 agentic PRs. Agents fail at bug-fixing; socio-technical misalignment is key.\n\n'
+      + '## Theme 2: Toxicity & Derailment in OSS\n'
+      + '- Toxicity Ahead (ICSE 2026): F1=0.901 forecasting derailment on 366 GitHub threads using SCDs.\n'
+      + '- Derailment Prediction (ArXiV): 70% F1. Markers: 2nd-person pronouns, negation, frustration tone.\n'
+      + '- Silent Is Not Silent (FSE-IVR 2025): 40% of bug threads contain toxicity; toxic threads less likely to produce a PR.\n'
+      + '- Incivility Dataset (MSR 2024): 338 locked issues, 1,365 comments, 9 uncivil types.\n\n'
+      + '## Theme 3: Emotion & Communication in SE\n'
+      + '- Cognitive-Load Aware Refactoring (EASE 2026): Automated refactoring for novice code comprehension.\n'
+      + '- Novice Emotion on r/learnprogramming (ICSE SEET 2026): 1,500 posts. Frustration/confusion dominate.\n'
+      + '- Emotion Causes in SE (ICSE 2024): Top triggers: technical disagreements, ambiguous requirements.\n'
+      + '- Figurative Language in SE (ICSE 2024): Metaphors/idioms degrade NLP tool performance.\n'
+      + '- Emotion Classifier Benchmark (NLBSE 2024): No single transformer dominates all SE emotion datasets.\n'
+      + '- Data Augmentation for Emotion (ASE 2022): Augmentation improves minority-class detection.\n\n'
+      + '## Theme 4: Bug Reports & Developer Tools\n'
+      + '- LLPut (FSE Companion 2025): LLMs for bug-report input generation.\n'
+      + '- Clarification Questions for Web Search (IST 2022): Targeted questions improve developer search quality.\n'
+      + '- BugAutoQ (MSR 2021): Neural ranking on 25,000 GitHub issues for follow-up question selection.\n\n'
+      + '## Published Datasets\n'
+      + '- Incivility: 1,365 comments, 338 locked issues\n'
+      + '- Derailment: 366 GitHub threads (Zenodo)\n'
+      + '- Emotion corpus (github.com/vcu-swim-lab/SE-Emotion-Study)\n'
+      + '- Novice emotion: 1,500 Reddit posts (Zenodo)\n\n'
+      + 'Answer only about this lab\'s research and the reading list papers below.\n\n'
+      + '## Wiki Index\n'
+      + 'Read this first to know what pages are available, then use the full pages below for details.\n\n'
+      + buildIndexMd() + '\n\n'
+      + '## Wiki — Lab Papers (full pages)\n'
+      + wikiSection(LAB_WIKI_PREFIX, LAB_INDEX_KEY) + '\n\n'
+      + '## Wiki — Reading List (external papers, full pages)\n'
+      + 'These are papers by OTHER researchers — not this lab\'s publications.\n'
+      + wikiSection(WIKI_PREFIX, WIKI_INDEX_KEY);
+    return _prompt;
+  }
+
+  // ── State & DOM refs ──────────────────────────────────────────────
+  var history       = [];
+  var connectEl     = document.getElementById('ks-connect');
+  var chatEl        = document.getElementById('ks-chat-interface');
+  var keyInput      = document.getElementById('ks-api-key');
+  var modelSelect   = document.getElementById('ks-model-select');
+  var connectBtn    = document.getElementById('ks-connect-btn');
+  var messagesEl    = document.getElementById('ks-messages');
+  var inputEl       = document.getElementById('ks-input');
+  var sendBtn       = document.getElementById('ks-send-btn');
+  var statusEl      = document.getElementById('ks-status');
+  var suggestionsEl = document.getElementById('ks-suggestions');
+
+  modelSelect.value = selectedModel;
+
+  // ── Ollama ────────────────────────────────────────────────────────
+  function fetchOllamaModels() {
+    var sel       = document.getElementById('ks-ollama-model-select');
+    var customRow = document.getElementById('ks-ollama-custom-row');
+    sel.innerHTML = '<option value="">Detecting models…</option>';
+    sel.disabled  = true;
+    fetch('http://localhost:11434/api/tags')
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var names = (d.models || []).map(function (m) { return m.name; });
+        sel.innerHTML = (names.length
+          ? names.map(function (n) { return '<option>' + n + '</option>'; }).join('')
+          : '<option value="">No models installed</option>')
+          + '<option value="__custom__">— Enter model name manually —</option>';
+        sel.disabled = false;
+        customRow.style.display = 'none';
+      })
+      .catch(function () {
+        sel.innerHTML = '<option value="">Ollama not reachable</option><option value="__custom__">— Enter model name manually —</option>';
+        sel.disabled  = false;
+      });
+  }
+
+  document.getElementById('ks-ollama-model-select').addEventListener('change', function () {
+    document.getElementById('ks-ollama-custom-row').style.display = this.value === '__custom__' ? 'block' : 'none';
+  });
+  document.getElementById('ks-ollama-refresh').addEventListener('click', fetchOllamaModels);
+
+  // ── Provider tabs ─────────────────────────────────────────────────
+  document.querySelectorAll('.ks-provider-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      provider = tab.dataset.provider;
+      document.querySelectorAll('.ks-provider-tab').forEach(function (t) {
+        t.classList.toggle('ks-provider-tab--active', t.dataset.provider === provider);
+      });
+      document.getElementById('ks-groq-fields').style.display   = provider === 'groq'   ? 'block' : 'none';
+      document.getElementById('ks-ollama-fields').style.display  = provider === 'ollama' ? 'block' : 'none';
+      if (provider === 'ollama') fetchOllamaModels();
+    });
+  });
+
+  // ── Mode tabs ─────────────────────────────────────────────────────
+  var PANELS = { query: 'ks-mode-query', lab: 'ks-mode-lab', rl: 'ks-mode-rl', lint: 'ks-mode-lint', wiki: 'ks-mode-wiki' };
+
+  function switchMode(mode) {
+    document.querySelectorAll('.ks-mode-tab').forEach(function (t) {
+      t.classList.toggle('ks-mode-tab--active', t.dataset.mode === mode);
+    });
+    Object.keys(PANELS).forEach(function (m) {
+      document.getElementById(PANELS[m]).style.display = m === mode ? (m === 'query' ? 'flex' : 'block') : 'none';
+    });
+    if (mode === 'lab')  renderIngestPanel(LAB_PAPERS, 'ks-lab-list', LAB_WIKI_PREFIX, LAB_INDEX_KEY);
+    if (mode === 'rl')   renderIngestPanel(RL_PAPERS,  'ks-rl-list',  WIKI_PREFIX,     WIKI_INDEX_KEY);
+    if (mode === 'lint') {
+      var saved = localStorage.getItem(LINT_OUTPUT_KEY);
+      if (saved) renderMarkdown(document.getElementById('ks-lint-output'), saved);
+    }
+    if (mode === 'wiki') {
+      renderMarkdown(document.getElementById('ks-wiki-index-content'), buildIndexMd());
+      renderMarkdown(document.getElementById('ks-wiki-log-content'),   buildLogMd());
+    }
+  }
+
+  document.querySelectorAll('.ks-mode-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () { switchMode(tab.dataset.mode); });
+  });
+
+  // ── Connect / reset ───────────────────────────────────────────────
+  function openChat(browse) {
+    browseOnly = !!browse;
+    connectEl.style.display = 'none';
+    chatEl.style.display    = 'flex';
+    document.getElementById('ks-browse-notice').style.display = browseOnly ? 'flex' : 'none';
+    statusEl.textContent    = browseOnly ? 'Browse mode — connect to query or ingest' : statusLabel();
+    if (browseOnly) {
+      switchMode('lab');
+    } else {
+      inputEl.focus();
+    }
+  }
+
+  document.getElementById('ks-browse-connect-btn').addEventListener('click', function () {
+    browseOnly = false;
+    chatEl.style.display    = 'none';
+    connectEl.style.display = 'block';
+  });
 
   connectBtn.addEventListener('click', function () {
-    var k = keyInput.value.trim();
-    if (!k) return;
-    apiKey = k;
-    selectedModel = modelSelect.value;
-    showChat();
+    if (provider === 'groq') {
+      var k = keyInput.value.trim();
+      if (!k) return;
+      apiKey = k; selectedModel = modelSelect.value;
+    } else {
+      var sel = document.getElementById('ks-ollama-model-select');
+      var m   = sel.value === '__custom__' ? document.getElementById('ks-ollama-custom').value.trim() : sel.value;
+      if (!m) return;
+      ollamaModel = m; apiKey = '';
+    }
+    openChat(false);
   });
 
-  keyInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') connectBtn.click();
-  });
+  document.getElementById('ks-browse-btn').addEventListener('click', function () { openChat(true); });
+  keyInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
+  document.getElementById('ks-ollama-custom').addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
 
-  resetBtn.addEventListener('click', function () {
-    apiKey = '';
-    history = [];
-
-    chatEl.style.display = 'none';
+  document.getElementById('ks-reset-btn').addEventListener('click', function () {
+    apiKey = ''; ollamaModel = ''; history = []; browseOnly = false;
+    chatEl.style.display    = 'none';
     connectEl.style.display = 'block';
     keyInput.value = '';
   });
 
-  suggestionsEl.querySelectorAll('.ks-suggestion').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      send(btn.dataset.q);
-      suggestionsEl.style.display = 'none';
-    });
-  });
+  // Auto-open in browse mode if ingested content already exists
+  if (getIndex(LAB_INDEX_KEY).length || getIndex(WIKI_INDEX_KEY).length) {
+    openChat(true);
+  }
 
-  sendBtn.addEventListener('click', function () { send(); });
-  inputEl.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+  // ── Chat ──────────────────────────────────────────────────────────
+  suggestionsEl.querySelectorAll('.ks-suggestion').forEach(function (btn) {
+    btn.addEventListener('click', function () { switchMode('query'); send(btn.dataset.q); suggestionsEl.style.display = 'none'; });
   });
+  sendBtn.addEventListener('click', function () { send(); });
+  inputEl.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } });
 
   function send(text) {
     var q = (text || inputEl.value).trim();
-    if (!q || sendBtn.disabled) return;
+    if (!q || sendBtn.disabled || browseOnly) return;
     inputEl.value = '';
     suggestionsEl.style.display = 'none';
-
     appendMsg('user', q);
+    appendLog('query', q.slice(0, 100));
     history.push({ role: 'user', content: q });
-
     sendBtn.disabled = true;
     statusEl.textContent = 'Thinking…';
 
-    var assistantEl = appendMsg('assistant', '');
-    var bubble = assistantEl.querySelector('.ks-msg-bubble');
+    var bubble = appendMsg('assistant', '').querySelector('.ks-msg-bubble');
     var fullReply = '';
 
-    fetch(GROQ_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + apiKey
-      },
-      body: JSON.stringify({
-        model: selectedModel,
-        stream: true,
-        messages: [{ role: 'system', content: SYSTEM_PROMPT }].concat(history)
-      })
+    fetch(apiUrl(), {
+      method: 'POST', headers: apiHeaders(),
+      body: JSON.stringify({ model: chatModel(), stream: true, messages: [{ role: 'system', content: getCachedSystemPrompt() }].concat(history) })
     })
     .then(function (res) {
       if (!res.ok) return res.json().then(function (e) { throw new Error(e.error && e.error.message || 'API error'); });
-      var reader = res.body.getReader();
-      var decoder = new TextDecoder();
-      var buffer = '';
-
-      function pump() {
-        return reader.read().then(function (chunk) {
-          if (chunk.done) {
-            history.push({ role: 'assistant', content: fullReply });
-            sendBtn.disabled = false;
-            statusEl.textContent = modelSelect.options[modelSelect.selectedIndex].text;
-            return;
-          }
-          buffer += decoder.decode(chunk.value, { stream: true });
-          var lines = buffer.split('\n');
-          buffer = lines.pop();
-          lines.forEach(function (line) {
-            if (!line.startsWith('data: ') || line === 'data: [DONE]') return;
-            try {
-              var obj = JSON.parse(line.slice(6));
-              var token = obj.choices && obj.choices[0] && obj.choices[0].delta && obj.choices[0].delta.content;
-              if (token) {
-                fullReply += token;
-                bubble.textContent = fullReply;
-                messagesEl.scrollTop = messagesEl.scrollHeight;
-              }
-            } catch (e) {}
-          });
-          return pump();
-        });
-      }
-      return pump();
+      return streamResponse(res, function (token) { fullReply += token; bubble.textContent = fullReply; messagesEl.scrollTop = messagesEl.scrollHeight; });
     })
-    .catch(function (err) {
-      bubble.textContent = 'Error: ' + (err.message || 'Could not reach Groq. Check your API key.');
-      sendBtn.disabled = false;
-      statusEl.textContent = modelSelect.options[modelSelect.selectedIndex].text;
-    });
+    .then(function () { history.push({ role: 'assistant', content: fullReply }); sendBtn.disabled = false; statusEl.textContent = statusLabel(); })
+    .catch(function (err) { bubble.textContent = 'Error: ' + (err.message || 'Could not reach API.'); sendBtn.disabled = false; statusEl.textContent = statusLabel(); });
   }
 
   function appendMsg(role, text) {
     var div = document.createElement('div');
     div.className = 'ks-msg ks-msg--' + role;
-    var bubble = document.createElement('div');
-    bubble.className = 'ks-msg-bubble';
-    bubble.textContent = text;
-    div.appendChild(bubble);
+    div.innerHTML = '<div class="ks-msg-bubble"></div>';
+    div.querySelector('.ks-msg-bubble').textContent = text;
     messagesEl.appendChild(div);
     messagesEl.scrollTop = messagesEl.scrollHeight;
     return div;
   }
+
+  // ── SSE streaming ─────────────────────────────────────────────────
+  function streamResponse(res, onToken) {
+    var reader = res.body.getReader(), decoder = new TextDecoder(), buffer = '';
+    function pump() {
+      return reader.read().then(function (chunk) {
+        if (chunk.done) return;
+        buffer += decoder.decode(chunk.value, { stream: true });
+        var lines = buffer.split('\n');
+        buffer = lines.pop();
+        lines.forEach(function (line) {
+          if (!line.startsWith('data: ') || line === 'data: [DONE]') return;
+          try {
+            var t = JSON.parse(line.slice(6)).choices[0].delta.content;
+            if (t) onToken(t);
+          } catch (e) {}
+        });
+        return pump();
+      });
+    }
+    return pump();
+  }
+
+  // ── Lazy script loader ────────────────────────────────────────────
+  function loadScript(src, globalKey) {
+    return new Promise(function (resolve, reject) {
+      if (window[globalKey]) { resolve(window[globalKey]); return; }
+      var s = document.createElement('script');
+      s.src = src; s.onload = function () { resolve(window[globalKey]); }; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
+  function renderMarkdown(el, md) {
+    loadScript(MARKED_CDN, 'marked')
+      .then(function (m) { el.innerHTML = m.parse(md, { breaks: true }); })
+      .catch(function ()  { el.textContent = md; });
+  }
+
+  // ── PDF extraction ────────────────────────────────────────────────
+  function extractPdfText(url) {
+    return loadScript(PDFJS_CDN, 'pdfjsLib').then(function (lib) {
+      lib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
+      return lib.getDocument(url).promise;
+    }).then(function (pdf) {
+      var numPages = pdf.numPages;
+      return Promise.all(Array.from({ length: numPages }, function (_, i) {
+        return pdf.getPage(i + 1)
+          .then(function (p) { return p.getTextContent(); })
+          .then(function (tc) { return tc.items.map(function (it) { return it.str; }).join(' '); });
+      })).then(function (pages) {
+        return { text: pages.join('\n').replace(/\s+/g, ' ').trim().slice(0, 12000), pages: numPages };
+      });
+    });
+  }
+
+  // ── Paper sorting ─────────────────────────────────────────────────
+  function yearOf(name) { var m = name.match(/\b(20\d{2})\b/); return m ? +m[1] : 0; }
+
+  function venueTier(name) {
+    var u = name.toUpperCase();
+    if (/\b(ICSE|FSE|ASE)\b/.test(u)) return 1;
+    if (/\b(MSR|EASE|EMSE|TSE|IST|EMNLP|ACL|NAACL|SANER|ICPC|ICSME)\b/.test(u)) return 2;
+    return 3;
+  }
+
+  function paperType(name, pages) {
+    if (pages && pages <= 6) return 'short';
+    return /\b(IVR|CHALLENGE|WSESE)\b|TECHDEBT/.test(name.toUpperCase()) ? 'short' : 'full';
+  }
+
+  function paperSort(a, b) {
+    var y = yearOf(b.name) - yearOf(a.name);
+    if (y) return y;
+    var ta = paperType(a.name, a.pages) === 'short' ? 1 : 0;
+    var tb = paperType(b.name, b.pages) === 'short' ? 1 : 0;
+    if (ta !== tb) return ta - tb;
+    return venueTier(a.name) - venueTier(b.name);
+  }
+
+  // ── Ingest panel ──────────────────────────────────────────────────
+  function buildPaperItem(paper, prefix, indexKey, listId) {
+    var page     = getPage(prefix, paper.key);
+    var ingested = !!page;
+    var reLabel  = 'Re-ingest';
+
+    var item = document.createElement('div');
+    item.className = 'ks-ingest-item';
+    item.innerHTML =
+      '<div class="ks-ingest-item-header">'
+      + '<span class="ks-ingest-title"></span>'
+      + '<span class="ks-ingest-badge ks-ingest-badge--' + (ingested ? 'ingested' : 'pending') + '">' + (ingested ? 'Ingested' : 'Not Ingested') + '</span>'
+      + '</div>'
+      + '<div class="ks-ingest-actions">'
+      + '<button class="ks-ingest-btn' + (ingested ? ' ks-ingest-btn--reingest' : '') + '">' + (ingested ? reLabel : 'Ingest') + '</button>'
+      + '<button class="ks-deep-wiki-btn">Deep Wiki</button>'
+      + (ingested ? '<button class="ks-view-wiki-btn">View Wiki Page</button>' : '')
+      + (paper.type === 'rl' ? '<button class="ks-summary-btn">' + (localStorage.getItem(paper.key) ? 'Re-summary' : 'Summary') + '</button>' : '')
+      + '</div>'
+      + (ingested ? '<div class="ks-wiki-preview" id="wiki-preview-' + paper.key + '" style="display:none;"><div class="ks-wiki-content"></div></div>' : '');
+
+    item.querySelector('.ks-ingest-title').textContent = paper.name;
+    item.querySelector('.ks-ingest-btn').addEventListener('click', function () {
+      enqueueIngest(paper, this, prefix, indexKey, listId, false);
+    });
+
+    var deepBtn = item.querySelector('.ks-deep-wiki-btn');
+    deepBtn.addEventListener('click', function () {
+      enqueueIngest(paper, deepBtn, prefix, indexKey, listId, true);
+    });
+
+    var summaryBtn = item.querySelector('.ks-summary-btn');
+    if (summaryBtn) {
+      summaryBtn.addEventListener('click', function () {
+        summarizePaper(paper, summaryBtn);
+      });
+    }
+
+    if (ingested) {
+      var preview = item.querySelector('.ks-wiki-preview');
+      var viewBtn = item.querySelector('.ks-view-wiki-btn');
+      renderMarkdown(preview.querySelector('.ks-wiki-content'), page);
+      viewBtn.addEventListener('click', function () {
+        var hidden = preview.style.display === 'none';
+        preview.style.display = hidden ? 'block' : 'none';
+        viewBtn.textContent   = hidden ? 'Hide Wiki Page' : 'View Wiki Page';
+      });
+    }
+
+    return item;
+  }
+
+  function renderIngestPanel(papers, listId, prefix, indexKey) {
+    var list = document.getElementById(listId);
+    if (!papers.length) { list.innerHTML = '<p class="ks-panel-empty">No PDFs found.</p>'; return; }
+    list.innerHTML = '';
+
+    var pagesMap = {};
+    getIndex(indexKey).forEach(function (e) { if (e.pages) pagesMap[e.key] = e.pages; });
+
+    var groups = {};
+    papers.forEach(function (p) {
+      var y = yearOf(p.name) || 'Unknown';
+      var t = paperType(p.name, pagesMap[p.key]);
+      if (!groups[y]) groups[y] = { full: [], short: [] };
+      groups[y][t].push(p);
+    });
+
+    Object.keys(groups).sort(function (a, b) { return +b - +a; }).forEach(function (year) {
+      var yearEl = document.createElement('div');
+      yearEl.className = 'ks-ingest-year';
+      yearEl.textContent = year;
+      list.appendChild(yearEl);
+
+      ['full', 'short'].forEach(function (type) {
+        var bucket = groups[year][type].slice().sort(function (a, b) { return venueTier(a.name) - venueTier(b.name); });
+        if (!bucket.length) return;
+        var typeEl = document.createElement('div');
+        typeEl.className = 'ks-ingest-type ks-ingest-type--' + type;
+        typeEl.textContent = type === 'full' ? 'Full Paper' : 'Short Paper';
+        list.appendChild(typeEl);
+        bucket.forEach(function (p) { list.appendChild(buildPaperItem(p, prefix, indexKey, listId)); });
+      });
+    });
+  }
+
+  // ── Summary (reading-list page) ───────────────────────────────────
+  function summarizePaper(paper, btn) {
+    if (browseOnly) { btn.title = 'Connect to generate summary'; return; }
+    btn.disabled = true;
+    btn.textContent = 'Generating…';
+    statusEl.textContent = 'Generating summary: ' + paper.name + '…';
+
+    extractPdfText(paper.path).then(function (result) {
+      var prompt = 'Write a concise 3–5 sentence summary of this paper for a reading list. '
+        + 'Cover: the problem addressed, the approach, and the key result (with numbers if available). '
+        + 'Plain prose only — no headings, no bullet points, no markdown.\n\n'
+        + 'Paper: ' + paper.name + '\n\nExtracted text:\n' + result.text;
+
+      return fetch(apiUrl(), {
+        method: 'POST', headers: apiHeaders(),
+        body: JSON.stringify({ model: ingestModel(), max_tokens: 250, stream: false,
+          messages: [{ role: 'user', content: prompt }] })
+      }).then(function (r) { return r.json(); })
+        .then(function (d) { return d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content; });
+    }).then(function (content) {
+      if (content) {
+        localStorage.setItem(paper.key, content.trim());
+        appendLog('summary', paper.name);
+      }
+      btn.disabled = false;
+      btn.textContent = 'Re-summary';
+      statusEl.textContent = statusLabel();
+    }).catch(function (err) {
+      statusEl.textContent = 'Error: ' + (err.message || 'Summary failed.');
+      btn.disabled = false;
+      btn.textContent = 'Summary';
+    });
+  }
+
+  // ── Ingest queue ──────────────────────────────────────────────────
+  var _ingestQueue = [], _ingestRunning = false;
+
+  function enqueueIngest(paper, btn, prefix, indexKey, listId, deep) {
+    if (browseOnly) { btn.title = 'Connect with Groq or Ollama to ingest'; return; }
+    btn.disabled = true;
+    btn.textContent = 'Queued…';
+    _ingestQueue.push({ paper: paper, btn: btn, prefix: prefix, indexKey: indexKey, listId: listId, deep: !!deep });
+    _drainIngestQueue();
+  }
+
+  function _drainIngestQueue() {
+    if (_ingestRunning || !_ingestQueue.length) return;
+    _ingestRunning = true;
+    var task = _ingestQueue.shift();
+    if (_ingestQueue.length) statusEl.textContent = _ingestQueue.length + ' more in queue…';
+    ingestPaper(task.paper, task.btn, task.prefix, task.indexKey, task.listId, task.deep, function () {
+      _ingestRunning = false;
+      _drainIngestQueue();
+    });
+  }
+
+  function ingestPaper(paper, btn, prefix, indexKey, listId, deep, done) {
+    var isLab = paper.type === 'lab';
+    btn.disabled = true;
+    statusEl.textContent = 'Reading PDF: ' + paper.name + '…';
+
+    extractPdfText(paper.path).then(function (result) {
+      statusEl.textContent = (deep ? 'Deep wiki: ' : 'Building wiki page: ') + paper.name + '…';
+      var text  = result.text, pages = result.pages;
+      var today = new Date().toISOString().slice(0, 10);
+      var otherIndex = getIndex(indexKey).map(function (e) { return '- ' + e.name; }).join('\n') || '(none yet)';
+
+      var prompt = isLab
+        ? 'You are building the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T).'
+          + 'This paper IS from this lab. Generate a structured wiki page in markdown.\n\n'
+          + 'Paper title: ' + paper.name + '\n\nExtracted PDF text:\n' + text + '\n\n'
+          + 'Other lab papers already in the wiki:\n' + otherIndex + '\n\n'
+          + 'Generate a wiki page with EXACTLY these sections:\n\n'
+          + '# [Exact Paper Title]\n**Venue:** [from text]\n**Ingested:** ' + today + '\n\n'
+          + '## Research Question\n## Key Concepts\n## Methodology\n## Key Findings\n'
+          + '## Contributions\n## Limitations & Future Work\n## Related Lab Papers\n## How to Cite\n\n'
+          + 'Ground every claim in the PDF text. Output only the markdown.'
+        : deep
+          ? 'You are building the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T). '
+            + 'This is an EXTERNAL paper on the reading list. Generate a THOROUGH, DETAILED wiki page. '
+            + 'Every section must be substantive — pull specific numbers, quotes, table results, and named methods directly from the PDF. No vague summaries.\n\n'
+            + 'Paper title: ' + paper.name + '\n\nExtracted PDF text:\n' + text + '\n\n'
+            + 'Other reading list papers in the wiki:\n' + otherIndex + '\n\n'
+            + 'LENS Lab research themes: Toxicity/Derailment in OSS, Emotion in SE, Bug Reports, GenAI & Code Quality.\n\n'
+            + 'Generate a wiki page with EXACTLY these sections. Be specific and detailed in each.\n\n'
+            + '# [Exact Paper Title from PDF]\n'
+            + '**Authors:** [full author list from PDF]\n'
+            + '**Venue:** [conference/journal name and year]\n'
+            + '**Ingested:** ' + today + '\n\n'
+            + '## Problem & Motivation\nWhat specific gap or problem does this paper address? Why does it matter?\n\n'
+            + '## Research Questions\nList each RQ exactly as stated.\n\n'
+            + '## Dataset & Study Design\nData sources, size, collection method, any filtering criteria.\n\n'
+            + '## Methodology\nExact techniques, models, tools, and evaluation metrics used.\n\n'
+            + '## Key Results\nSpecific findings with numbers, percentages, and statistical significance where reported.\n\n'
+            + '## Takeaways\nThe 3-5 most important conclusions a reader should retain.\n\n'
+            + '## Limitations\nWhat the authors acknowledge as limitations. What is NOT covered.\n\n'
+            + '## Connections to LENS Lab\nHow this paper relates to LENS Lab themes. Which specific LENS Lab papers it connects to and why.\n\n'
+            + '## Open Questions\nQuestions this paper raises but does not answer. Good follow-up directions.\n\n'
+            + '## Citation\nFull bibliographic reference as it appears in the paper.\n\n'
+            + 'Ground every claim in the PDF text. Be detailed. Output only the markdown.'
+          : 'You are building the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T).'
+            + 'This is an EXTERNAL paper being read by the lab — not the lab\'s own publication. Generate a structured wiki page.\n\n'
+            + 'Paper title: ' + paper.name + '\n\nExtracted PDF text:\n' + text + '\n\n'
+            + 'Other reading list papers in the wiki:\n' + otherIndex + '\n\n'
+            + 'Lab research themes for cross-referencing: Toxicity/Derailment in OSS, Emotion in SE, Bug Reports, GenAI & Code Quality.\n\n'
+            + 'Generate a wiki page with EXACTLY these sections:\n\n'
+            + '# [Exact Paper Title]\n**Authors/Venue:** [from text]\n**Ingested:** ' + today + '\n\n'
+            + '## Summary\n## Key Concepts\n## Methodology\n## Key Findings\n'
+            + '## Contributions\n## Limitations\n## Connections to Lab Research\n## Open Questions\n\n'
+            + 'Ground every claim in the PDF text. Output only the markdown.';
+
+      var maxTokens = deep ? 3000 : 1200;
+
+      return fetch(apiUrl(), {
+        method: 'POST', headers: apiHeaders(),
+        body: JSON.stringify({ model: ingestModel(), max_tokens: maxTokens, stream: deep, messages: [{ role: 'user', content: prompt }] })
+      }).then(function (r) {
+        if (deep) {
+          var content = '';
+          return streamResponse(r, function (token) {
+            content += token;
+            statusEl.textContent = 'Writing: ' + paper.name + ' (' + content.length + ' chars)…';
+          }).then(function () { return content; });
+        }
+        return r.json().then(function (d) {
+          return d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+        });
+      }).then(function (content) {
+        if (content) {
+          savePage(prefix, paper.key, content.trim());
+          var index = getIndex(indexKey);
+          var i     = index.findIndex(function (e) { return e.key === paper.key; });
+          var entry = { key: paper.key, name: paper.name, date: today, pages: pages };
+          if (i >= 0) index[i] = entry; else index.push(entry);
+          saveIndex(indexKey, index);
+          if (!isLab) {
+            var sm = content.match(/## Summary\n([\s\S]*?)(?=\n##)/);
+            if (sm) localStorage.setItem(paper.key, sm[1].trim().slice(0, 500));
+          }
+          appendLog((deep ? 'deep-ingest' : isLab ? 'lab-ingest' : 'rl-ingest'), paper.name);
+          _prompt = null;
+        }
+        statusEl.textContent = statusLabel();
+        btn.disabled = false;
+        renderIngestPanel(isLab ? LAB_PAPERS : RL_PAPERS, listId, prefix, indexKey);
+        if (done) done();
+      });
+    }).catch(function (err) {
+      statusEl.textContent = 'Error: ' + (err.message || 'Ingest failed.');
+      btn.disabled = false;
+      if (done) done();
+    });
+  }
+
+  // ── Lint ──────────────────────────────────────────────────────────
+  document.getElementById('ks-lint-btn').addEventListener('click', function () {
+    var lintBtn  = this;
+    var labIndex = getIndex(LAB_INDEX_KEY), rlIndex = getIndex(WIKI_INDEX_KEY);
+    var outputEl = document.getElementById('ks-lint-output');
+
+    if (browseOnly) {
+      outputEl.textContent = 'Connect with Groq or Ollama to run the health check.';
+      return;
+    }
+
+    if (!labIndex.length && !rlIndex.length) {
+      outputEl.textContent = 'No wiki pages ingested yet. Use the Lab Papers or Reading List tabs first.';
+      return;
+    }
+
+    lintBtn.disabled = true;
+    statusEl.textContent = 'Running wiki health check…';
+    outputEl.textContent = '';
+
+    var BUDGET = 100000;
+    var labSecs = labIndex.map(function (e) { return { name: e.name, content: getPage(LAB_WIKI_PREFIX, e.key) || '(page not found)' }; });
+    var rlSecs  = rlIndex.map(function (e)  { return { name: e.name, content: getPage(WIKI_PREFIX, e.key)     || '(page not found)' }; });
+    var all     = labSecs.concat(rlSecs);
+    var total   = all.reduce(function (s, p) { return s + p.content.length; }, 0);
+    if (total > BUDGET) {
+      var ratio = BUDGET / total;
+      all.forEach(function (p) { p.content = p.content.slice(0, Math.floor(p.content.length * ratio)); });
+      labSecs = all.slice(0, labSecs.length);
+      rlSecs  = all.slice(labSecs.length);
+    }
+
+    function toBlock(label, items) {
+      return items.length ? '## ' + label + '\n\n' + items.map(function (p) { return '### ' + p.name + '\n' + p.content; }).join('\n\n---\n\n') + '\n\n' : '';
+    }
+
+    var prompt = 'You are health-checking the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T).\n\n'
+      + 'Here are all ingested wiki pages:\n\n'
+      + toBlock('Lab Papers', labSecs) + toBlock('Reading List (External)', rlSecs)
+      + 'Produce a health-check report with exactly these six sections. '
+      + 'For any section with nothing to report, write "None found." — do not pad.\n\n'
+      + '## Contradictions\n'
+      + 'Two or more pages that make directly opposing empirical claims about the same phenomenon. '
+      + 'Cite exact pages and the conflicting claims. Skip if domains or methods differ.\n\n'
+      + '## Stale Claims\n'
+      + 'Claims in older pages that appear to be superseded or contradicted by findings in newer pages. '
+      + 'Name the page, the stale claim, and the newer page that updates it.\n\n'
+      + '## Orphan Pages\n'
+      + 'Pages that are never referenced or cross-linked from any other page. '
+      + 'List by name. These risk being forgotten as the wiki grows.\n\n'
+      + '## Missing Concept Pages\n'
+      + 'Important concepts, methods, datasets, or tools that appear repeatedly across pages but have no dedicated wiki page of their own. '
+      + 'List the concept and which pages mention it.\n\n'
+      + '## Missing Cross-References\n'
+      + 'Pairs of pages that clearly relate to each other but do not link to or mention each other. '
+      + 'Name both pages and explain the connection that is missing.\n\n'
+      + '## New Questions & Sources\n'
+      + 'Specific questions that the current wiki raises but does not answer, and types of sources (papers, datasets, surveys) that would fill those gaps. '
+      + 'Ground each question in a specific page or finding — no generic suggestions.';
+
+    fetch(apiUrl(), {
+      method: 'POST', headers: apiHeaders(),
+      body: JSON.stringify({ model: chatModel(), stream: true, messages: [{ role: 'user', content: prompt }] })
+    })
+    .then(function (res) {
+      if (!res.ok) return res.json().then(function (e) { throw new Error(e.error && e.error.message || 'API error'); });
+      var lintText = '';
+      return streamResponse(res, function (token) { lintText += token; outputEl.textContent = lintText; })
+        .then(function () {
+          localStorage.setItem(LINT_OUTPUT_KEY, lintText);
+          renderMarkdown(outputEl, lintText);
+        });
+    })
+    .then(function () {
+      appendLog('lint', (labIndex.length + rlIndex.length) + ' pages checked');
+      lintBtn.disabled = false;
+      statusEl.textContent = statusLabel();
+    })
+    .catch(function (err) {
+      outputEl.textContent = 'Error: ' + (err.message || 'Could not reach API.');
+      lintBtn.disabled = false;
+      statusEl.textContent = statusLabel();
+    });
+  });
 
 })();
 </script>

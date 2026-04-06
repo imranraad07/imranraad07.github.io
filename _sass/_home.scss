@@ -40,7 +40,16 @@
   }
 }
 
-// Students grid (current vs. alumni)
+// Students section
+.students-lab-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  margin: 0 0 0.6rem;
+}
+
 .students-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

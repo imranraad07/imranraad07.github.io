@@ -44,15 +44,18 @@
       <nav class="sidebar-nav">
         <ul>
           <li><a href="{{ '/' | relative_url }}">Home</a></li>
-          <li><a href="{{ '/posts/about' | relative_url }}">About</a></li>
-          <li><a href="{{ '/posts/research' | relative_url }}">Research</a></li>
+          <li><a href="{{ '/posts/knowledge-system' | relative_url }}">Research Q&amp;A</a></li>
+          <li><a href="{{ '/posts/reading-list' | relative_url }}">Reading List</a></li>
+          <li><a href="{{ '/posts/research' | relative_url }}">LENS Lab</a></li>
           <li><a href="{{ '/posts/publications' | relative_url }}">Publications</a></li>
+        </ul>
+        <div class="sidebar-divider"></div>
+        <ul>
           <li><a href="{{ '/posts/teaching' | relative_url }}">Teaching</a></li>
           <li><a href="{{ '/posts/workshops' | relative_url }}">Workshops</a></li>
           <li><a href="{{ '/posts/experiences' | relative_url }}">Experiences</a></li>
-          <li><a href="{{ '/posts/knowledge-system' | relative_url }}">Research Q&amp;A</a></li>
-          <li><a href="{{ '/posts/reading-list' | relative_url }}">Reading List</a></li>
           <li><a href="{{ '/posts/documents/other/CV.pdf' | relative_url }}">Curriculum Vitae</a></li>
+          <li><a href="{{ '/posts/about' | relative_url }}">About</a></li>
         </ul>
       </nav>
 
@@ -109,7 +112,8 @@
   <footer class="site-footer">
     <div class="container">
       <p>
-        &copy; {{ site.time | date: '%Y' }} {{ site.title }}
+        &copy; {{ site.time | date: '%Y' }} LENS Lab &nbsp;&middot;&nbsp;
+        Dr. Mia Mohammad Imran
         &nbsp;&middot;&nbsp;
         <a href="mailto:imranm@mst.edu">imranm@mst.edu</a>
         &nbsp;&middot;&nbsp;

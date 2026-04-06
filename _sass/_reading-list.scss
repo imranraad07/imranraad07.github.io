@@ -112,19 +112,6 @@
     &:hover { background: #ddd6fe; }
   }
 
-  &--delete {
-    background: none;
-    color: #9ca3af;
-    border: 1px solid #e5e7eb;
-    cursor: pointer;
-    font-family: inherit;
-
-    &:hover {
-      background: #fee2e2;
-      color: #dc2626;
-      border-color: #fca5a5;
-    }
-  }
 }
 
 .rl-empty {
