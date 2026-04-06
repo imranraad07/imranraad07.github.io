@@ -24,14 +24,150 @@
 <p>
   Powered by <a href="https://console.groq.com" target="_blank" rel="noopener">Groq</a> (cloud, free tier)
   or <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> (local).
-  No data is sent to any server — everything runs in your browser.
 </p>
 
-<div class="ks-chatbot" id="ks-chatbot" data-wiki-url="{{ '/assets/ks-data/wiki.json' | relative_url }}">
-  {% include ks/connect.html %}
-  {% include ks/chat-interface.html %}
+<div class="ks-chatbot" id="ks-chatbot">
+
+  <!-- Connect screen -->
+  <div class="ks-connect" id="ks-connect">
+    <div class="ks-connect-inner">
+      <div class="ks-provider-tabs">
+        <button class="ks-provider-tab ks-provider-tab--active" data-provider="groq">Groq <span class="ks-provider-badge">Cloud · Free</span></button>
+        <button class="ks-provider-tab" data-provider="ollama">Ollama <span class="ks-provider-badge">Local</span></button>
+        <button class="ks-provider-tab" data-provider="ollama-remote">Ollama Remote <span class="ks-provider-badge">Custom URL</span></button>
+      </div>
+
+      <div id="ks-groq-fields">
+        <div class="ks-key-row">
+          <input type="password" id="ks-api-key" class="ks-model-select" placeholder="Groq API key — gsk_…" autocomplete="off" />
+          <select id="ks-model-select" class="ks-model-select" style="max-width:220px;">
+            <option value="llama-3.3-70b-versatile" selected>Llama 3.3 70B</option>
+            <option value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout 17B</option>
+            <option value="openai/gpt-oss-120b">GPT OSS 120B</option>
+            <option value="openai/gpt-oss-20b">GPT OSS 20B</option>
+            <option value="moonshotai/kimi-k2-instruct">Kimi K2</option>
+            <option value="qwen/qwen3-32b">Qwen 3 32B</option>
+            <option value="groq/compound">Groq Compound</option>
+            <option value="groq/compound-mini">Groq Compound Mini</option>
+            <option value="llama-3.1-8b-instant">Llama 3.1 8B</option>
+          </select>
+        </div>
+        <p class="ks-connect-hint">Get a free key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</p>
+      </div>
+
+<div id="ks-ollama-fields" style="display:none;">
+        <div class="ks-key-row">
+          <select id="ks-ollama-model-select" class="ks-model-select">
+            <option value="">Click Ollama tab to detect models…</option>
+          </select>
+          <button type="button" class="ks-ollama-refresh" id="ks-ollama-refresh" title="Re-detect models">&#8635;</button>
+        </div>
+        <div id="ks-ollama-custom-row" style="display:none; margin-top:0.4rem;">
+          <input type="text" id="ks-ollama-custom" class="ks-model-select" placeholder="Model name (e.g. llama3.2:8b)" autocomplete="off" style="width:100%;" />
+        </div>
+        <p class="ks-connect-hint">Ollama must be running at <code>localhost:11434</code>. Get it at <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a>.</p>
+      </div>
+
+      <div id="ks-ollama-remote-fields" style="display:none;">
+        <div class="ks-key-row" style="flex-direction:column; gap:0.4rem;">
+          <input type="text" id="ks-or-url" class="ks-model-select" placeholder="Ollama URL (e.g. http://my-server:11434)" autocomplete="off" style="width:100%;" />
+          <input type="text" id="ks-or-model" class="ks-model-select" placeholder="Model name (e.g. llama3.2:8b)" autocomplete="off" style="width:100%;" />
+        </div>
+        <p class="ks-connect-hint">Remote Ollama must have <code>OLLAMA_ORIGINS</code> set to allow this page.</p>
+      </div>
+
+      <button class="ks-key-btn" id="ks-connect-btn">Start</button>
+      <div class="ks-browse-row">
+        <button class="ks-browse-btn" id="ks-browse-btn">Browse ingested papers without connecting →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat interface -->
+  <div class="ks-chat-interface" id="ks-chat-interface" style="display:none;">
+    <div class="ks-mode-tabs">
+      <button class="ks-mode-tab ks-mode-tab--active" data-mode="query">Query</button>
+      <button class="ks-mode-tab" data-mode="lab">Lab Papers</button>
+      <button class="ks-mode-tab" data-mode="rl">Reading List</button>
+      <button class="ks-mode-tab" data-mode="lint">Lint</button>
+      <button class="ks-mode-tab" data-mode="wiki">Wiki</button>
+    </div>
+
+    <div id="ks-mode-query" style="display:flex; flex-direction:column;">
+      <div id="ks-browse-notice" class="ks-browse-notice" style="display:none;">
+        Connect with Groq or Ollama to ask questions and ingest papers.
+        <button class="ks-browse-notice-btn" id="ks-browse-connect-btn">Connect →</button>
+      </div>
+      <div class="ks-messages" id="ks-messages">
+        <div class="ks-msg ks-msg--assistant">
+          <div class="ks-msg-bubble">Hi! Ask me anything about LENS Lab research. Ingest lab papers or reading list PDFs first for deeper answers.</div>
+        </div>
+      </div>
+      <div class="ks-suggestions" id="ks-suggestions">
+        <button class="ks-suggestion" data-q="What are the main research themes in this lab?">Research themes</button>
+        <button class="ks-suggestion" data-q="What did the derailment forecasting paper find?">Derailment forecasting</button>
+        <button class="ks-suggestion" data-q="What is the OLAF framework?">OLAF framework</button>
+        <button class="ks-suggestion" data-q="What datasets has this lab published?">Published datasets</button>
+        <button class="ks-suggestion" data-q="What is on the current reading list?">Reading list</button>
+      </div>
+      <div class="ks-input-row">
+        <input type="text" id="ks-input" class="ks-input" placeholder="Ask about any paper, finding, or research direction…" autocomplete="off" />
+        <button class="ks-send-btn" id="ks-send-btn" aria-label="Send">&#9658;</button>
+      </div>
+    </div>
+
+    <div id="ks-mode-lab" style="display:none;">
+      <div class="ks-panel-info"><p>Build detailed wiki pages from the lab's own published papers.</p></div>
+      <div id="ks-lab-list"></div>
+    </div>
+
+    <div id="ks-mode-rl" style="display:none;">
+      <div class="ks-panel-info"><p>Build wiki pages from external papers being read by the lab.</p></div>
+      <div id="ks-rl-list"></div>
+    </div>
+
+    <div id="ks-mode-lint" style="display:none;">
+      <div class="ks-panel-info"><p>Health-check the wiki: contradictions, stale claims, orphan pages, missing links, and future research directions.</p></div>
+      <button class="ks-lint-run-btn" id="ks-lint-btn">Run Health Check</button>
+      <div id="ks-lint-output" class="ks-lint-output"></div>
+    </div>
+
+    <div id="ks-mode-wiki" style="display:none;">
+      <div class="ks-wiki-io">
+        <button class="ks-io-btn ks-io-btn--import" id="ks-local-save-btn">&#128190; Save to disk</button>
+        <button class="ks-io-btn" id="ks-export-btn">&#8595; Download backup</button>
+        <span class="ks-io-hint">Pick <code>assets/ks-data/wiki.json</code> once — auto-saves on every ingest</span>
+      </div>
+      <div class="ks-wiki-file">
+        <div class="ks-wiki-file-header">
+          <code class="ks-wiki-filename">index.md</code>
+          <span class="ks-wiki-file-desc">Catalog of all ingested pages</span>
+        </div>
+        <div id="ks-wiki-index-content" class="ks-wiki-content ks-wiki-content--file"></div>
+      </div>
+      <div class="ks-wiki-file">
+        <div class="ks-wiki-file-header">
+          <code class="ks-wiki-filename">log.md</code>
+          <span class="ks-wiki-file-desc">Activity log — newest first</span>
+        </div>
+        <div id="ks-wiki-log-content" class="ks-wiki-content ks-wiki-content--file"></div>
+      </div>
+    </div>
+
+    <div class="ks-chat-footer">
+      <span id="ks-status"></span>
+      <button class="ks-reset-btn" id="ks-reset-btn">&#8592; Change key / model</button>
+    </div>
+  </div>
+
 </div>
 
-{% include ks/paper-data.html %}
+<!-- Paper data (Liquid-rendered JSON for JS) -->
+<script type="application/json" id="ks-rl-data">
+[{% for f in rl_pdfs %}{% assign n = f.basename | remove: '"' %}{"name":"{{ n | replace: "_", " " | replace: "-", " " }}","key":"ks_rl_{{ n | remove: " " | truncate: 60, "" }}","path":"{{ f.path | relative_url }}","type":"rl"}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>
+<script type="application/json" id="ks-lab-data">
+[{% for f in lab_pdfs %}{% assign n = f.basename | remove: '"' %}{"name":"{{ n | replace: "_", " " | replace: "-", " " }}","key":"ks_lab_{{ n | remove: " " | truncate: 60, "" }}","path":"{{ f.path | relative_url }}","type":"lab"}{% unless forloop.last %},{% endunless %}{% endfor %}]
+</script>
 
 <script src="{{ '/assets/js/knowledge-system.js' | relative_url }}"></script>

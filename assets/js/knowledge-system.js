@@ -1,41 +1,26 @@
 (function () {
-  var GROQ_URL     = 'https://api.groq.com/openai/v1/chat/completions';
-  var OLLAMA_URL   = 'http://localhost:11434/v1/chat/completions';
+  var GROQ_URL   = 'https://api.groq.com/openai/v1/chat/completions';
+  var OLLAMA_URL = 'http://localhost:11434/v1/chat/completions';
   var MARKED_CDN   = 'https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js';
   var PDFJS_CDN    = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
   var PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-  var GH_OWNER = 'imranraad07';
-  var GH_REPO  = 'imranraad07.github.io';
-  var GH_PATH  = 'assets/ks-data/wiki.json';
-  var GH_API   = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + GH_PATH;
 
   var RL_PAPERS  = JSON.parse(document.getElementById('ks-rl-data').textContent  || '[]');
   var LAB_PAPERS = JSON.parse(document.getElementById('ks-lab-data').textContent || '[]');
 
   // ── In-memory store (no localStorage) ────────────────────────────
   var wikiData   = {};
-  var ghToken    = '';
-  var _fileSha   = '';
-  var _saveTimer = null;
-
-  var _fileHandle    = null;
-  var _localSaveTimer = null;
+  var _fileHandle = null;
+  var _saveTimer  = null;
 
   function getItem(key)      { return wikiData.hasOwnProperty(key) ? wikiData[key] : null; }
-  function setItem(key, val) { wikiData[key] = val; scheduleSave(); scheduleLocalSave(); }
-
-  // ── GitHub remote save ────────────────────────────────────────────
-  function scheduleSave() {
-    clearTimeout(_saveTimer);
-    _saveTimer = setTimeout(commitWiki, 2000);
-  }
+  function setItem(key, val) { wikiData[key] = val; scheduleSave(); }
 
   // ── Local disk save (File System Access API) ──────────────────────
-  function scheduleLocalSave() {
+  function scheduleSave() {
     if (!_fileHandle) return;
-    clearTimeout(_localSaveTimer);
-    _localSaveTimer = setTimeout(writeToLocalFile, 1000);
+    clearTimeout(_saveTimer);
+    _saveTimer = setTimeout(writeToLocalFile, 1000);
   }
 
   function writeToLocalFile() {
@@ -53,16 +38,16 @@
       .catch(function () { statusEl.textContent = statusLabel() + ' · Disk save failed'; });
   }
 
+  function downloadJson() {
+    var blob = new Blob([JSON.stringify(wikiData, null, 2)], { type: 'application/json' });
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement('a');
+    a.href = url; a.download = 'wiki.json'; a.click();
+    URL.revokeObjectURL(url);
+  }
+
   function pickLocalFile() {
-    if (!window.showOpenFilePicker) {
-      // Fallback for browsers without File System Access API
-      var blob = new Blob([JSON.stringify(wikiData, null, 2)], { type: 'application/json' });
-      var url  = URL.createObjectURL(blob);
-      var a    = document.createElement('a');
-      a.href = url; a.download = 'wiki.json'; a.click();
-      URL.revokeObjectURL(url);
-      return;
-    }
+    if (!window.showOpenFilePicker) { downloadJson(); return; }
     window.showOpenFilePicker({ types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }], multiple: false })
       .then(function (handles) {
         _fileHandle = handles[0];
@@ -75,43 +60,8 @@
       .catch(function (e) { if (e.name !== 'AbortError') statusEl.textContent = 'Could not open file'; });
   }
 
-  function toBase64(str) {
-    var bytes = new TextEncoder().encode(str);
-    var bin = '';
-    bytes.forEach(function (b) { bin += String.fromCharCode(b); });
-    return btoa(bin);
-  }
-
-
-  function commitWiki() {
-    if (!ghToken) return;
-    statusEl.textContent = 'Saving…';
-    // Fresh SHA fetch before each write to avoid conflicts
-    fetch(GH_API, { headers: { 'Authorization': 'token ' + ghToken } })
-      .then(function (r) { return r.ok ? r.json() : {}; })
-      .then(function (f) {
-        if (f.sha) _fileSha = f.sha;
-        var body = { message: 'Update wiki data [auto]', content: toBase64(JSON.stringify(wikiData, null, 2)) };
-        if (_fileSha) body.sha = _fileSha;
-        return fetch(GH_API, {
-          method: 'PUT',
-          headers: { 'Authorization': 'token ' + ghToken, 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        });
-      })
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error(r.status)); })
-      .then(function (d) {
-        _fileSha = d.content.sha;
-        statusEl.textContent = statusLabel() + ' · Saved ✓';
-        setTimeout(function () { statusEl.textContent = statusLabel(); }, 2500);
-      })
-      .catch(function () {
-        statusEl.textContent = statusLabel() + ' · Save failed — check token';
-      });
-  }
-
   // Load from the static file served by Jekyll (works locally and on GitHub Pages)
-  var WIKI_STATIC_URL = (document.getElementById('ks-chatbot').dataset.wikiUrl || '/assets/ks-data/wiki.json');
+  var WIKI_STATIC_URL = '/assets/ks-data/wiki.json';
 
   function loadFromRepo() {
     return fetch(WIKI_STATIC_URL + '?_=' + Date.now())
@@ -121,18 +71,34 @@
   }
 
   // ── Provider ──────────────────────────────────────────────────────
-  var provider = 'groq', apiKey = '', ollamaModel = '', selectedModel = 'llama-3.3-70b-versatile';
+  var provider = 'groq', apiKey = '', ollamaModel = '', ollamaRemoteUrl = '', ollamaRemoteModel = '', selectedModel = 'llama-3.3-70b-versatile';
   var browseOnly = false;
 
-  function apiUrl()      { return provider === 'ollama' ? OLLAMA_URL : GROQ_URL; }
-  function apiHeaders()  {
+  function apiUrl() {
+    if (provider === 'ollama')        return OLLAMA_URL;
+    if (provider === 'ollama-remote') return ollamaRemoteUrl.replace(/\/$/, '') + '/v1/chat/completions';
+    return GROQ_URL;
+  }
+  function apiHeaders() {
     var h = { 'Content-Type': 'application/json' };
     if (provider === 'groq' && apiKey) h['Authorization'] = 'Bearer ' + apiKey;
     return h;
   }
-  function ingestModel() { return provider === 'ollama' ? ollamaModel : 'llama-3.3-70b-versatile'; }
-  function chatModel()   { return provider === 'ollama' ? ollamaModel : selectedModel; }
-  function statusLabel() { return provider === 'ollama' ? 'Ollama · ' + ollamaModel : 'Groq · ' + selectedModel; }
+  function ingestModel() {
+    if (provider === 'ollama')        return ollamaModel;
+    if (provider === 'ollama-remote') return ollamaRemoteModel;
+    return 'llama-3.3-70b-versatile';
+  }
+  function chatModel() {
+    if (provider === 'ollama')        return ollamaModel;
+    if (provider === 'ollama-remote') return ollamaRemoteModel;
+    return selectedModel;
+  }
+  function statusLabel() {
+    if (provider === 'ollama')        return 'Ollama · ' + ollamaModel;
+    if (provider === 'ollama-remote') return 'Ollama Remote · ' + ollamaRemoteModel;
+    return 'Groq · ' + selectedModel;
+  }
 
   // ── Storage keys ──────────────────────────────────────────────────
   var WIKI_PREFIX     = 'ks_wiki_';
@@ -254,10 +220,11 @@
   var sendBtn       = document.getElementById('ks-send-btn');
   var statusEl      = document.getElementById('ks-status');
   var suggestionsEl = document.getElementById('ks-suggestions');
-  var ollamaSelEl     = document.getElementById('ks-ollama-model-select');
-  var ollamaCustomEl  = document.getElementById('ks-ollama-custom');
-  var ollamaCustomRow = document.getElementById('ks-ollama-custom-row');
-  var ghTokenInput    = document.getElementById('ks-gh-token');
+  var ollamaSelEl       = document.getElementById('ks-ollama-model-select');
+  var ollamaCustomEl    = document.getElementById('ks-ollama-custom');
+  var ollamaCustomRow   = document.getElementById('ks-ollama-custom-row');
+  var remoteUrlInput    = document.getElementById('ks-or-url');
+  var remoteModelInput  = document.getElementById('ks-or-model');
 
   modelSelect.value = selectedModel;
 
@@ -294,8 +261,9 @@
       document.querySelectorAll('.ks-provider-tab').forEach(function (t) {
         t.classList.toggle('ks-provider-tab--active', t.dataset.provider === provider);
       });
-      document.getElementById('ks-groq-fields').style.display  = provider === 'groq'   ? 'block' : 'none';
-      document.getElementById('ks-ollama-fields').style.display = provider === 'ollama' ? 'block' : 'none';
+      document.getElementById('ks-groq-fields').style.display          = provider === 'groq'          ? 'block' : 'none';
+      document.getElementById('ks-ollama-fields').style.display         = provider === 'ollama'         ? 'block' : 'none';
+      document.getElementById('ks-ollama-remote-fields').style.display  = provider === 'ollama-remote'  ? 'block' : 'none';
       if (provider === 'ollama') fetchOllamaModels();
     });
   });
@@ -334,7 +302,7 @@
     connectEl.style.display = 'none';
     chatEl.style.display    = 'flex';
     document.getElementById('ks-browse-notice').style.display = browseOnly ? 'flex' : 'none';
-    statusEl.textContent = browseOnly ? 'Browse mode' + (ghToken ? '' : ' — no token, changes won\'t save') : statusLabel();
+    statusEl.textContent = browseOnly ? 'Browse mode' : statusLabel();
     if (browseOnly) switchMode('lab'); else inputEl.focus();
   }
 
@@ -349,40 +317,38 @@
       var k = keyInput.value.trim();
       if (!k) return;
       apiKey = k; selectedModel = modelSelect.value;
+    } else if (provider === 'ollama-remote') {
+      var url = remoteUrlInput.value.trim();
+      var mod = remoteModelInput.value.trim();
+      if (!url || !mod) return;
+      ollamaRemoteUrl = url; ollamaRemoteModel = mod;
     } else {
       var m = ollamaSelEl.value === '__custom__' ? ollamaCustomEl.value.trim() : ollamaSelEl.value;
       if (!m) return;
       ollamaModel = m; apiKey = '';
     }
-    ghToken = ghTokenInput ? ghTokenInput.value.trim() : '';
     openChat(false);
   });
 
   document.getElementById('ks-browse-btn').addEventListener('click', function () {
-    ghToken = ghTokenInput ? ghTokenInput.value.trim() : '';
     openChat(true);
   });
   keyInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
   ollamaCustomEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
+  remoteUrlInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
+  remoteModelInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
 
   document.getElementById('ks-reset-btn').addEventListener('click', function () {
-    apiKey = ''; ollamaModel = ''; ghToken = ''; history = []; browseOnly = false;
+    apiKey = ''; ollamaModel = ''; ollamaRemoteUrl = ''; ollamaRemoteModel = ''; history = []; browseOnly = false;
     chatEl.style.display    = 'none';
     connectEl.style.display = 'block';
-    keyInput.value = '';
-    if (ghTokenInput) ghTokenInput.value = '';
+    keyInput.value = ''; remoteUrlInput.value = ''; remoteModelInput.value = '';
   });
 
   // ── Local disk save / Download backup ────────────────────────────
   document.getElementById('ks-local-save-btn').addEventListener('click', pickLocalFile);
 
-  document.getElementById('ks-export-btn').addEventListener('click', function () {
-    var blob = new Blob([JSON.stringify(wikiData, null, 2)], { type: 'application/json' });
-    var url  = URL.createObjectURL(blob);
-    var a    = document.createElement('a');
-    a.href = url; a.download = 'wiki.json'; a.click();
-    URL.revokeObjectURL(url);
-  });
+  document.getElementById('ks-export-btn').addEventListener('click', downloadJson);
 
   // ── SSE streaming ─────────────────────────────────────────────────
   function streamResponse(res, onToken) {
@@ -410,17 +376,17 @@
   function llmFetch(body) {
     return fetch(apiUrl(), { method: 'POST', headers: apiHeaders(), body: JSON.stringify(body) });
   }
-  function llmComplete(body) {
-    return llmFetch(body).then(function (r) {
-      if (!r.ok) return r.json().then(function (e) { throw new Error(e.error && e.error.message || 'API error'); });
-      return r.json().then(function (d) { return d.choices[0].message.content; });
-    });
+  function rejectOnError(r) {
+    if (!r.ok) return r.json().then(function (e) { throw new Error(e.error && e.error.message || 'API error'); });
+    return null;
   }
-  function llmStream(body, onToken) {
-    return llmFetch(body).then(function (r) {
-      if (!r.ok) return r.json().then(function (e) { throw new Error(e.error && e.error.message || 'API error'); });
-      return streamResponse(r, onToken);
-    });
+  async function llmComplete(body) {
+    var r = await llmFetch(body);
+    return rejectOnError(r) || r.json().then(function (d) { return d.choices[0].message.content; });
+  }
+  async function llmStream(body, onToken) {
+    var r = await llmFetch(body);
+    return rejectOnError(r) || streamResponse(r, onToken);
   }
 
   // ── Lazy script loader ────────────────────────────────────────────
