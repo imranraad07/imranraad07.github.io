@@ -40,14 +40,21 @@
 
 <script>
 (function () {
-  document.querySelectorAll('.rl-item[data-lskey]').forEach(function (li) {
-    var key = li.dataset.lskey;
-    var s   = localStorage.getItem(key);
-    if (s) {
-      var p = li.querySelector('.rl-summary');
-      p.textContent = s;
-      p.classList.remove('rl-summary--pending');
-    }
-  });
+  function applyummaries(wiki) {
+    document.querySelectorAll('.rl-item[data-lskey]').forEach(function (li) {
+      var key = li.dataset.lskey;
+      var s = (wiki && wiki[key]) || localStorage.getItem(key);
+      if (s) {
+        var p = li.querySelector('.rl-summary');
+        p.textContent = s;
+        p.classList.remove('rl-summary--pending');
+      }
+    });
+  }
+
+  fetch('/assets/ks-data/wiki.json?_=' + Date.now())
+    .then(function (r) { return r.ok ? r.json() : {}; })
+    .catch(function () { return {}; })
+    .then(function (wiki) { applyummaries(wiki); });
 })();
 </script>
