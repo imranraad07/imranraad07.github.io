@@ -1,0 +1,50 @@
+name: Ollama Remote Access
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: 'Model to pull and serve (e.g. gpt-oss:120b-cloud, mistral, qwen2.5)'
+        required: true
+        default: 'gpt-oss:120b-cloud'
+      duration:
+        description: 'Keep-alive duration in minutes (max 120)'
+        required: false
+        default: '60'
+
+jobs:
+  run-ollama:
+    runs-on: ubuntu-latest
+    timeout-minutes: 125
+
+    steps:
+      - name: Set up Ollama
+        uses: ai-action/setup-ollama@v2.0.28
+        with:
+          model: ${{ inputs.model }}
+
+      - name: Install cloudflared
+        run: |
+          curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg \
+            | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+          echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared focal main' \
+            | sudo tee /etc/apt/sources.list.d/cloudflared.list
+          sudo apt-get update -qq && sudo apt-get install -y cloudflared
+
+      - name: Expose Ollama and print tunnel URL
+        run: |
+          cloudflared tunnel --url http://localhost:11434 2>/tmp/cf.log &
+          sleep 10
+          TUNNEL_URL=$(grep -oP 'https://[a-z0-9-]+\.trycloudflare\.com' /tmp/cf.log | head -1)
+          echo ""
+          echo "=================================================="
+          echo "  OLLAMA TUNNEL URL:"
+          echo "  $TUNNEL_URL"
+          echo ""
+          echo "  Model: ${{ inputs.model }}"
+          echo "  Paste the URL above into:"
+          echo "  Research Q&A → Ollama → Remote URL"
+          echo "=================================================="
+          echo ""
+          echo "Keeping alive for ${{ inputs.duration }} minutes..."
+          sleep $(( ${{ inputs.duration }} * 60 ))

@@ -207,6 +207,14 @@
   a { color: #16a34a; }
 }
 
+.ks-gh-actions-link {
+  font-weight: 600;
+  color: #2563eb !important;
+  white-space: nowrap;
+
+  &:hover { text-decoration: underline; }
+}
+
 .ks-model-select {
   flex: 1;
   min-width: 140px;

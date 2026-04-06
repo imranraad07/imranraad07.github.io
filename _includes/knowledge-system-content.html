@@ -68,9 +68,16 @@
           <input type="text" id="ks-ollama-custom" class="ks-model-select"
                  placeholder="Model name (e.g. llama3.2:8b)" autocomplete="off" style="width:100%;" />
         </div>
+        <div style="margin-top:0.4rem;">
+          <input type="text" id="ks-ollama-url" class="ks-model-select"
+                 placeholder="Remote URL — e.g. https://xxxx.trycloudflare.com  (blank = localhost)"
+                 autocomplete="off" style="width:100%;" />
+        </div>
         <p class="ks-connect-hint">
-          Ollama must be running at <code>localhost:11434</code>.
-          Get it at <a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a>.
+          Not running locally?
+          <a href="https://github.com/imranraad07/imranraad07.github.io/actions/workflows/ollama.yml"
+             target="_blank" rel="noopener" class="ks-gh-actions-link">Run via GitHub Actions →</a>
+          — copy the tunnel URL from the workflow log and paste it above.
         </p>
       </div>
 
@@ -172,8 +179,8 @@
 
 <script>
 (function () {
-  var GROQ_URL     = 'https://api.groq.com/openai/v1/chat/completions';
-  var OLLAMA_URL   = 'http://localhost:11434/v1/chat/completions';
+  var GROQ_URL      = 'https://api.groq.com/openai/v1/chat/completions';
+  var OLLAMA_BASE   = 'http://localhost:11434'; // overridden by remote URL input at connect time
   var MARKED_CDN   = 'https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js';
   var PDFJS_CDN    = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
   var PDFJS_WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -185,7 +192,7 @@
   var provider = 'groq', apiKey = '', ollamaModel = '', selectedModel = 'llama-3.3-70b-versatile';
   var browseOnly = false;
 
-  function apiUrl()      { return provider === 'ollama' ? OLLAMA_URL : GROQ_URL; }
+  function apiUrl()      { return provider === 'ollama' ? OLLAMA_BASE + '/v1/chat/completions' : GROQ_URL; }
   function apiHeaders()  {
     var h = { 'Content-Type': 'application/json' };
     if (provider === 'groq' && apiKey) h['Authorization'] = 'Bearer ' + apiKey;
@@ -313,36 +320,39 @@
   var messagesEl    = document.getElementById('ks-messages');
   var inputEl       = document.getElementById('ks-input');
   var sendBtn       = document.getElementById('ks-send-btn');
-  var statusEl      = document.getElementById('ks-status');
-  var suggestionsEl = document.getElementById('ks-suggestions');
+  var statusEl        = document.getElementById('ks-status');
+  var suggestionsEl   = document.getElementById('ks-suggestions');
+  var ollamaSelEl     = document.getElementById('ks-ollama-model-select');
+  var ollamaCustomEl  = document.getElementById('ks-ollama-custom');
+  var ollamaCustomRow = document.getElementById('ks-ollama-custom-row');
+  var ollamaUrlEl     = document.getElementById('ks-ollama-url');
 
   modelSelect.value = selectedModel;
 
   // ── Ollama ────────────────────────────────────────────────────────
   function fetchOllamaModels() {
-    var sel       = document.getElementById('ks-ollama-model-select');
-    var customRow = document.getElementById('ks-ollama-custom-row');
-    sel.innerHTML = '<option value="">Detecting models…</option>';
-    sel.disabled  = true;
-    fetch('http://localhost:11434/api/tags')
+    var base = (ollamaUrlEl.value.trim().replace(/\/$/, '')) || 'http://localhost:11434';
+    ollamaSelEl.innerHTML = '<option value="">Detecting models…</option>';
+    ollamaSelEl.disabled  = true;
+    fetch(base + '/api/tags')
       .then(function (r) { return r.json(); })
       .then(function (d) {
         var names = (d.models || []).map(function (m) { return m.name; });
-        sel.innerHTML = (names.length
+        ollamaSelEl.innerHTML = (names.length
           ? names.map(function (n) { return '<option>' + n + '</option>'; }).join('')
           : '<option value="">No models installed</option>')
           + '<option value="__custom__">— Enter model name manually —</option>';
-        sel.disabled = false;
-        customRow.style.display = 'none';
+        ollamaSelEl.disabled = false;
+        ollamaCustomRow.style.display = 'none';
       })
       .catch(function () {
-        sel.innerHTML = '<option value="">Ollama not reachable</option><option value="__custom__">— Enter model name manually —</option>';
-        sel.disabled  = false;
+        ollamaSelEl.innerHTML = '<option value="">Ollama not reachable</option><option value="__custom__">— Enter model name manually —</option>';
+        ollamaSelEl.disabled  = false;
       });
   }
 
-  document.getElementById('ks-ollama-model-select').addEventListener('change', function () {
-    document.getElementById('ks-ollama-custom-row').style.display = this.value === '__custom__' ? 'block' : 'none';
+  ollamaSelEl.addEventListener('change', function () {
+    ollamaCustomRow.style.display = this.value === '__custom__' ? 'block' : 'none';
   });
   document.getElementById('ks-ollama-refresh').addEventListener('click', fetchOllamaModels);
 
@@ -411,9 +421,9 @@
       if (!k) return;
       apiKey = k; selectedModel = modelSelect.value;
     } else {
-      var sel = document.getElementById('ks-ollama-model-select');
-      var m   = sel.value === '__custom__' ? document.getElementById('ks-ollama-custom').value.trim() : sel.value;
+      var m = ollamaSelEl.value === '__custom__' ? ollamaCustomEl.value.trim() : ollamaSelEl.value;
       if (!m) return;
+      OLLAMA_BASE = (ollamaUrlEl.value.trim().replace(/\/$/, '')) || 'http://localhost:11434';
       ollamaModel = m; apiKey = '';
     }
     openChat(false);
@@ -421,13 +431,14 @@
 
   document.getElementById('ks-browse-btn').addEventListener('click', function () { openChat(true); });
   keyInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
-  document.getElementById('ks-ollama-custom').addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
+  ollamaCustomEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') connectBtn.click(); });
 
   document.getElementById('ks-reset-btn').addEventListener('click', function () {
     apiKey = ''; ollamaModel = ''; history = []; browseOnly = false;
+    OLLAMA_BASE = 'http://localhost:11434';
     chatEl.style.display    = 'none';
     connectEl.style.display = 'block';
-    keyInput.value = '';
+    keyInput.value = ''; ollamaUrlEl.value = '';
   });
 
   // Auto-open in browse mode if ingested content already exists
@@ -455,17 +466,16 @@
 
     var bubble = appendMsg('assistant', '').querySelector('.ks-msg-bubble');
     var fullReply = '';
-
-    fetch(apiUrl(), {
-      method: 'POST', headers: apiHeaders(),
-      body: JSON.stringify({ model: chatModel(), stream: true, messages: [{ role: 'system', content: getCachedSystemPrompt() }].concat(history) })
-    })
-    .then(function (res) {
-      if (!res.ok) return res.json().then(function (e) { throw new Error(e.error && e.error.message || 'API error'); });
-      return streamResponse(res, function (token) { fullReply += token; bubble.textContent = fullReply; messagesEl.scrollTop = messagesEl.scrollHeight; });
-    })
-    .then(function () { history.push({ role: 'assistant', content: fullReply }); sendBtn.disabled = false; statusEl.textContent = statusLabel(); })
-    .catch(function (err) { bubble.textContent = 'Error: ' + (err.message || 'Could not reach API.'); sendBtn.disabled = false; statusEl.textContent = statusLabel(); });
+    llmStream(
+      { model: chatModel(), stream: true, messages: [{ role: 'system', content: getCachedSystemPrompt() }].concat(history) },
+      function (token) { fullReply += token; bubble.textContent = fullReply; messagesEl.scrollTop = messagesEl.scrollHeight; }
+    ).then(function () {
+      history.push({ role: 'assistant', content: fullReply });
+      sendBtn.disabled = false; statusEl.textContent = statusLabel();
+    }).catch(function (err) {
+      bubble.textContent = 'Error: ' + (err.message || 'Could not reach API.');
+      sendBtn.disabled = false; statusEl.textContent = statusLabel();
+    });
   }
 
   function appendMsg(role, text) {
@@ -498,6 +508,23 @@
       });
     }
     return pump();
+  }
+
+  // ── LLM helpers ───────────────────────────────────────────────────
+  function llmFetch(body) {
+    return fetch(apiUrl(), { method: 'POST', headers: apiHeaders(), body: JSON.stringify(body) });
+  }
+  function llmComplete(body) {
+    return llmFetch(body).then(function (r) {
+      if (!r.ok) return r.json().then(function (e) { throw new Error(e.error && e.error.message || 'API error'); });
+      return r.json().then(function (d) { return d.choices[0].message.content; });
+    });
+  }
+  function llmStream(body, onToken) {
+    return llmFetch(body).then(function (r) {
+      if (!r.ok) return r.json().then(function (e) { throw new Error(e.error && e.error.message || 'API error'); });
+      return streamResponse(r, onToken);
+    });
   }
 
   // ── Lazy script loader ────────────────────────────────────────────
@@ -598,9 +625,12 @@
     if (ingested) {
       var preview = item.querySelector('.ks-wiki-preview');
       var viewBtn = item.querySelector('.ks-view-wiki-btn');
-      renderMarkdown(preview.querySelector('.ks-wiki-content'), page);
       viewBtn.addEventListener('click', function () {
         var hidden = preview.style.display === 'none';
+        if (hidden && !preview.dataset.rendered) {
+          renderMarkdown(preview.querySelector('.ks-wiki-content'), page);
+          preview.dataset.rendered = '1';
+        }
         preview.style.display = hidden ? 'block' : 'none';
         viewBtn.textContent   = hidden ? 'Hide Wiki Page' : 'View Wiki Page';
       });
@@ -651,17 +681,12 @@
     statusEl.textContent = 'Generating summary: ' + paper.name + '…';
 
     extractPdfText(paper.path).then(function (result) {
-      var prompt = 'Write a concise 3–5 sentence summary of this paper for a reading list. '
+      return llmComplete({ model: ingestModel(), max_tokens: 250, stream: false, messages: [{ role: 'user', content:
+        'Write a concise 3–5 sentence summary of this paper for a reading list. '
         + 'Cover: the problem addressed, the approach, and the key result (with numbers if available). '
         + 'Plain prose only — no headings, no bullet points, no markdown.\n\n'
-        + 'Paper: ' + paper.name + '\n\nExtracted text:\n' + result.text;
-
-      return fetch(apiUrl(), {
-        method: 'POST', headers: apiHeaders(),
-        body: JSON.stringify({ model: ingestModel(), max_tokens: 250, stream: false,
-          messages: [{ role: 'user', content: prompt }] })
-      }).then(function (r) { return r.json(); })
-        .then(function (d) { return d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content; });
+        + 'Paper: ' + paper.name + '\n\nExtracted text:\n' + result.text
+      }] });
     }).then(function (content) {
       if (content) {
         localStorage.setItem(paper.key, content.trim());
@@ -699,78 +724,77 @@
     });
   }
 
+  var LENS_WIKI   = 'You are building the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T). ';
+  var LENS_THEMES = 'Toxicity/Derailment in OSS, Emotion in SE, Bug Reports, GenAI & Code Quality';
+
+  function buildIngestPrompt(paper, text, otherIndex, today, isLab, deep) {
+    var base = 'Paper title: ' + paper.name + '\n\nExtracted PDF text:\n' + text + '\n\n';
+    if (isLab) {
+      return LENS_WIKI + 'This paper IS from this lab. Generate a structured wiki page in markdown.\n\n'
+        + base + 'Other lab papers already in the wiki:\n' + otherIndex + '\n\n'
+        + 'Generate a wiki page with EXACTLY these sections:\n\n'
+        + '# [Exact Paper Title]\n**Venue:** [from text]\n**Ingested:** ' + today + '\n\n'
+        + '## Research Question\n## Key Concepts\n## Methodology\n## Key Findings\n'
+        + '## Contributions\n## Limitations & Future Work\n## Related Lab Papers\n## How to Cite\n\n'
+        + 'Ground every claim in the PDF text. Output only the markdown.';
+    }
+    if (deep) {
+      return LENS_WIKI + 'This is an EXTERNAL paper on the reading list. Generate a THOROUGH, DETAILED wiki page. '
+        + 'Every section must be substantive — pull specific numbers, quotes, table results, and named methods directly from the PDF. No vague summaries.\n\n'
+        + base + 'Other reading list papers in the wiki:\n' + otherIndex + '\n\n'
+        + 'LENS Lab research themes: ' + LENS_THEMES + '.\n\n'
+        + 'Generate a wiki page with EXACTLY these sections. Be specific and detailed in each.\n\n'
+        + '# [Exact Paper Title from PDF]\n**Authors:** [full author list from PDF]\n'
+        + '**Venue:** [conference/journal name and year]\n**Ingested:** ' + today + '\n\n'
+        + '## Problem & Motivation\nWhat specific gap or problem does this paper address? Why does it matter?\n\n'
+        + '## Research Questions\nList each RQ exactly as stated.\n\n'
+        + '## Dataset & Study Design\nData sources, size, collection method, any filtering criteria.\n\n'
+        + '## Methodology\nExact techniques, models, tools, and evaluation metrics used.\n\n'
+        + '## Key Results\nSpecific findings with numbers, percentages, and statistical significance where reported.\n\n'
+        + '## Takeaways\nThe 3-5 most important conclusions a reader should retain.\n\n'
+        + '## Limitations\nWhat the authors acknowledge as limitations. What is NOT covered.\n\n'
+        + '## Connections to LENS Lab\nHow this paper relates to LENS Lab themes. Which specific LENS Lab papers it connects to and why.\n\n'
+        + '## Open Questions\nQuestions this paper raises but does not answer. Good follow-up directions.\n\n'
+        + '## Citation\nFull bibliographic reference as it appears in the paper.\n\n'
+        + 'Ground every claim in the PDF text. Be detailed. Output only the markdown.';
+    }
+    return LENS_WIKI + 'This is an EXTERNAL paper being read by the lab — not the lab\'s own publication. Generate a structured wiki page.\n\n'
+      + base + 'Other reading list papers in the wiki:\n' + otherIndex + '\n\n'
+      + 'Lab research themes for cross-referencing: ' + LENS_THEMES + '.\n\n'
+      + 'Generate a wiki page with EXACTLY these sections:\n\n'
+      + '# [Exact Paper Title]\n**Authors/Venue:** [from text]\n**Ingested:** ' + today + '\n\n'
+      + '## Summary\n## Key Concepts\n## Methodology\n## Key Findings\n'
+      + '## Contributions\n## Limitations\n## Connections to Lab Research\n## Open Questions\n\n'
+      + 'Ground every claim in the PDF text. Output only the markdown.';
+  }
+
   function ingestPaper(paper, btn, prefix, indexKey, listId, deep, done) {
     var isLab = paper.type === 'lab';
     btn.disabled = true;
     statusEl.textContent = 'Reading PDF: ' + paper.name + '…';
 
     extractPdfText(paper.path).then(function (result) {
-      statusEl.textContent = (deep ? 'Deep wiki: ' : 'Building wiki page: ') + paper.name + '…';
-      var text  = result.text, pages = result.pages;
+      var text = result.text, pages = result.pages;
       var today = new Date().toISOString().slice(0, 10);
       var otherIndex = getIndex(indexKey).map(function (e) { return '- ' + e.name; }).join('\n') || '(none yet)';
+      statusEl.textContent = (deep ? 'Deep wiki: ' : 'Building wiki page: ') + paper.name + '…';
 
-      var prompt = isLab
-        ? 'You are building the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T).'
-          + 'This paper IS from this lab. Generate a structured wiki page in markdown.\n\n'
-          + 'Paper title: ' + paper.name + '\n\nExtracted PDF text:\n' + text + '\n\n'
-          + 'Other lab papers already in the wiki:\n' + otherIndex + '\n\n'
-          + 'Generate a wiki page with EXACTLY these sections:\n\n'
-          + '# [Exact Paper Title]\n**Venue:** [from text]\n**Ingested:** ' + today + '\n\n'
-          + '## Research Question\n## Key Concepts\n## Methodology\n## Key Findings\n'
-          + '## Contributions\n## Limitations & Future Work\n## Related Lab Papers\n## How to Cite\n\n'
-          + 'Ground every claim in the PDF text. Output only the markdown.'
-        : deep
-          ? 'You are building the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T). '
-            + 'This is an EXTERNAL paper on the reading list. Generate a THOROUGH, DETAILED wiki page. '
-            + 'Every section must be substantive — pull specific numbers, quotes, table results, and named methods directly from the PDF. No vague summaries.\n\n'
-            + 'Paper title: ' + paper.name + '\n\nExtracted PDF text:\n' + text + '\n\n'
-            + 'Other reading list papers in the wiki:\n' + otherIndex + '\n\n'
-            + 'LENS Lab research themes: Toxicity/Derailment in OSS, Emotion in SE, Bug Reports, GenAI & Code Quality.\n\n'
-            + 'Generate a wiki page with EXACTLY these sections. Be specific and detailed in each.\n\n'
-            + '# [Exact Paper Title from PDF]\n'
-            + '**Authors:** [full author list from PDF]\n'
-            + '**Venue:** [conference/journal name and year]\n'
-            + '**Ingested:** ' + today + '\n\n'
-            + '## Problem & Motivation\nWhat specific gap or problem does this paper address? Why does it matter?\n\n'
-            + '## Research Questions\nList each RQ exactly as stated.\n\n'
-            + '## Dataset & Study Design\nData sources, size, collection method, any filtering criteria.\n\n'
-            + '## Methodology\nExact techniques, models, tools, and evaluation metrics used.\n\n'
-            + '## Key Results\nSpecific findings with numbers, percentages, and statistical significance where reported.\n\n'
-            + '## Takeaways\nThe 3-5 most important conclusions a reader should retain.\n\n'
-            + '## Limitations\nWhat the authors acknowledge as limitations. What is NOT covered.\n\n'
-            + '## Connections to LENS Lab\nHow this paper relates to LENS Lab themes. Which specific LENS Lab papers it connects to and why.\n\n'
-            + '## Open Questions\nQuestions this paper raises but does not answer. Good follow-up directions.\n\n'
-            + '## Citation\nFull bibliographic reference as it appears in the paper.\n\n'
-            + 'Ground every claim in the PDF text. Be detailed. Output only the markdown.'
-          : 'You are building the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T).'
-            + 'This is an EXTERNAL paper being read by the lab — not the lab\'s own publication. Generate a structured wiki page.\n\n'
-            + 'Paper title: ' + paper.name + '\n\nExtracted PDF text:\n' + text + '\n\n'
-            + 'Other reading list papers in the wiki:\n' + otherIndex + '\n\n'
-            + 'Lab research themes for cross-referencing: Toxicity/Derailment in OSS, Emotion in SE, Bug Reports, GenAI & Code Quality.\n\n'
-            + 'Generate a wiki page with EXACTLY these sections:\n\n'
-            + '# [Exact Paper Title]\n**Authors/Venue:** [from text]\n**Ingested:** ' + today + '\n\n'
-            + '## Summary\n## Key Concepts\n## Methodology\n## Key Findings\n'
-            + '## Contributions\n## Limitations\n## Connections to Lab Research\n## Open Questions\n\n'
-            + 'Ground every claim in the PDF text. Output only the markdown.';
-
+      var prompt = buildIngestPrompt(paper, text, otherIndex, today, isLab, deep);
       var maxTokens = deep ? 3000 : 1200;
+      var body = { model: ingestModel(), max_tokens: maxTokens, stream: deep, messages: [{ role: 'user', content: prompt }] };
 
-      return fetch(apiUrl(), {
-        method: 'POST', headers: apiHeaders(),
-        body: JSON.stringify({ model: ingestModel(), max_tokens: maxTokens, stream: deep, messages: [{ role: 'user', content: prompt }] })
-      }).then(function (r) {
-        if (deep) {
-          var content = '';
-          return streamResponse(r, function (token) {
-            content += token;
-            statusEl.textContent = 'Writing: ' + paper.name + ' (' + content.length + ' chars)…';
-          }).then(function () { return content; });
-        }
-        return r.json().then(function (d) {
-          return d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
-        });
-      }).then(function (content) {
+      var p;
+      if (deep) {
+        var acc = '';
+        p = llmStream(body, function (token) {
+          acc += token;
+          statusEl.textContent = 'Writing: ' + paper.name + ' (' + acc.length + ' chars)…';
+        }).then(function () { return acc; });
+      } else {
+        p = llmComplete(body);
+      }
+
+      return p.then(function (content) {
         if (content) {
           savePage(prefix, paper.key, content.trim());
           var index = getIndex(indexKey);
@@ -798,84 +822,57 @@
   }
 
   // ── Lint ──────────────────────────────────────────────────────────
+  function toLintBlock(label, items) {
+    return items.length
+      ? '## ' + label + '\n\n' + items.map(function (p) { return '### ' + p.name + '\n' + p.content; }).join('\n\n---\n\n') + '\n\n'
+      : '';
+  }
+
   document.getElementById('ks-lint-btn').addEventListener('click', function () {
     var lintBtn  = this;
-    var labIndex = getIndex(LAB_INDEX_KEY), rlIndex = getIndex(WIKI_INDEX_KEY);
     var outputEl = document.getElementById('ks-lint-output');
+    var labIndex = getIndex(LAB_INDEX_KEY), rlIndex = getIndex(WIKI_INDEX_KEY);
 
-    if (browseOnly) {
-      outputEl.textContent = 'Connect with Groq or Ollama to run the health check.';
-      return;
-    }
-
-    if (!labIndex.length && !rlIndex.length) {
-      outputEl.textContent = 'No wiki pages ingested yet. Use the Lab Papers or Reading List tabs first.';
-      return;
-    }
+    if (browseOnly) { outputEl.textContent = 'Connect with Groq or Ollama to run the health check.'; return; }
+    if (!labIndex.length && !rlIndex.length) { outputEl.textContent = 'No wiki pages ingested yet. Use the Lab Papers or Reading List tabs first.'; return; }
 
     lintBtn.disabled = true;
     statusEl.textContent = 'Running wiki health check…';
     outputEl.textContent = '';
 
-    var BUDGET = 100000;
     var labSecs = labIndex.map(function (e) { return { name: e.name, content: getPage(LAB_WIKI_PREFIX, e.key) || '(page not found)' }; });
     var rlSecs  = rlIndex.map(function (e)  { return { name: e.name, content: getPage(WIKI_PREFIX, e.key)     || '(page not found)' }; });
-    var all     = labSecs.concat(rlSecs);
-    var total   = all.reduce(function (s, p) { return s + p.content.length; }, 0);
-    if (total > BUDGET) {
-      var ratio = BUDGET / total;
+    var all = labSecs.concat(rlSecs);
+    var total = all.reduce(function (s, p) { return s + p.content.length; }, 0);
+    if (total > 100000) {
+      var ratio = 100000 / total;
       all.forEach(function (p) { p.content = p.content.slice(0, Math.floor(p.content.length * ratio)); });
       labSecs = all.slice(0, labSecs.length);
       rlSecs  = all.slice(labSecs.length);
     }
 
-    function toBlock(label, items) {
-      return items.length ? '## ' + label + '\n\n' + items.map(function (p) { return '### ' + p.name + '\n' + p.content; }).join('\n\n---\n\n') + '\n\n' : '';
-    }
-
     var prompt = 'You are health-checking the LENS Lab Wiki (Lab for Empirical Navigation in Software, Missouri S&T).\n\n'
       + 'Here are all ingested wiki pages:\n\n'
-      + toBlock('Lab Papers', labSecs) + toBlock('Reading List (External)', rlSecs)
+      + toLintBlock('Lab Papers', labSecs) + toLintBlock('Reading List (External)', rlSecs)
       + 'Produce a health-check report with exactly these six sections. '
       + 'For any section with nothing to report, write "None found." — do not pad.\n\n'
-      + '## Contradictions\n'
-      + 'Two or more pages that make directly opposing empirical claims about the same phenomenon. '
-      + 'Cite exact pages and the conflicting claims. Skip if domains or methods differ.\n\n'
-      + '## Stale Claims\n'
-      + 'Claims in older pages that appear to be superseded or contradicted by findings in newer pages. '
-      + 'Name the page, the stale claim, and the newer page that updates it.\n\n'
-      + '## Orphan Pages\n'
-      + 'Pages that are never referenced or cross-linked from any other page. '
-      + 'List by name. These risk being forgotten as the wiki grows.\n\n'
-      + '## Missing Concept Pages\n'
-      + 'Important concepts, methods, datasets, or tools that appear repeatedly across pages but have no dedicated wiki page of their own. '
-      + 'List the concept and which pages mention it.\n\n'
-      + '## Missing Cross-References\n'
-      + 'Pairs of pages that clearly relate to each other but do not link to or mention each other. '
-      + 'Name both pages and explain the connection that is missing.\n\n'
-      + '## New Questions & Sources\n'
-      + 'Specific questions that the current wiki raises but does not answer, and types of sources (papers, datasets, surveys) that would fill those gaps. '
-      + 'Ground each question in a specific page or finding — no generic suggestions.';
+      + '## Contradictions\nTwo or more pages that make directly opposing empirical claims about the same phenomenon. Cite exact pages and the conflicting claims. Skip if domains or methods differ.\n\n'
+      + '## Stale Claims\nClaims in older pages that appear to be superseded or contradicted by findings in newer pages. Name the page, the stale claim, and the newer page that updates it.\n\n'
+      + '## Orphan Pages\nPages that are never referenced or cross-linked from any other page. List by name. These risk being forgotten as the wiki grows.\n\n'
+      + '## Missing Concept Pages\nImportant concepts, methods, datasets, or tools that appear repeatedly across pages but have no dedicated wiki page of their own. List the concept and which pages mention it.\n\n'
+      + '## Missing Cross-References\nPairs of pages that clearly relate to each other but do not link to or mention each other. Name both pages and explain the connection that is missing.\n\n'
+      + '## New Questions & Sources\nSpecific questions that the current wiki raises but does not answer, and types of sources (papers, datasets, surveys) that would fill those gaps. Ground each question in a specific page or finding — no generic suggestions.';
 
-    fetch(apiUrl(), {
-      method: 'POST', headers: apiHeaders(),
-      body: JSON.stringify({ model: chatModel(), stream: true, messages: [{ role: 'user', content: prompt }] })
-    })
-    .then(function (res) {
-      if (!res.ok) return res.json().then(function (e) { throw new Error(e.error && e.error.message || 'API error'); });
-      var lintText = '';
-      return streamResponse(res, function (token) { lintText += token; outputEl.textContent = lintText; })
-        .then(function () {
-          localStorage.setItem(LINT_OUTPUT_KEY, lintText);
-          renderMarkdown(outputEl, lintText);
-        });
-    })
-    .then(function () {
+    var lintText = '';
+    llmStream({ model: chatModel(), stream: true, messages: [{ role: 'user', content: prompt }] },
+      function (token) { lintText += token; outputEl.textContent = lintText; }
+    ).then(function () {
+      localStorage.setItem(LINT_OUTPUT_KEY, lintText);
+      renderMarkdown(outputEl, lintText);
       appendLog('lint', (labIndex.length + rlIndex.length) + ' pages checked');
       lintBtn.disabled = false;
       statusEl.textContent = statusLabel();
-    })
-    .catch(function (err) {
+    }).catch(function (err) {
       outputEl.textContent = 'Error: ' + (err.message || 'Could not reach API.');
       lintBtn.disabled = false;
       statusEl.textContent = statusLabel();
