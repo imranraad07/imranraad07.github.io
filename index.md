@@ -27,9 +27,7 @@ The **LENS Lab** (Lens for Empirical Navigation in Software Lab) is led by [Dr. 
 
 ### Students
 
-{% include home-students.html %}
-
-*The LENS Lab is currently seeking collaborations with industry partners and enthusiastic undergraduate students. [Get in touch](mailto:imranm@mst.edu) if interested. Note: **not** currently hiring PhD or Master's students.*
+<a href="/posts/students" class="view-all-link">View lab members &rarr;</a>
 
 ---
 
