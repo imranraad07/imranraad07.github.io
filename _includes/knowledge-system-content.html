@@ -17,10 +17,22 @@
   Use the <strong>Ingest</strong> tabs to build wiki pages from PDFs so answers get richer over time.
 
   <br>
-  Streamlit Version: 
+  Streamlit Version:
    <a href="https://knowledge-system-lens-lab.streamlit.app" target="_blank" rel="noopener">https://knowledge-system-lens-lab.streamlit.app</a>
 
 </p>
+
+
+<iframe
+  src="https://knowledge-system-lens-lab.streamlit.app/?embed=true&embed_options=light_theme"
+  style="display:block; width:100%; height:800px; border:none; border-radius:8px;"
+  allow="clipboard-write"
+  loading="lazy"
+></iframe>
+
+<!--
+  Streamlit Version:
+   <a href="https://knowledge-system-lens-lab.streamlit.app" target="_blank" rel="noopener">https://knowledge-system-lens-lab.streamlit.app</a>
 
 <hr>
 
@@ -33,7 +45,7 @@
 
 <div class="ks-chatbot" id="ks-chatbot">
 
-  <!-- Connect screen -->
+  [Connect screen]
   <div class="ks-connect" id="ks-connect">
     <div class="ks-connect-inner">
       <div class="ks-provider-tabs">
@@ -52,7 +64,7 @@
             <option value="openai/gpt-oss-20b">GPT OSS 20B</option>
             <option value="moonshotai/kimi-k2-instruct">Kimi K2</option>
             <option value="qwen/qwen3-32b">Qwen 3 32B</option>
-            <option value="groq/compound">Groq Compound</option>
+            <option value="groq/compound">Groq Compound</button>
             <option value="groq/compound-mini">Groq Compound Mini</option>
             <option value="llama-3.1-8b-instant">Llama 3.1 8B</option>
           </select>
@@ -88,7 +100,6 @@
     </div>
   </div>
 
-  <!-- Chat interface -->
   <div class="ks-chat-interface" id="ks-chat-interface" style="display:none;">
     <div class="ks-mode-tabs">
       <button class="ks-mode-tab ks-mode-tab--active" data-mode="query">Query</button>
@@ -176,7 +187,6 @@
 
 </div>
 
-<!-- Paper data (Liquid-rendered JSON for JS) -->
 <script type="application/json" id="ks-rl-data">
 [{% for f in rl_pdfs %}{% assign n = f.basename | remove: '"' %}{"name":"{{ n | replace: "_", " " | replace: "-", " " }}","key":"ks_rl_{{ n | remove: " " | truncate: 60, "" }}","path":"{{ f.path | relative_url }}","type":"rl"}{% unless forloop.last %},{% endunless %}{% endfor %}]
 </script>
@@ -185,3 +195,4 @@
 </script>
 
 <script src="{{ '/assets/js/knowledge-system.js' | relative_url }}"></script>
+-->
