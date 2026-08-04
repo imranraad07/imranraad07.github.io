@@ -40,6 +40,7 @@ Note: **not** currently hiring PhD or Master's students.*
 
 **Conference Committee:**
 
+- ICSE 2027 (Research Track)
 - ICSME 2026 (Visions and Emerging Results Track)
 - ESEC/FSE 2026 (Ideas, Visions and Reflections Track)
 - AIware 2026 (Main Track)
@@ -50,4 +51,4 @@ Note: **not** currently hiring PhD or Master's students.*
 - EASE 2025 (Short Paper Track)
 - EASE 2025 (Learnings & Reflections within the Learnings/Reflections of Evaluation and Assessment projects in Software Engineering-track)
 
-**Journals:** Reviewer at journals such as IEEE Transactions on Software Engineering, Empirical Software Engineering, Information and Software Technology, Automated Software Engineering.
+**Journals:** Reviewer at journals such as IEEE Transactions on Software Engineering, ACM TOSEM, Empirical Software Engineering, Information and Software Technology, Automated Software Engineering.
